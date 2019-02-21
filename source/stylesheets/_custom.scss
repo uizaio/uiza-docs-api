@@ -1,0 +1,84 @@
+.post-button{
+  font-weight: 500;
+  font-size: 12px;
+  display: inline-block;
+  margin: 0 0 5px 0;
+  padding: 4px 5px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  background-color: #F5A623;
+  color: white;
+}
+
+.get-button{
+  font-weight: 600;
+  font-size: 12px;
+  display: inline-block;
+  margin: 0 0 5px 0;
+  padding: 4px 5px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  background-color: #a6e22e;
+  color: white;
+}
+
+.put-button{
+  font-weight: 600;
+  font-size: 12px;
+  display: inline-block;
+  margin: 0 0 5px 0;
+  padding: 4px 5px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  background-color: #5AB4FB;
+  color: white;
+}
+
+.tool-tip{
+  font-family: 'slate';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tool-tip.inactive i{
+  display: none;
+
+}
+.tool-tip::before{
+  content: "\e600"
+}
+
+.delete-button{
+  font-weight: 600;
+  font-size: 12px;
+  display: inline-block;
+  margin: 0 0 5px 0;
+  padding: 4px 5px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  background-color: #FB7979;
+  color: white;
+}
+
+.highlight .s2{
+  color: #a6e22e;
+}
+
+.info, .success, .warning, .error, .validation {
+  border: 1px solid;
+  margin: 10px 100px 10px 35px;
+  padding:15px 10px 15px 50px;
+}
+.info {
+  color: #00529B;
+  background-color: #BDE5F8;
+}
+.success {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+}

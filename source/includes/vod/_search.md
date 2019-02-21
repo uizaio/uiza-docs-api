@@ -1,0 +1,124 @@
+## Search entity
+
+
+> Example Request
+
+```shell
+curl -X GET \
+  https://#{workspace_api_domain}/api/public/v3/media/entity/search?keyword=sample \
+  -H 'Authorization: uap-7442d4b99eb349b1bb678614e64cf064-1405ee51' \
+  -H 'Content-Type: application/json' \
+```
+
+Search entity base on keyword entered
+
+> Example Response
+
+```json
+{
+    "data": [
+      {
+          "id": "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+          "name": "Sample Video 001",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "shortDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+          "view": 0,
+          "poster": "https://example.com/picture001",
+          "thumbnail": "https://example.com/picture002",
+          "type": "vod",
+          "status": 1,
+          "duration": "237.865215",
+          "publishToCdn":"success",
+          "embedMetadata": {
+              "artist": "John Doe",
+              "album": "Album sample",
+              "genre": "Pop"
+          },
+          "extendMetadata": {
+              "movie_category":"action",
+              "imdb_score":8.8,
+              "published_year":"2018"
+          },
+          "createdAt": "2018-06-16T18:54:15.000Z",
+          "updatedAt": "2018-06-16T18:54:29.000Z"
+      },
+      {
+          "id": "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+          "name": "Sample video test",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "shortDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+          "view": 0,
+          "poster": "https://example.com/picture003",
+          "thumbnail": "https://example.com/picture004",
+          "type": "vod",
+          "status": 1,
+          "duration": "178.178105",
+          "publishToCdn":"success",
+          "embedMetadata": {
+              "artist": "Jane Roe",
+              "album": "Album global 3",
+              "genre": "Country"
+          },
+          "extendMetadata": {
+              "movie_category":"action",
+              "imdb_score":8.8,
+              "published_year":"2018"
+          },
+          "createdAt": "2018-06-16T18:54:15.000Z",
+          "updatedAt": "2018-06-16T18:54:29.000Z"
+      }
+    ],
+    "metadata": {
+            "total": 2,
+            "result": 2,
+            "page": 1,
+            "limit": 20
+        },
+    "version": 3,
+    "datetime": "2018-06-16T18:56:10.713Z",
+    "policy": "public",
+    "requestId": "ac92133c-c196-4cb3-bc55-776236d4ab13",
+    "serviceName": "api",
+    "message": "OK",
+    "code": 200,
+    "type": "SUCCESS"
+}
+```
+
+**HTTP Request**
+
+<span class="get-button"> GET </span>
+```https://#{workspace_api_domain}/api/public/v3/media/entity/search```
+
+**Header Request**
+
+| Header   | Type   | Description                              | Required |
+|-------------|--------|---------------------------------------|---------|
+| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
+
+**Body Request**
+
+| Parameter | Type | Description | Required |
+| ------------- | ------------- | ------------- | ------------- |
+| **keyword** | *string* | Keyword for search entity | **Yes** |
+
+
+**Response Parameters**
+
+| Parameter   | Type   | Description |
+|-------------|--------|-------------------------|
+| **id** | *string* | Identifier of entity |
+| **name** | *string* | Name of entity |
+| **description** | *string* | Full description for entity (without max-length) |
+| **shortDescription** | *string* | Short description of entity (250 characters) |
+| **view** | *number* | Total view of entity |
+| **poster** | *string* | Poster of entity |
+| **thumbnail** | *string* | Thumbnail of entity |
+| **type** | *enum* | Has 2 types: VOD and AOD <span onclick="this.classList.toggle('inactive')" class = "tool-tip inactive"><br><i> VOD stand for Video. AOD stand for Audio.</i></span> |
+| **status** | *number* | Status of entity |
+| **duration** | *string* | Duration of entity in seconds |
+| **publishToCdn** | *string* | Status of publish task, include [ **queue**, **not-ready**, **success**, **failed** ] |
+| **embedMetadata** | *object* | See [Embed Metadata](#embed-metadata) for more information |
+| **extendData** | *object* | Additional information of entity that already input while creating entity |
+| **createdAt** | *datetime* | Time created entity |
+| **updatedAt** | *datetime* | Last edited time of entity |
