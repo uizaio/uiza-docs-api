@@ -37,6 +37,14 @@ under the License.
     $(".highlight.tab-" + language).show();
     $(".lang-specific." + language).show();
 
+    if (language == "shell") {
+      $('strong:contains("HTTP Request")').parent().show();
+      $('.get-button, .post-button, .put-button, .delete-button').parent().show();
+    } else {
+      $('strong:contains("HTTP Request")').parent().hide();
+      $('.get-button, .post-button, .put-button, .delete-button').parent().hide();
+    }
+
     window.recacheHeights();
 
     // scroll to the new location of the position

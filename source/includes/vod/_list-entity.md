@@ -10,6 +10,103 @@ curl -X GET \
   -H 'Content-Type: application/json' \
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+params = {
+  publishToCdn: "not-ready",
+  metadataId: "your-folder/playlist-id"
+}
+
+begin
+  entities = Uiza::Entity.list params
+  # params is optional
+  # or entities = Uiza::Entity.list
+  puts entities.first.id
+  puts entities.first.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Entity().list(name="Title")
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$listEntity = Uiza\Entity::all();
+?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("publishToCdn", "not-ready");
+params.put("metadataId", "<your-folder/playlist-id>");
+
+try {
+  JsonArray entities = Entity.list(params);
+  JsonObject firstEntity = entities.get(0).getAsJsonObject();
+  System.out.println(firstEntity.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.list().then((res) => {
+  //Get list of entities including all detail.
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  Uiza "api-wrapper-go"
+  "api-wrapper-go/entity"
+)
+
+params := &uiza.EntityListParams{}
+response := entity.List(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result =  UizaServices.Entity.List(new RetrieveListEntitiesParameter()
+{
+  publishToCdn = EntityPublishStatus.Success
+});
+Console.WriteLine(string.Format("Success Get EntitiesList, total record {0}", result.MetaData.result));
+```
+
 Get list of entities including all detail.
 
 > Example Response

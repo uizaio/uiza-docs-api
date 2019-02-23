@@ -13,6 +13,92 @@ curl -X DELETE \
 }'
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  entity = Uiza::Entity.delete "your-entity-id"
+  puts entity.id
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Entity().delete("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$entity = Uiza\Entity::retrieve("key ... ");
+$entity->destroy();
+
+// or
+
+Uiza\Entity::delete("key ...");
+?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject entity = Entity.delete("<your-entity-id>");
+  System.out.println(entity.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.delete({'id': '5f1c78bd-69......'}).then((res) => {
+  // Identifier of entity has been deleted
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  Uiza "api-wrapper-go"
+  "api-wrapper-go/entity"
+)
+
+params := &Uiza.EntityDeleteParams{ID: uiza.String("Your entity ID")}
+response, _ := entity.Delete(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+	ApiKey = "your-ApiKey",
+	ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result = UizaServices.Entity.Delete("Entity Id");
+Console.WriteLine(string.Format("Create New Entity Id = {0} Success", result.Data.id));
+```
+
 Delete entity
 
 > Example Response

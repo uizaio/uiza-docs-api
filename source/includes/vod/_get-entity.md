@@ -13,6 +13,92 @@ curl -X GET \
 }'
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  entity = Uiza::Entity.retrieve "your-entity-id"
+  puts entity.id
+  puts entity.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+entity_id = '33a86c18-f502-41a4-9c4c-d4e14efca238'
+
+res, status_code = Entity().retrieve(entity_id)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+Uiza\Entity::retrieve("key ... ");
+ ?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject entity = Entity.retrieve("<your-entity-id>");
+  System.out.println(entity.get("name"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.retrieve({
+  'id': 'd1781e62-2d2c-4e3c-b8de-e808e50ac845'
+}).then((res) => {
+  //Identifier of entity
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  Uiza "api-wrapper-go"
+  "api-wrapper-go/entity"
+)
+
+params := &Uiza.EntityRetrieveParams{ID: uiza.String("Your entity ID")}
+response, _ := entity.Retrieve(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+	ApiKey = "your-ApiKey",
+	ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result = UizaServices.Entity.Retrieve("Entity Id");
+Console.WriteLine(string.Format("Get Entity Id = {0} Success", result.Data.id));
+```
+
 Get detail of entity including all information of entity
 
 > Example Response

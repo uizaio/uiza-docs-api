@@ -10,6 +10,87 @@ curl -X GET \
   -H 'Cache-Control: no-cache' \
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  response = Uiza::Entity.get_aws_upload_key
+  puts response.bucket_name
+  puts response.region_name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Entity().get_aws_upload_key()
+
+print("status_code", status_code)
+```
+
+```php
+<?php
+Uiza\Entity::getAWSUploadKey();
+?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject response = Entity.getAwsUploadKey();
+  System.out.println(response.get("region_name"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.get_aws_upload_key()
+.then((res) => {
+  // The response body will return you the paramaters that used for input to aws sdk , then upload your files to Uiza’s storage
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+    Uiza "api-wrapper-go"
+    "api-wrapper-go/entity"
+)
+
+response, _ := entity.GetAWSUploadKey()
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+	ApiKey = "your-ApiKey",
+	ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result =  UizaServices.Entity.GetEntityAWSUploadKey();
+Console.WriteLine(string.Format("Get AWS Upload Key Success : temp_access_id = {0} ", result.Data.temp_access_id));
+```
+
 This API will be return the bucket temporary upload storage & key for upload, so that you can push your file to Uiza’s storage and get the link for URL upload & create entity
 
 > Example Response

@@ -10,6 +10,91 @@ curl -X GET \
   -H 'Content-Type: application/json' \
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  entities = Uiza::Entity.search "your-keyword"
+  puts entities.first.id
+  puts entities.first.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Entity().search(keyword="Title")
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$entity = Uiza\Entity::search(["keyword" => "sample"]);
+?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonArray entities = Entity.search(params);
+  JsonObject firstEntity = entities.get(0).getAsJsonObject();
+  System.out.println(firstEntity.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.search({'keyword': 'sample'}).then((res) => {
+  // Response search entity base on keyword entered
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  Uiza "api-wrapper-go"
+  "api-wrapper-go/entity"
+)
+
+params := &uiza.EntitySearchParams{Keyword: uiza.String("Sample")}
+listEntity, _ := entity.Search(params)
+for _, v := range listEntity {
+  log.Printf("%v\n", v)
+}
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+	ApiKey = "your-ApiKey",
+	ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result = UizaServices.Entity.SearchEntity("Sample");
+Console.WriteLine(string.Format("Search Success, , total record {0}", result.Data.Count));
+```
+
 Search entity base on keyword entered
 
 > Example Response
