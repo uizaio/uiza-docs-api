@@ -17,6 +17,123 @@ curl -X POST \
 }'
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+params = {
+  name: "Folder sample",
+  type: "folder",
+  description: "Folder description"
+}
+
+begin
+  category = Uiza::Category.create params
+  puts category.id
+  puts category.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+from uiza.api_resources.category import Category
+
+category_data = {
+  "name": "Test name 1",
+  "type": "folder"
+}
+
+res, status_code = Category().create(**category_data)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$params = [
+  "name" => "Folder sample",
+  "type" => "folder",
+  "description" => "Folder description"
+];
+
+Uiza\Category::create($params);
+?>
+```
+
+```java
+import io.uiza.model.Category;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("name", "Playlist Sample");
+params.put("type", Category.PLAYLIST.getType());
+
+try {
+  JsonObject category = Category.create(params);
+  System.out.println(category.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+/** create */
+uiza.category.create({
+  'name': 'Folder sample 2',
+  'type': 'folder',
+  'orderNumber': 1,
+  'description': 'Folder description',
+  'icon': 'https://exemple.com/icon.png'
+}).then((res) => console.log(res)).catch((err) => console.log(err));
+```
+
+```go
+var typeCategory = uiza.FolderType
+params := &uiza.CategoryCreateParams{
+  Name: uiza.String(""),
+  Type: &typeCategory,
+  Description: uiza.String(""),
+  Icon: uiza.String(""),
+  OrderNumber:uiza.Int64(1)}
+
+response, _ := category.Create(params)
+log.Printf("%s", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+ var createResult = UizaServices.Category.Create(new CreateCategoryParameter()
+{
+  Name = string.Format("Category name {0}", Guid.NewGuid().ToString()),
+  Type = CategoryTypes.Folder
+});
+
+Console.WriteLine(string.Format("Create New Category Id = {0} Success", createResult.Data.id));
+```
+
 Create category for entity for easier management. Category use to group all the same entities into a group (like Folder/ playlist/or tag)
 
 > Example Response
@@ -65,6 +182,3 @@ Create category for entity for easier management. Category use to group all the 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
 | **id** | *string* | Identifier of category has been created|
-
-
-

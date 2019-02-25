@@ -14,6 +14,108 @@ curl -X DELETE \
 }'
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+params = {
+  entityId: "your-entity-id",
+  metadataIds: ["your-category-id-1", "your-category-id-2"]
+}
+
+begin
+  relations = Uiza::Category.delete_relation params
+  puts relations.first.id
+  puts relations.first.entityId
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Category().delete_relation(
+  entity_id="16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+  metadata_ids=["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
+)
+
+print("status_code", status_code)
+```
+
+```php
+<?php
+$params = [
+  "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
+  "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
+];
+
+Uiza\Category::deleteRelation($params);
+?>
+```
+
+```java
+import io.uiza.model.Category;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("entityId", "<entity-id>");
+params.put("metadataIds", new String[] {"<category-id-1>", "<category-id-2>"});
+
+try {
+  JsonArray relations = Category.deleteRelation(params);
+  JsonObject relation = relations.get(0).getAsJsonObject();
+  System.out.println(relation.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.category.delete_relation({
+  'entityId': 'c71965ac-8808-4854-8fc3-85a22ac9eb73',
+  'metadataIds': ['689d3752-5515-4e35-993b-e02f370cf46c','32e8a1f4-e3b6-4369-a30d-60c6715896d1']
+}).then((res) => console.log(res)).catch((err) => console.log(err));
+```
+
+```go
+params := &uiza.CategoryRelationParams{
+  EntityId: uiza.String(""),
+  MetadataIds: []*string{uiza.String(""), uiza.String("")}}
+
+response, _ := category.DeleteRelation(params)
+for _, v := range response {
+  log.Printf("%v\n", v)
+}
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var deleteCategoryRelationResult = UizaServices.Category.DeleteCategoryRelation(new CategoryRelationParameter()
+{
+  EntityId = entity.Data.id,
+  MetadataIds = listMetadata
+});
+Console.WriteLine(string.Format("Delete Success Category Relation, total record {0}", deleteCategoryRelationResult.MetaData.result));
+```
+
 Delete  relation for entity and category
 
 > Example Response
@@ -70,5 +172,3 @@ Delete  relation for entity and category
 | **id** | *string* | Identifier of relation between entity and category has been deleted |
 | **entityId** | *string* | Identifier of entity |
 | **metadataIds** | *string* | Identifier of category |
-
-

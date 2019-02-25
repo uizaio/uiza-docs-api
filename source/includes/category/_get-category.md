@@ -10,6 +10,82 @@ curl -X GET \
   -H 'Content-Type: application/json' \
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  category = Uiza::Category.retrieve "your-category-id"
+  puts category.id
+  puts category.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+category_id = "33a86c18-f502-41a4-9c4c-d4e14efca238"
+
+res, status_code = Category().retrieve(category_id)
+
+print("status_code", status_code)
+```
+
+```php
+<?php
+Uiza\Category::retrieve("key ... ");
+?>
+```
+
+```java
+import io.uiza.model.Category;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject category = Category.retrieve("<category-id>");
+  System.out.println(category.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.category.retrieve('b8f2a6ec-d45f-4cc0-a32d-35ad0ad9f1b6')
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));
+```
+
+```go
+params := &uiza.CategoryIDParams{ID :uiza.String("Your category ID")}
+response, _ := category.Retrieve(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result = UizaServices.Category.Retrieve("Category Id");
+Console.WriteLine(string.Format("Get Category Id = {0} Success", result.Data.id));
+```
+
 Get detail of category
 
 > Example Response

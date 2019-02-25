@@ -13,6 +13,89 @@ curl -X DELETE \
 }'
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  category = Uiza::Category.delete "your-category-id"
+  puts category.id
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Category().delete("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$category = Uiza\Category::retrieve("key ... ");
+$category->destroy();
+
+// or
+
+Uiza\Category::delete("key ...");
+?>
+```
+
+```java
+import io.uiza.model.Category;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject category = Category.delete("<category-id>");
+  System.out.println(category.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.category.delete('c0d3e5f2-9ae7-4e46-94a2-29612d562db0')
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));
+```
+
+```go
+params := &uiza.CategoryIDParams{ID: uiza.String("Your category ID")}
+response, _ := category.Delete(params)
+log.Printf("%s", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+	ApiKey = "your-ApiKey",
+	ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var deleteCategoryRelationResult = UizaServices.Category.DeleteCategoryRelation(new CategoryRelationParameter()
+{
+	EntityId = entity.Data.id,
+	MetadataIds = listMetadata
+});
+Console.WriteLine(string.Format("Delete Success Category Relation, total record {0}", deleteCategoryRelationResult.MetaData.result));
+```
+
 Delete category
 
 > Example Response
