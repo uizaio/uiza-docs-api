@@ -13,6 +13,90 @@ curl -X POST \
 }'
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  response = Uiza::Entity.publish "your-entity-id"
+  puts response.message
+  puts response.entityId
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Entity().publish("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$entity = Uiza\Entity::publish(["id" => "key .."]);
+?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject response = Entity.publish("<your-entity-id>");
+  System.out.println(response.get("message"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.publish({
+  'id': '1a6600c0-6ecd-4ca9-9ee1-3125e7c9d9f8',
+}).then((res) => {
+  // Identifier of task publish
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  Uiza "api-wrapper-go"
+  "api-wrapper-go/entity"
+)
+
+params := &Uiza.EntityPublishParams{ID: uiza.String("Your entity ID")}
+response, _ := entity.Publish(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+	ApiKey = "your-ApiKey",
+	ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result = UUizaServices.Entity.PublishEntity("Entity Id");
+Console.WriteLine(string.Format("Publish Entity Success : entityId = {0} ", result.Data.entityId));
+```
+
 Publish entity to CDN, use for streaming
 
 > Example Response

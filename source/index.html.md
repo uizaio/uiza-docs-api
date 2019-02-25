@@ -3,11 +3,18 @@ title: API Reference
 
 language_tabs:
   - shell: cURL
+  - ruby: Ruby
+  - python: Python
+  - php: PHP
+  - java: Java
+  - javascript: Node
+  - go: Go
+  - csharp: .NET
 
 toc_footers:
   - <a href='https://uiza.io'>Documentation Powered by Uiza</a>
   - Version 3.0.2
-  
+
 includes:
   - introduction
   - authentication/authentication
@@ -66,6 +73,6 @@ includes:
   - embedData
   - error
   - changelog
-    
+
 search: true
 ---

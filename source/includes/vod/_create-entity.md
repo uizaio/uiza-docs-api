@@ -30,6 +30,139 @@ curl -X POST \
 }'
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+params = {
+  name: "Sample Video",
+  url: "https://example.com/video.mp4",
+  inputType: "http",
+  description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+  shortDescription: "Lorem Ipsum is simply dummy text.",
+  poster: "https://example.com/picture001.jpeg",
+  thumbnail: "https://example.com/picture002.jpeg"
+}
+
+begin
+  entity = Uiza::Entity.create params
+  puts entity.id
+  puts entity.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+from uiza.api_resources.entity import Entity
+
+entity_data = {
+  "name": "Sample Video Python1",
+  "url": "https://example.com/video.mp4",
+  "inputType": "http",
+  "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+}
+res, status_code = Entity().create(**entity_data)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$params = [
+  "name" => "Name entity",
+  "url" => "http://google.com",
+  "inputType" => "http"
+];
+
+$entity = Uiza\Entity::create($params);
+ ?>
+```
+
+```java
+import static co.uiza.apiwrapper.model.Entity.createEntity;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("name", "Sample Video");
+params.put("url", "https://example.com/video.mp4");
+params.put("inputType", "http");
+params.put("description", "Lorem Ipsum is simply dummy text of the printing and typesetting industry");
+params.put("shortDescription", "Lorem Ipsum is simply dummy text.");
+params.put("poster", "https://example.com/picture001.jpeg");
+params.put("thumbnail", "https://example.com/picture002.jpeg");
+
+try {
+  JsonObject entity = Entity.create(params);
+  System.out.println(entity.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.create({
+  'name': 'Sample Video',
+  'url': 'https://example.com/video.mp4',
+  'inputType': 'http',
+  'description': 'tes'
+}).then((res) => {
+  //Identifier of entity has been created
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+    Uiza "api-wrapper-go"
+    "api-wrapper-go/entity"
+)
+
+var typeHTTP = Uiza.InputTypeHTTP
+params = &uiza.EntityCreateParams{
+  Name: uiza.String("Sample Video"),
+  URL: uiza.String("https://example.com/video.mp4"),
+  InputType: &typeHTTP,
+  description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+}
+
+response, _ := entity.Create(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result = UizaServices.Entity.Create(new CreateEntityParameter()
+{
+  Name = "Sample Video",
+  InputType = EntityInputTypes.S3Uiza,
+  URL = ""
+});
+
+Console.WriteLine(string.Format("Create New Entity Id = {0} Success", result.Data.id));
+```
+
 Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
 
 > Example Response
@@ -88,6 +221,5 @@ Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
 | **id** | *string* | Identifier of entity has been created|
 
 <aside class="warning">
-  If you want to integrate with Uiza using AWS sdk to upload file directly to Uiza's storage. Please send EMPTY STRING for parameter URL and send s3-uiza for parameter inputType 
+  If you want to integrate with Uiza using AWS sdk to upload file directly to Uiza's storage. Please send EMPTY STRING for parameter URL and send s3-uiza for parameter inputType
 </aside>
-

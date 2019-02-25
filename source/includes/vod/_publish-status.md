@@ -10,6 +10,90 @@ curl -X GET \
   -H 'Content-Type: application/json' \
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  response = Uiza::Entity.get_status_publish "your-entity-id"
+  puts response.progress
+  puts response.status
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Entity().get_status_publish_entity("33a86c18-f502-41a4-9c4c-d4e14efca238")
+
+print("status_code", status_code)
+```
+
+```php
+<?php
+Uiza\Entity::getStatusPublish("key ...");
+?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject response = Entity.getStatusPublish("<your-entity-id>");
+  System.out.println(response.get("status"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.get_status_publish({
+  'id': '8c6de86e-f468-4226-b476-4f320bda225a',
+}).then((res) => {
+  //Progress of task publish, will be success when reach 100
+  // Status of task publish (processing, success, error)
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  Uiza "api-wrapper-go"
+  "api-wrapper-go/entity"
+)
+
+params := &Uiza.EntityPublishParams{ID: uiza.String("Your entity ID")}
+response, _ := entity.GetStatusPublish(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+	ApiKey = "your-ApiKey",
+	ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result =  UizaServices.Entity.GetEntityStatusPublish("Entity Id");
+Console.WriteLine(string.Format("Get Status Publish Success : temp_access_id = {0} ", result.Data.status));
+```
+
 Publish entity to CDN, use for streaming
 
 > Example Response
