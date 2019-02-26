@@ -10,6 +10,90 @@ curl -X GET \
   -H 'Content-Type: application/json' \
 ```
 
+```ruby
+require "json"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  storage = Uiza::Storage.retrieve "your-storage-id"
+  puts storage.id
+  puts storage.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+storage_id = "33a86c18-f502-41a4-9c4c-d4e14efca238"
+
+res, status_code = Storage().retrieve(storage_id)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+Uiza\Storage::retrieve("key ... ");
+?>
+```
+
+```java
+import io.uiza.model.Storage;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject storage = Storage.retrieve("<storage-id>");
+  System.out.println(storage.get("name"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.storage.retrieve('03e6a059-c6d2-440c-a653-1e309918c792').then((res) => {
+  //Identifier of storage has been retrive
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/storage"
+)
+
+params := &uiza.StorageRetrieveParams{ID: uiza.String("Your entity ID")}
+response, _ := storage.Retrieve(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result = UizaServices.Storage.Retrieve("Storage Id");
+Console.WriteLine(string.Format("Get Storage Id = {0} Success", result.Data.id));
+```
+
 Get information of your added storage (FTP or AWS S3)
 
 > Example Response

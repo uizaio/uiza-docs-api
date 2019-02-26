@@ -10,6 +10,82 @@ curl -X GET \
   -H 'Content-Type: application/json' \
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  categories = Uiza::Category.list
+  puts categories.first.id
+  puts categories.first.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Category().list()
+
+print("status_code", status_code)
+```
+
+```php
+<?php
+$listCategory = Uiza\Category::list();
+?>
+```
+
+```java
+import io.uiza.model.Category;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonArray categories = Category.list();
+  JsonObject category = categories.get(0).getAsJsonObject();
+  System.out.println(category.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.category.list()
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));
+```
+
+```go
+response, _ := category.List()
+for _, v := range response {
+  log.Printf("%v\n", v)
+}
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var listResult = UizaServices.Category.List(new BaseParameter());
+Console.WriteLine(string.Format("Success Get List Category, total record {0}", listResult.MetaData.result));
+```
+
 Get all category
 
 > Example Response
