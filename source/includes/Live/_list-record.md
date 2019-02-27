@@ -8,6 +8,93 @@ curl -X GET \
   -H 'Authorization: uap-bfd2314eac8d463395a304d3141d172b-6a641000' \
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  live = Uiza::Live.list_recorded
+  puts live.first.id
+  puts live.first.entityId
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Live().list_recorded()
+
+print("status_code", status_code)
+```
+
+```php
+<?php
+Uiza\Live::listRecorded();
+?>
+```
+
+```java
+import io.uiza.model.Live;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonArray liveList = Live.listRecorded();
+  JsonObject live = liveList.get(0).getAsJsonObject();
+  System.out.println(live.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.live.list_recorded()
+  .then((res) => {
+    // Identifier of record
+  }).catch((err) => {
+    //Error
+  });
+
+```
+
+```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/live"
+)
+
+response, _ := live.ListRecorded()
+for _, v := range response {
+  log.Printf("%v\n", v)
+}
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var listResult = UizaServices.Live.ListRecorded();
+Console.WriteLine(string.Format("Success Get List All Recorded Files, total record {0}", listResult.MetaData != null ? listResult.MetaData.total : 0));
+```
+
 Retrieves list of recorded file after streamed (only available when your live event has turned on Record feature)
 
 > Example Response
@@ -79,13 +166,13 @@ Retrieves list of recorded file after streamed (only available when your live ev
 
 **Response Parameters**
 
-| Parameter | Type | Description | 
-| ------------- | ------------- | ------------- | 
-| **id** | **string** | Identifier of record | 
+| Parameter | Type | Description |
+| ------------- | ------------- | ------------- |
+| **id** | **string** | Identifier of record |
 | **entityId** | **string** | Entity's ID correspond to record |
-| **channelName** | **string** | Name of channel | 
-| **eventType** | **string** | Event type can be *pull* or *push* | 
-| **startTime** | **string** | Time start record | 
-| **endTime** | **string** | Time end record | 
+| **channelName** | **string** | Name of channel |
+| **eventType** | **string** | Event type can be *pull* or *push* |
+| **startTime** | **string** | Time start record |
+| **endTime** | **string** | Time end record |
 | **length** | **string** | Length of record |
 | **entityName** | **string** | Name of live event |

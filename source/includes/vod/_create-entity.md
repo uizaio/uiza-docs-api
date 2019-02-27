@@ -87,7 +87,7 @@ $entity = Uiza\Entity::create($params);
 ```
 
 ```java
-import static co.uiza.apiwrapper.model.Entity.createEntity;
+import io.uiza.model.Entity;
 
 Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
@@ -105,7 +105,7 @@ try {
   JsonObject entity = Entity.create(params);
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -128,16 +128,16 @@ uiza.entity.create({
 
 ```go
 import (
-    Uiza "api-wrapper-go"
-    "api-wrapper-go/entity"
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
 )
 
-var typeHTTP = Uiza.InputTypeHTTP
-params = &uiza.EntityCreateParams{
+var typeHTTP = uiza.InputTypeHTTP
+params :=  &uiza.EntityCreateParams{
   Name: uiza.String("Sample Video"),
   URL: uiza.String("https://example.com/video.mp4"),
   InputType: &typeHTTP,
-  description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+  Description: uiza.String("Lorem Ipsum is simply dummy text of the printing and typesetting industry")
 }
 
 response, _ := entity.Create(params)

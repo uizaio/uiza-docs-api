@@ -73,7 +73,7 @@ try {
   JsonObject relation = relations.get(0).getAsJsonObject();
   System.out.println(relation.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -85,7 +85,11 @@ try {
 uiza.category.create_relation({
   'entityId': '16ab25d3-fd0f-4568-8aa0-0339bbfd674f',
   'metadataIds': ['095778fa-7e42-45cc-8a0e-6118e540b61d','e00586b9-032a-46a3-af71-d275f01b03cf']
-}).then((res) => console.log(res)).catch((err) => console.log(err));
+}).then((res) => {
+    //Identifier of relation between entity and category has been created
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -107,12 +111,12 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
   ApiBase = "your-workspace-api-domain.uiza.co"
 });
 
-var createCategoryRelationResult = UizaServices.Category.CreateCategoryRelation(new CategoryRelationParameter()
+var createCategoryRelationResult = UizaServices.Category.CreateRelation(new CategoryRelationParameter()
 {
-  EntityId = entity.Data.id,
+  EntityId = "Entity id",
   MetadataIds = listMetadata
 });
-Console.WriteLine(string.Format("Create Success Category Relation, total record {0}", createCategoryRelationResult.MetaData.result));
+Console.WriteLine(string.Format("Create Category Relation Success, total record {0}", createCategoryRelationResult.MetaData.result));
 ```
 
 Add relation for entity and category

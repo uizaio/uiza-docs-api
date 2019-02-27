@@ -51,7 +51,7 @@ try {
   JsonObject response = Entity.getAwsUploadKey();
   System.out.println(response.get("region_name"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -70,8 +70,8 @@ uiza.entity.get_aws_upload_key()
 
 ```go
 import (
-    Uiza "api-wrapper-go"
-    "api-wrapper-go/entity"
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
 )
 
 response, _ := entity.GetAWSUploadKey()
@@ -87,7 +87,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 	ApiBase = "your-workspace-api-domain.uiza.co"
 });
 
-var result =  UizaServices.Entity.GetEntityAWSUploadKey();
+var result =  UizaServices.Entity.GetAWSUploadKey();
 Console.WriteLine(string.Format("Get AWS Upload Key Success : temp_access_id = {0} ", result.Data.temp_access_id));
 ```
 

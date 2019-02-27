@@ -12,6 +12,93 @@ curl -X GET \
 }'
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  live = Uiza::Live.retrieve "your-live-id"
+  puts live.id
+  puts live.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+live_id = "33a86c18-f502-41a4-9c4c-d4e14efca238"
+
+res, status_code = Live().retrieve(live_id)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+Uiza\Live::retrieve("key ... ");
+?>
+```
+
+```java
+import io.uiza.model.Live;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject live = Live.retrieve("<your-live-event-id>");
+  System.out.println(live.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.live.retrieve('1b2c6899-2bca-4d60-ae78-01d1c2f5a2ab')
+  .then((res) => {
+    //Identifier of live event has been retrieved
+  }).catch((err) => {
+    //Error
+  });
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/live"
+)
+
+params := &uiza.LiveRetrieveParams{ID: uiza.String("247014d5-3dae-453f-97b2-93a441bc1c80")}
+response, _ := live.Retrieve(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var retrieveResult = UizaServices.Live.Retrieve((string)createResult.Data.id);
+Console.WriteLine(string.Format("Retrieve Live Streaming Success, Id = {0}", retrieveResult.Data.id));
+```
+
 Retrieves the details of an existing event. You need only provide the unique identifier of event that was returned upon Live event creation.
 
 > Example Response

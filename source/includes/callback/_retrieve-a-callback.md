@@ -8,6 +8,92 @@ curl -X GET \
   -H 'Authorization: uap-7442d4b99eb349b1bb678614e64cf064-1405ee51' \
   -H 'Content-Type: application/json' \
 ```
+
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  callback = Uiza::Callback.retrieve "your-callback-id"
+  puts callback.id
+  puts callback.url
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+callback_id = "33a86c18-f502-41a4-9c4c-d4e14efca238"
+
+res, status_code = Callback().retrieve(callback_id)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+Uiza\Callback::retrieve("id callback");
+?>
+```
+
+```java
+import io.uiza.model.Callback;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject callback = Callback.retrieve("<callback-id>");
+  System.out.println(callback.get("url"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.callback.retrieve('1b1f97f9-9afd-46d1-a2e1-f3b3896374df').then((res) => {
+  //Identifier of callback has been retrieved
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/callback"
+)
+params := &uiza.CallbackIDParams{ID: uiza.String("Your ID")}
+response, _ := callback.Retrieve(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var retrieveResult = UizaServices.Callback.Retrieve((string)createResult.Data.id);
+Console.WriteLine(string.Format("Get Callback Id = {0} Success", retrieveResult.Data.id));
+```
+
 Retrieves the details of an existing callback.
 
 > Example Response
@@ -64,4 +150,3 @@ Retrieves the details of an existing callback.
 | **method** | *enum* | Method of callback (get-post-put..) |
 | **jsonData** | *object* | Data you want you add to your callback as JSON format |
 | **headersData** | *object* | Parameter of header |
-

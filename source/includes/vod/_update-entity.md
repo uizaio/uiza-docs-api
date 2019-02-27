@@ -81,7 +81,7 @@ try {
   JsonObject entity = Entity.update(params);
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -102,10 +102,13 @@ uiza.entity.update({
 
 ```go
 import (
-  Uiza "api-wrapper-go"
-  "api-wrapper-go/entity"
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
 )
-params := &Uiza.EntityUpdateParams{ID: uiza.String("Your entity ID")}
+params := &uiza.EntityUpdateParams{
+  ID: uiza.String("Your entity ID"),
+  Name: uiza.String("Update entity name")
+}
 response, _ := entity.Update(params)
 log.Printf("%s\n", response)
 ```
@@ -119,7 +122,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 	ApiBase = "your-workspace-api-domain.uiza.co"
 });
 
-var result =uizaServices.Entity.Update(new UpdateEntityParameter()
+var result = uizaServices.Entity.Update(new UpdateEntityParameter()
 {
 	Id = "Entity Id",
 	Name = "Sample update",

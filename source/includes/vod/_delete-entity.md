@@ -59,7 +59,7 @@ try {
   JsonObject entity = Entity.delete("<your-entity-id>");
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -77,11 +77,11 @@ uiza.entity.delete({'id': '5f1c78bd-69......'}).then((res) => {
 
 ```go
 import (
-  Uiza "api-wrapper-go"
-  "api-wrapper-go/entity"
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
 )
 
-params := &Uiza.EntityDeleteParams{ID: uiza.String("Your entity ID")}
+params := &uiza.EntityDeleteParams{ID: uiza.String("Your entity ID")}
 response, _ := entity.Delete(params)
 log.Printf("%s\n", response)
 ```

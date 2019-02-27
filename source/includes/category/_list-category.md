@@ -37,6 +37,10 @@ print("status_code", status_code)
 
 ```php
 <?php
+$listCategory = Uiza\Category::all();
+
+// or
+
 $listCategory = Uiza\Category::list();
 ?>
 ```
@@ -52,7 +56,7 @@ try {
   JsonObject category = categories.get(0).getAsJsonObject();
   System.out.println(category.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -62,8 +66,11 @@ try {
 
 ```javascript
 uiza.category.list()
-  .then((res) => console.log(res))
-  .catch((err) => console.log(err));
+  .then((res) => {
+    //Identifier of category list
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go

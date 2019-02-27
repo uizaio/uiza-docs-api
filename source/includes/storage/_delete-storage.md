@@ -40,12 +40,7 @@ print("status_code", status_code)
 
 ```php
 <?php
-$category = Uiza\Storage::retrieve("key ... ");
-$category->destroy();
-
-// or
-
-Uiza\Storage::delete("key ...");
+Uiza\Storage::remove("key ...");
 ?>
 ```
 
@@ -59,7 +54,7 @@ try {
   JsonObject storage = Storage.remove("<storage-id>");
   System.out.println(storage.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -95,7 +90,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
   ApiBase = "your-workspace-api-domain.uiza.co"
 });
 
-var result = UizaServices.Storage.Delete("Storage Id");
+var result = UizaServices.Storage.Remove((string)createResult.Data.id);
 Console.WriteLine(string.Format("Remove Storage Id = {0} Success", result.Data.id));
 ```
 
