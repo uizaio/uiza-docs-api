@@ -53,7 +53,7 @@ try {
   JsonObject firstEntity = entities.get(0).getAsJsonObject();
   System.out.println(firstEntity.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -71,8 +71,8 @@ uiza.entity.search({'keyword': 'sample'}).then((res) => {
 
 ```go
 import (
-  Uiza "api-wrapper-go"
-  "api-wrapper-go/entity"
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
 )
 
 params := &uiza.EntitySearchParams{Keyword: uiza.String("Sample")}

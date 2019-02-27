@@ -46,6 +46,10 @@ print("status_code", status_code)
 ```php
 <?php
 $listEntity = Uiza\Entity::all();
+
+// or
+
+$listEntity = Uiza\Entity::list();
 ?>
 ```
 
@@ -64,7 +68,7 @@ try {
   JsonObject firstEntity = entities.get(0).getAsJsonObject();
   System.out.println(firstEntity.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -82,13 +86,15 @@ uiza.entity.list().then((res) => {
 
 ```go
 import (
-  Uiza "api-wrapper-go"
-  "api-wrapper-go/entity"
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
 )
 
 params := &uiza.EntityListParams{}
-response := entity.List(params)
-log.Printf("%s\n", response)
+listEntity, _ := entity.List(params)
+for _, v := range listEntity {
+  log.Printf("%v\n", v)
+}
 ```
 
 ```csharp
@@ -131,7 +137,7 @@ Get list of entities including all detail.
                 "genre": "Pop"
             },
             "extendMetadata": {
-                "movie_category":"action",  
+                "movie_category":"action",
                 "imdb_score":8.8,
                 "published_year":"2018"
             },
