@@ -53,7 +53,7 @@ try {
   JsonObject category = Category.retrieve("<category-id>");
   System.out.println(category.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -63,8 +63,11 @@ try {
 
 ```javascript
 uiza.category.retrieve('b8f2a6ec-d45f-4cc0-a32d-35ad0ad9f1b6')
-  .then((res) => console.log(res))
-  .catch((err) => console.log(err));
+  .then((res) => {
+    //Identifier of category
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go

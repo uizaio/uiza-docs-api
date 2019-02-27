@@ -73,10 +73,10 @@ $params = [
   "host" => "ftp-example.uiza.io",
   "username" => "uiza",
   "password" => "=59x@LPsd+w7qW",
-  "port":21
+  "port" => 21
 ];
 
-Uiza\Storage::create($params);
+Uiza\Storage::add($params);
 ?>
 ```
 
@@ -96,7 +96,7 @@ try {
   JsonObject storage = Storage.add(params);
   System.out.println(storage.get("name"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -149,17 +149,17 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
   ApiBase = "your-workspace-api-domain.uiza.co"
 });
 
-var result = UizaServices.Storage.Create(new CreateStogeParameter()
+var createResult = UizaServices.Storage.Add(new AddStorageParameter()
 {
-    Name = "FTP Uiza",
-    Host = "ftp-example.uiza.io",
-    Description = "FTP of Uiza, use for transcode",
-    StorageType = StorageInputTypes.Ftp,
-    UserName = "uiza",
-    Password = "=59x@LPsd+w7qW",
-    Port = 21
+  Name = "FTP Uiza",
+  Host = "ftp-example.uiza.io",
+  Description = "FTP of Uiza, use for transcode",
+  StorageType = StorageInputTypes.Ftp,
+  UserName = "uiza",
+  Password = "=59x@LPsd+w7qW",
+  Port = 21
 });
-Console.WriteLine(string.Format("Add New Storage Id = {0} Success", result.Data.id));
+Console.WriteLine(string.Format("Add New Storage Id = {0} Success", createResult.Data.id));
 ```
 
 > Example Response

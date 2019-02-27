@@ -55,7 +55,7 @@ try {
   JsonObject response = Entity.publish("<your-entity-id>");
   System.out.println(response.get("message"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -75,11 +75,11 @@ uiza.entity.publish({
 
 ```go
 import (
-  Uiza "api-wrapper-go"
-  "api-wrapper-go/entity"
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
 )
 
-params := &Uiza.EntityPublishParams{ID: uiza.String("Your entity ID")}
+params := &uiza.EntityPublishParams{ID: uiza.String("Your entity ID")}
 response, _ := entity.Publish(params)
 log.Printf("%s\n", response)
 ```
@@ -89,11 +89,11 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-	ApiKey = "your-ApiKey",
-	ApiBase = "your-workspace-api-domain.uiza.co"
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
 });
 
-var result = UUizaServices.Entity.PublishEntity("Entity Id");
+var result = UizaServices.Entity.Publish("Entity Id");
 Console.WriteLine(string.Format("Publish Entity Success : entityId = {0} ", result.Data.entityId));
 ```
 

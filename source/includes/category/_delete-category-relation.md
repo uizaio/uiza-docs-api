@@ -73,7 +73,7 @@ try {
   JsonObject relation = relations.get(0).getAsJsonObject();
   System.out.println(relation.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -85,7 +85,11 @@ try {
 uiza.category.delete_relation({
   'entityId': 'c71965ac-8808-4854-8fc3-85a22ac9eb73',
   'metadataIds': ['689d3752-5515-4e35-993b-e02f370cf46c','32e8a1f4-e3b6-4369-a30d-60c6715896d1']
-}).then((res) => console.log(res)).catch((err) => console.log(err));
+}).then((res) => {
+    //Identifier of relation between entity and category has been deleted
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -108,12 +112,12 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
   ApiBase = "your-workspace-api-domain.uiza.co"
 });
 
-var deleteCategoryRelationResult = UizaServices.Category.DeleteCategoryRelation(new CategoryRelationParameter()
+var deleteCategoryRelationResult = UizaServices.Category.DeleteRelation(new CategoryRelationParameter()
 {
   EntityId = entity.Data.id,
   MetadataIds = listMetadata
 });
-Console.WriteLine(string.Format("Delete Success Category Relation, total record {0}", deleteCategoryRelationResult.MetaData.result));
+Console.WriteLine(string.Format("Delete Category Relation Success, total record {0}", deleteCategoryRelationResult.MetaData.result));
 ```
 
 Delete  relation for entity and category

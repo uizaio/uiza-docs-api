@@ -30,7 +30,7 @@ end
 ```
 
 ```python
-res, status_code = Entity().get_status_publish_entity("33a86c18-f502-41a4-9c4c-d4e14efca238")
+res, status_code = Entity().get_status_publish("33a86c18-f502-41a4-9c4c-d4e14efca238")
 
 print("status_code", status_code)
 ```
@@ -51,7 +51,7 @@ try {
   JsonObject response = Entity.getStatusPublish("<your-entity-id>");
   System.out.println(response.get("status"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -72,11 +72,11 @@ uiza.entity.get_status_publish({
 
 ```go
 import (
-  Uiza "api-wrapper-go"
-  "api-wrapper-go/entity"
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
 )
 
-params := &Uiza.EntityPublishParams{ID: uiza.String("Your entity ID")}
+params := &uiza.EntityPublishParams{ID: uiza.String("Your entity ID")}
 response, _ := entity.GetStatusPublish(params)
 log.Printf("%s\n", response)
 ```
@@ -86,11 +86,11 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-	ApiKey = "your-ApiKey",
-	ApiBase = "your-workspace-api-domain.uiza.co"
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
 });
 
-var result =  UizaServices.Entity.GetEntityStatusPublish("Entity Id");
+var result =  UizaServices.Entity.GetStatusPublish("Entity Id");
 Console.WriteLine(string.Format("Get Status Publish Success : temp_access_id = {0} ", result.Data.status));
 ```
 

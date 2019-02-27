@@ -57,7 +57,7 @@ try {
   JsonObject entity = Entity.retrieve("<your-entity-id>");
   System.out.println(entity.get("name"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -77,11 +77,11 @@ uiza.entity.retrieve({
 
 ```go
 import (
-  Uiza "api-wrapper-go"
-  "api-wrapper-go/entity"
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
 )
 
-params := &Uiza.EntityRetrieveParams{ID: uiza.String("Your entity ID")}
+params := &uiza.EntityRetrieveParams{ID: uiza.String("Your entity ID")}
 response, _ := entity.Retrieve(params)
 log.Printf("%s\n", response)
 ```
