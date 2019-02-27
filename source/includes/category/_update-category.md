@@ -75,7 +75,7 @@ try {
   JsonObject category = Category.update("<category-id>", params);
   System.out.println(category.get("id"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -91,7 +91,11 @@ uiza.category.update({
   'orderNumber': 1,
   'description': 'Folder description',
   'icon': 'https://exemple.com/icon.png'
-}).then((res) => console.log(res)).catch((err) => console.log(err));
+}).then((res) => {
+    //Identifier of category has been updated
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -103,7 +107,7 @@ params := &uiza.CategoryUpdateParams{
   Description:uiza.String(""),
   Icon:uiza.String(""),
   OrderNumber:uiza.Int64(2)}
-response, _ := category.Upddate(params)
+response, _ := category.Update(params)
 log.Printf("%s", response)
 ```
 

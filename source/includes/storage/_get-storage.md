@@ -54,7 +54,7 @@ try {
   JsonObject storage = Storage.retrieve("<storage-id>");
   System.out.println(storage.get("name"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -90,7 +90,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
   ApiBase = "your-workspace-api-domain.uiza.co"
 });
 
-var result = UizaServices.Storage.Retrieve("Storage Id");
+var result = UizaServices.Storage.Retrieve((string)createResult.Data.id);
 Console.WriteLine(string.Format("Get Storage Id = {0} Success", result.Data.id));
 ```
 

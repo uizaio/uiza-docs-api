@@ -88,7 +88,7 @@ try {
   JsonObject storage = Storage.update("<storage-id>", params);
   System.out.println(storage.get("name"));
 } catch (UizaException e) {
-  System.out.println("Status is: " + e.getCode());
+  System.out.println("Status is: " + e.getStatusCode());
   System.out.println("Message is: " + e.getMessage());
   System.out.println("Description link is: " + e.getDescriptionLink());
 } catch (Exception e) {
@@ -145,7 +145,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 var result =uizaServices.Storage.Update(new UpdateStorageParameter()
 {
-  Id = "Entity Id",
+  Id = (string)createResult.Data.id,
   Name = "FTP Uiza Update",
   Host = "ftp-example.uiza.io",
   Description = "FTP of Uiza, use for transcode Update",
