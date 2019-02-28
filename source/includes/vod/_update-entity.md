@@ -107,7 +107,7 @@ import (
 )
 params := &uiza.EntityUpdateParams{
   ID: uiza.String("Your entity ID"),
-  Name: uiza.String("Update entity name")
+  Name: uiza.String("Update entity name"),
 }
 response, _ := entity.Update(params)
 log.Printf("%s\n", response)

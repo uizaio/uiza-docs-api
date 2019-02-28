@@ -103,7 +103,9 @@ callbackMethodPOST := uiza.HTTPMethodPost
 params := &uiza.CallbackUpdateParams{
 	ID:    uiza.String("72d59f91-88c6-458b-9d45-489d2194a09f"),
 	Url:    uiza.String("https://callback-url.uiza.commm"),
-	Method: &callbackMethodPOST}
+	Method: &callbackMethodPOST,
+}
+
 response, _ := callback.Update(params)
 log.Printf("%s\n", response)
 ```

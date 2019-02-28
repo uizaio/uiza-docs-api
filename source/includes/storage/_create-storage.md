@@ -133,7 +133,7 @@ params :=  &uiza.StorageAddParams{
   StorageType: uiza.String("ftp"),
   Username: uiza.String("uiza"),
   Password: uiza.String("=59x@LPsd+w7qW"),
-  Description: uiza.String("FTP of Uiza, use for transcode")
+  Description: uiza.String("FTP of Uiza, use for transcode"),
 }
 
 response, _ := storage.Add(params)

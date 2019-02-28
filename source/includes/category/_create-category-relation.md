@@ -95,7 +95,9 @@ uiza.category.create_relation({
 ```go
 params := &uiza.CategoryRelationParams{
   EntityId: uiza.String(""),
-  MetadataIds: []*string{uiza.String(""), uiza.String("")}}
+  MetadataIds: []*string{uiza.String(""), uiza.String("")},
+}
+
 response, _ := category.CreateRelation(params)
 for _, v := range response {
   log.Printf("%v\n", v)

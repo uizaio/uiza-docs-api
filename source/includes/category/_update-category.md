@@ -106,7 +106,7 @@ params := &uiza.CategoryUpdateParams{
   Type: &typeCategory,
   Description:uiza.String(""),
   Icon:uiza.String(""),
-  OrderNumber:uiza.Int64(2)
+  OrderNumber:uiza.Int64(2),
 }
 
 response, _ := category.Update(params)

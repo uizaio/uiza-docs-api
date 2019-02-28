@@ -161,7 +161,7 @@ params := &uiza.LiveCreateParams{
   Description: uiza.String("This is for test event"),
   Thumbnail: uiza.String("//image1.jpeg"),
   LinkStream: &[]string{*uiza.String("https://playlist.m3u8")},
-  ResourceMode: &resourceMode
+  ResourceMode: &resourceMode,
 }
 response, _ := live.Create(params)
 log.Printf("%s\n", response)
