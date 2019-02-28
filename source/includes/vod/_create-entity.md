@@ -137,7 +137,7 @@ params :=  &uiza.EntityCreateParams{
   Name: uiza.String("Sample Video"),
   URL: uiza.String("https://example.com/video.mp4"),
   InputType: &typeHTTP,
-  Description: uiza.String("Lorem Ipsum is simply dummy text of the printing and typesetting industry")
+  Description: uiza.String("Lorem Ipsum is simply dummy text of the printing and typesetting industry"),
 }
 
 response, _ := entity.Create(params)

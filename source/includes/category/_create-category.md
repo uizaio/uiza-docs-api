@@ -110,7 +110,7 @@ params := &uiza.CategoryCreateParams{
   Type: &typeCategory,
   Description: uiza.String(""),
   Icon: uiza.String(""),
-  OrderNumber:uiza.Int64(1)
+  OrderNumber:uiza.Int64(1),
 }
 
 response, _ := category.Create(params)

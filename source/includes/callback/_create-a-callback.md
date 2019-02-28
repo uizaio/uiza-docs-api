@@ -106,7 +106,9 @@ import (
 callbackMethodPOST := uiza.HTTPMethodPost
 params := &uiza.CallbackCreateParams{
   Url:    uiza.String("https://callback-url.uiza.co"),
-  Method: &callbackMethodPOST}
+  Method: &callbackMethodPOST,
+}
+
 response, _ := callback.Create(params)
 log.Printf("%s\n", response)
 ```

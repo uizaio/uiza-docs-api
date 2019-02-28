@@ -76,8 +76,9 @@ uiza.category.list()
 ```go
 params := &uiza.CategoryListParams{
   Page:uiza.Int64(2),
-  Limit:uiza.Int64(10)
+  Limit:uiza.Int64(10),
 }
+
 listData, _ := category.List(params)
 for _, v := range listData {
   log.Printf("%s\n", v)
