@@ -104,13 +104,14 @@ uiza.category.create({
 ```
 
 ```go
-var typeCategory = uiza.FolderType
+var typeCategory = uiza.CategoryFolderType
 params := &uiza.CategoryCreateParams{
   Name: uiza.String(""),
   Type: &typeCategory,
   Description: uiza.String(""),
   Icon: uiza.String(""),
-  OrderNumber:uiza.Int64(1)}
+  OrderNumber:uiza.Int64(1)
+}
 
 response, _ := category.Create(params)
 log.Printf("%s", response)

@@ -76,7 +76,8 @@ import (
   "github.com/uizaio/api-wrapper-go/live"
 )
 
-response, _ := live.ListRecorded()
+params := &uiza.LiveListRecordedParams{Page:uiza.Int64(1), Limit:uiza.Int64(2)}
+response, _ := live.ListRecorded(params)
 for _, v := range response {
   log.Printf("%v\n", v)
 }
