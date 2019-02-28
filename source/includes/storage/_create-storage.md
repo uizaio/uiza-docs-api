@@ -90,7 +90,7 @@ Map<String, Object> params = new HashMap<>();
 params.put("name", "FTP Uiza");
 params.put("host", "ftp-example.uiza.io");
 params.put("port", "21");
-params.put("type", "ftp");
+params.put("type", StorageType.FTP.getStorageType());
 
 try {
   JsonObject storage = Storage.add(params);
