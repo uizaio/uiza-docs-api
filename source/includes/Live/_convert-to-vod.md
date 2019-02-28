@@ -95,11 +95,6 @@ var convertIntoVODResult = UizaServices.Live.ConvertToVOD((string)createResult.D
 Console.WriteLine(string.Format("Convert VOD Success", convertIntoVODResult.Data.id));
 ```
 
-param := &uiza.LiveIDParams{ID: uiza.String("Your Recorded ID ")}
-response, _ := live.ConvertToVOD(param)
-log.Printf("%s\n", response)
-```
-
 Convert recorded file into VOD entity. After converted, your file can be stream via Uiza's CDN.
 
 > Example Response
