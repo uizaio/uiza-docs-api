@@ -58,7 +58,7 @@ storage_data = {
   "host":"ftp-example.uiza.io"
 }
 
-res, status_code = Storage().create(**storage_data)
+res, status_code = Storage().add(**storage_data)
 
 print("id: ", res.id)
 print("status_code", status_code)
