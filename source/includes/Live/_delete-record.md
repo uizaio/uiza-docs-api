@@ -76,7 +76,7 @@ import (
   "github.com/uizaio/api-wrapper-go/live"
 )
 
-param := &uiza.LiveIDParams{ID: uiza.String("Your Recorded ID ")}
+param := &uiza.LiveIDParams{ID: uiza.String("Your Recorded ID")}
 response, _ := live.Delete(param)
 log.Printf("%s\n", response)
 ```
