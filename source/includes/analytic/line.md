@@ -55,7 +55,7 @@ curl -X GET \
 }
 ```
 
-**Get data grouped by hour.** Get total view in time range. This help you to draw a line chart to visualize data
+**Get data grouped by hour.** Get data in time range. This help you to draw a line chart to visualize data
 
 ``` About grouped by hour algorithm, Uiza currently support upto 16 days (it's mean when your time range is lower than 16 days, data response will be grouped by hour. Otherwise, it will return and to be grouped by day). In case your requested timerange doesn't have data, API won't show it in response.  ```
 
@@ -77,11 +77,12 @@ curl -X GET \
 | ------------- | ------------- | ------------- | ------------- |
 | **start_date** | *string* | Start date (UTC+0) with format: YYYY-MM-DD | **Yes** |
 | **end_date** | *string* | End date (UTC+0) with format: YYYY-MM-DD | **Yes** |
+| **type** | *enum* | Value accept: [ **playback_failure_percentage**, **video_startup_time**, **aggregate_startup_time**, **exits_before_video_start**, **rebuffer_percentage**, **rebuffer_frequency**, **playback_failure_score**, **rebuffer_count**, **rebuffer_duration**, **upscale_percentage**, **downscale_percentage**, **max_upscale_percentage**, **max_downscale_percentage** ] | **Yes** |
 
 
 **Response Parameters**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
-| **day** | *timestamp* | Time point |
-| **total_view** | *number* | Total view in time range  |
+| **date_time** | *timestamp* | Time point |
+| **value** | *number* | Value in time range  |
