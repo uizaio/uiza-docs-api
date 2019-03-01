@@ -64,7 +64,7 @@ Create an user account for workspace
 | **fullname** | *string* | Full name of user |  |
 | **dob** | *date* | Date of birth (MM/DD/YYYY) |  |
 | **gender** | *integer* | Gender ( ``0`` = Male, ``1`` = Female) |  |
-| **isAdmin** | *integer* | Set this account isAdmin or not (``0`` = Yes, ``1`` = No) |  |
+| **isAdmin** | *integer* | Set this account isAdmin or not (``1`` = Yes, ``0`` = No) |  |
 
 
 

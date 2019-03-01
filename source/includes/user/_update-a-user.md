@@ -70,7 +70,7 @@ Updates the specified user by setting the values of the parameters passed. Any p
 | **fullname** | *string* | Full name of user |  |
 | **dob** | *date* | Date of birth (MM/DD/YYYY) |  |
 | **gender** | *integer* | Gender ( ``0`` = Male, ``1`` = Female) |  |
-| **isAdmin** | *integer* | Set this account isAdmin or not (``0`` = Yes, ``1`` = No) |  |
+| **isAdmin** | *integer* | Set this account isAdmin or not (``1`` = Yes, ``0`` = No) |  |
 
 
 
