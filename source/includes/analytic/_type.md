@@ -37,7 +37,7 @@ curl -X GET \
 }
 ```
 
-Get data base on 4 type of filter: **country**, **device**, **title**, **player**
+Get data base on 5 type of filter: **country**, **device**, **title**, **player**, **os**
 
 **HTTP Request**
 
@@ -56,13 +56,13 @@ Get data base on 4 type of filter: **country**, **device**, **title**, **player*
 | ------------- | ------------- | ------------- | ------------- |
 | **start_date** | *string* | Start date (UTC+0) with format: YYYY-MM-DD | **Yes** |
 | **end_date** | *string* | End date (UTC+0) with format: YYYY-MM-DD | **Yes** |
-| **type_filter** | *enum* | Value accept: [ **country**, **device**, **title**, **player** ] | **Yes** |
+| **type_filter** | *enum* | Value accept: [ **country**, **device**, **title**, **player**, **os** ] | **Yes** |
 
 
 **Response Parameters**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
-| **name** | *string* | name of filter (can be country, device name, title or player name) |
+| **name** | *string* | name of filter (can be country, device name, title, player name or os) |
 | **total_view** | *number* |  Total view corresponding to filter |
 | **percentage_of_view** | *number* | Percentage of view corresponding to filter |
