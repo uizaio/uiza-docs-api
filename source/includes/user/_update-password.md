@@ -3,8 +3,8 @@
 > Example Request
 
 ```shell
-curl -X POST \
-  https://#{workspace_api_domain}//api/public/v3/admin/user/changepassword \
+curl -X PUT \
+  https://#{workspace_api_domain}/api/public/v3/admin/user/changepassword \
   -H 'Authorization: uap-7442d4b99eb349b1bb678614e64cf064-1405ee51' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -37,7 +37,7 @@ Update password allows Admin or User update their current password.
 **HTTP Request**
 
 <span class="put-button"> PUT </span>
-```https://#{workspace_api_domain}//api/public/v3/admin/user/changepassword```
+```https://#{workspace_api_domain}/api/public/v3/admin/user/changepassword```
 
 **Header Request**
 
