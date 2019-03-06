@@ -90,7 +90,7 @@ Map<String, Object> params = new HashMap<>();
 params.put("name", "FTP Uiza");
 params.put("host", "ftp-example.uiza.io");
 params.put("port", "21");
-params.put("type", StorageType.FTP.getStorageType());
+params.put("type", StorageType.FTP.toString());
 
 try {
   JsonObject storage = Storage.add(params);
@@ -137,7 +137,7 @@ params :=  &uiza.StorageAddParams{
 }
 
 response, _ := storage.Add(params)
-log.Printf("%s\n", response)
+log.Printf("%v\n", response)
 ```
 
 ```csharp

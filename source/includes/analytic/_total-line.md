@@ -8,7 +8,129 @@ curl -X GET \
   -H 'Authorization: uap-7442d4b99eb349b1bb678614e64cf064-1405ee51' \
 ```
 
+```ruby
+require "uiza"
 
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+params = {
+  start_date: "YYYY-MM-DD hh:mm",
+  end_date: "YYYY-MM-DD hh:mm",
+  metric: "rebuffer_count"
+}
+
+begin
+  response = Uiza::Analytic.get_total_line params
+  puts response.first.rebuffer_count
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+from uiza.api_resources.analytic import Analytic
+
+res, status_code = Analytic().get_total_line(
+  start_date="2018-11-01 20:00",
+  end_date="2019-11-02 20:00",
+  metric="rebuffer_count"
+)
+
+print("status_code", status_code)
+```
+
+```php
+<?
+$params = [
+  "start_date" => "YYYY-MM-DD hh:mm",
+  "end_date" => "YYYY-MM-DD hh:mm",
+  "metric" => "rebuffer_count"
+];
+
+Uiza\Analytic::getTotalLine($params);
+?>
+```
+
+```java
+import io.uiza.model.Analytic;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("start_date", "2019-01-01 07:00");
+params.put("end_date", "2019-03-01 07:00");
+params.put("metric", Metric.REBUFFER_PERCENTAGE.toString());
+
+try {
+  JsonArray analytics = Analytic.getTotalLine(params);
+  JsonObject analytic = analytics.get(0).getAsJsonObject();
+  System.out.println(analytic);
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.analytic.get_total_line({
+  'start_date': '2019-02-28 00:00',
+  'end_date': '2019-03-01 23:00',
+  'metric': 'rebuffer_count'
+}).then((res) => {
+  //Identifier of get_total_line
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/analytic"
+)
+
+metric := uiza.AnalyticMetricRebufferCount
+params := &uiza.AnalyticTotalLineParams{
+  StartDate: uiza.String("2018-11-01 08:00"),
+  EndDate: uiza.String("2019-11-19 14:00"),
+  Metric: &metric,
+}
+
+response, _ := analytic.GetTotalLine(params)
+for _, v := range response {
+  log.Printf("%v", v.DateTime)
+  log.Printf("%v", v.RebufferCount)
+}
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var getTotalLine = UizaServices.Analytic.GetTotalLine(new AnalyticTotalLineParameter()
+{
+  StartDate = @"2019-02-28 20:00",
+  EndDate = @"2019-03-01 20:00",
+  Metric = MetricType.RebufferCount
+});
+Console.WriteLine(string.Format("Get Total Line Success, total record {0}", getTotalLine.Data.Count));
+```
 
 > Example Response
 

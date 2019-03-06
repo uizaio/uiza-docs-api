@@ -52,7 +52,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject response = Entity.publish("<your-entity-id>");
+  JsonObject response = Entity.publish("<entity-id>");
   System.out.println(response.get("message"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -81,7 +81,7 @@ import (
 
 params := &uiza.EntityPublishParams{ID: uiza.String("Your entity ID")}
 response, _ := entity.Publish(params)
-log.Printf("%s\n", response)
+log.Printf("%v\n", response)
 ```
 
 ```csharp

@@ -78,7 +78,7 @@ import (
 
 params := &uiza.StorageRemoveParams{ID: uiza.String("Your entity ID")}
 response, _ := storage.Remove(params)
-log.Printf("%s\n", response)
+log.Printf("%v\n", response)
 ```
 
 ```csharp

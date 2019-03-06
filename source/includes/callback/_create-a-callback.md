@@ -110,7 +110,7 @@ params := &uiza.CallbackCreateParams{
 }
 
 response, _ := callback.Create(params)
-log.Printf("%s\n", response)
+log.Printf("%v\n", response)
 ```
 
 ```csharp

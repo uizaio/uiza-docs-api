@@ -76,7 +76,7 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Playlist Sample");
-params.put("type", Type.PLAYLIST.getType());
+params.put("type", Type.PLAYLIST.toString());
 
 try {
   JsonObject category = Category.create(params);
@@ -100,21 +100,30 @@ uiza.category.create({
   'orderNumber': 1,
   'description': 'Folder description',
   'icon': 'https://exemple.com/icon.png'
-}).then((res) => console.log(res)).catch((err) => console.log(err));
+}).then((res) => {
+  //Identifier of category has been created
+}).catch((err) => {
+  //Error
+});
 ```
 
 ```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/category"
+)
+
 var typeCategory = uiza.CategoryFolderType
 params := &uiza.CategoryCreateParams{
-  Name: uiza.String(""),
+  Name: uiza.String("Category name example"),
   Type: &typeCategory,
-  Description: uiza.String(""),
-  Icon: uiza.String(""),
+  Description: uiza.String("Category description"),
+  Icon: uiza.String("https:///example.com/image002.png"),
   OrderNumber:uiza.Int64(1),
 }
 
 response, _ := category.Create(params)
-log.Printf("%s", response)
+log.Printf("%v", response)
 ```
 
 ```csharp

@@ -48,7 +48,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject live = Live.delete("<your-record-id>");
+  JsonObject live = Live.delete("<record-id>");
   System.out.println(live.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -78,7 +78,7 @@ import (
 
 param := &uiza.LiveIDParams{ID: uiza.String("Your Recorded ID")}
 response, _ := live.Delete(param)
-log.Printf("%s\n", response)
+log.Printf("%v\n", response)
 ```
 
 ```csharp

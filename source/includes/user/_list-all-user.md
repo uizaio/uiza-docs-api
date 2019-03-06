@@ -1,5 +1,9 @@
 ## List all users
 
+Returns a list of your user. The users are returned sorted by creation date, with the most recent user appearing first.
+
+If you use Admin token, you will get all the user. If you use User token, you can only get the information of that user
+
 > Example Request
 
 ```shell
@@ -9,9 +13,90 @@ curl -X GET \
   -H 'Content-Type: application/json' \
 ```
 
-Returns a list of your user. The users are returned sorted by creation date, with the most recent user appearing first.
+```ruby
+require "uiza"
 
-If you use Admin token, you will get all the user. If you use User token, you can only get the information of that user
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  users = Uiza::User.list
+  # or users = Uiza::User.list limit: 2, page: 2
+  puts users.first.id
+  puts users.first.username
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = User().list()
+
+print("status_code", status_code)
+```
+
+```php
+<?
+Uiza\User::list();
+?>
+```
+
+```java
+import io.uiza.model.User;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonArray users = User.list();
+  JsonObject user = users.get(0).getAsJsonObject();
+  System.out.println(user.get("username"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.user.list().then((res) => {
+  //Get list of user including all detail.
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/user"
+)
+
+params := &uiza.UserListParams{}
+response, _ := user.List(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var listResult = UizaServices.User.List();
+Console.WriteLine(string.Format("List User Success, total record {0}", listResult.Data.Count));
+```
 
 > Example Response
 
@@ -68,9 +153,9 @@ If you use Admin token, you will get all the user. If you use User token, you ca
 
 | Parameter | Type | Description |
 | ------------- | ------------- | ------------- |
-| **id** | *string* | Identifier of user |  
-| **isAdmin** | *integer* | Set this account isAdmin or not (``0`` = Yes, ``1`` = No) |  
-| **username** | *string* | Username of account (used for login instead of email) |  
-| **email** | *string* | Email (used for login instead of username) |    
+| **id** | *string* | Identifier of user |
+| **isAdmin** | *integer* | Set this account isAdmin or not (``0`` = Yes, ``1`` = No) |
+| **username** | *string* | Username of account (used for login instead of email) |
+| **email** | *string* | Email (used for login instead of username) |
 | **createdAt** | *datetime* | Time created user |
 | **updatedAt** | *datetime* | Last edited time of user |
