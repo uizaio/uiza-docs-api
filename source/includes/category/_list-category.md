@@ -74,14 +74,18 @@ uiza.category.list()
 ```
 
 ```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/category"
+)
+
 params := &uiza.CategoryListParams{
   Page:uiza.Int64(2),
   Limit:uiza.Int64(10),
 }
-
 listData, _ := category.List(params)
 for _, v := range listData {
-  log.Printf("%s\n", v)
+  log.Printf("%v\n", v)
 }
 ```
 

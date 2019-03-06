@@ -69,7 +69,7 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Playlist Sample");
-params.put("type", Type.PLAYLIST.getType());
+params.put("type", Type.PLAYLIST.toString());
 
 try {
   JsonObject category = Category.update("<category-id>", params);
@@ -99,6 +99,11 @@ uiza.category.update({
 ```
 
 ```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/category"
+)
+
 var typeCategory = uiza.CategoryFolderType
 params := &uiza.CategoryUpdateParams{
   ID: uiza.String("Your category ID"),
@@ -110,7 +115,7 @@ params := &uiza.CategoryUpdateParams{
 }
 
 response, _ := category.Update(params)
-log.Printf("%s", response)
+log.Printf("%v", response)
 ```
 
 ```csharp

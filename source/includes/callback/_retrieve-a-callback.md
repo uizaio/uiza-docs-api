@@ -78,7 +78,7 @@ import (
 )
 params := &uiza.CallbackIDParams{ID: uiza.String("Your ID")}
 response, _ := callback.Retrieve(params)
-log.Printf("%s\n", response)
+log.Printf("%v\n", response)
 ```
 
 ```csharp

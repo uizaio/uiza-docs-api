@@ -107,7 +107,7 @@ params := &uiza.CallbackUpdateParams{
 }
 
 response, _ := callback.Update(params)
-log.Printf("%s\n", response)
+log.Printf("%v\n", response)
 ```
 
 ```csharp

@@ -78,7 +78,7 @@ import (
 
 params := &uiza.StorageRetrieveParams{ID: uiza.String("Your entity ID")}
 response, _ := storage.Retrieve(params)
-log.Printf("%s\n", response)
+log.Printf("%v\n", response)
 ```
 
 ```csharp

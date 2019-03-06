@@ -75,7 +75,7 @@ import (
 )
 
 response, _ := entity.GetAWSUploadKey()
-log.Printf("%s\n", response)
+log.Printf("%v\n", response)
 ```
 
 ```csharp

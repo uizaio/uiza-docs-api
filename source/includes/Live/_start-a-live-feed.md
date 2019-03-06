@@ -51,7 +51,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject live = Live.startFeed("<your-live-event-id>");
+  JsonObject live = Live.startFeed("<live-event-id>");
   System.out.println(live.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -81,7 +81,7 @@ import (
 
 params := &uiza.LiveIDParams{ID: uiza.String("c6b23cc3-e47d-4e87-8f40-5da64221ad4e")}
 response, _ := live.StartFeed(params)
-log.Printf("%s\n", response)
+log.Printf("%v\n", response)
 ```
 
 ```csharp
