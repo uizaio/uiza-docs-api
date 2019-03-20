@@ -1,0 +1,12 @@
+# Request IDs
+
+> Base URL
+
+```bash
+curl <%= config[:endpoint] %>/api/public/v4/media/entity?appId=b2a3e6307dcf421a8a455825c01de914&id=78e8ed17-54fd-462d-89f1-e4732dafa348 \
+  -H 'Authorization: uap-b2a3e6307dcf421a8a455825c01de914-a03248e7' \
+  -D "-" \
+  -X GET
+```
+
+Each API request has an associated request identifier. You can find this value in the response headers, under `u-request-id` (Uiza's Request ID). **If you need to contact us about a specific request, providing the request identifier will ensure the fastest possible resolution.**

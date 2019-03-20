@@ -1,0 +1,195 @@
+## List entities
+
+
+> Request
+
+```bash
+curl -X GET \
+  <%= config[:endpoint] %>/api/public/v3/media/entity' \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+```
+
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.authorization = "your-authorization"
+
+params = {
+  publishToCdn: "not-ready",
+  metadataId: "your-folder/playlist-id"
+}
+
+begin
+  entities = Uiza::Entity.list params
+  # params is optional
+  # or entities = Uiza::Entity.list
+  puts entities.first.id
+  puts entities.first.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Entity().list(name="Title")
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$listEntity = Uiza\Entity::all();
+
+// or
+
+$listEntity = Uiza\Entity::list();
+?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<%= config[:endpoint] %>";
+Uiza.apiKey = "<%= config[:token] %>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("publishToCdn", PublishStatus.NOT_READY.toString());
+params.put("metadataId", "<your-folder/playlist-id>");
+
+try {
+  JsonArray entities = Entity.list(params);
+  JsonObject firstEntity = entities.get(0).getAsJsonObject();
+  System.out.println(firstEntity.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.list().then((res) => {
+  //Get list of entities including all detail.
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
+)
+
+params := &uiza.EntityListParams{}
+listEntity, _ := entity.List(params)
+for _, v := range listEntity {
+  log.Printf("%v\n", v)
+}
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "<%= config[:token] %>",
+  ApiBase = "<%= config[:endpoint] %>"
+});
+
+var result =  UizaServices.Entity.List(new RetrieveListEntitiesParameter()
+{
+  publishToCdn = EntityPublishStatus.Success
+});
+Console.WriteLine(string.Format("Success Get EntitiesList, total record {0}", result.MetaData.result));
+```
+
+Returns a list of entities. The entities are returned sorted by creation date, with the most recent entities appearing first.
+
+> Example Response
+
+```json
+{
+    "data": [
+        {
+            "id": "42ceb1ab-18ef-4f2e-b076-14299756d182",
+            "name": "Sample Video 1",
+            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "shortDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+            "view": 0,
+            "poster": "https://example.com/picture001",
+            "thumbnail": "https://example.com/picture002",
+            "type": "vod",
+            "duration": "237.865215",
+            "publishToCdn":"success",
+            "embedMetadata": {
+                "artist": "John Doe",
+                "album": "Album sample",
+                "genre": "Pop"
+            },
+            "extendMetadata": {
+                "movie_category":"action",
+                "imdb_score":8.8,
+                "published_year":"2018"
+            },
+            "createdAt": "2018-06-22T19:20:17.000Z",
+            "updatedAt": "2018-06-22T19:20:17.000Z"
+        },
+        {
+            "id": "64b15996-2261-4f41-a3c4-72b652323f67",
+            "name": "Sample Video 2",
+            "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "shortDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+            "view": 0,
+            "poster": "https://example.com/picture001",
+            "thumbnail": "https://example.com/picture002",
+            "type": "vod",
+            "duration": "178.178105",
+            "publishToCdn":"success",
+            "embedMetadata": {
+                "artist": "John Doe",
+                "album": "Album sample",
+                "genre": "Pop"
+            },
+            "extendMetadata": {
+                "movie_category":"action",
+                "imdb_score":8.8,
+                "published_year":"2018"
+            },
+            "createdAt": "2018-06-22T19:16:22.000Z",
+            "updatedAt": "2018-06-22T19:16:22.000Z"
+        }
+    ],
+    "metadata": {
+        "total": 2,
+        "result": 2,
+        "page": 1,
+        "limit": 20
+    },
+}
+```
+
+**HTTP Request**
+
+<span class="get-button"> GET </span>
+```<%= config[:endpoint] %>/api/public/v3/media/entity```
+
+**Arguments**
+
+| Parameter | Type | Description | Required |
+| ------------- | ------------- | ------------- | ------------- |
+| **publishToCdn** | *string* | Status of publish task, include [ **queue**, **not-ready**, **success**, **failed** ] | **No** |
+| **metadataId** | *string* | Get all entity in folder/playlist | **No** |
+
+**RETURNS**
+
+A dictionary with a `data` property that contains an array of up to `limit` entities, starting after entity `page`. Each entry in the array is a separate entity object. If no more entities are available, the resulting array will be empty. This request should never return an error.

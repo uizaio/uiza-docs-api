@@ -1,0 +1,61 @@
+## Retrieve Live Channel Minutes
+
+> Example Request
+
+```bash
+curl -X GET \
+  <%= config[:endpoint] %>/api/public/v3/billing/aggreate/streamingMinute \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "fromDate":"04/01/2018",
+  "toDate":"04/30/2018"
+  }'
+```
+Retrieves the details live channel minutes of your live event, it start when your event begin and the feed is started with the 1st signal
+
+> Example Response
+
+```json
+{
+    "data": {
+    "??????? Request list of data"
+    },
+    "version": 3,
+    "datetime": "2018-06-13T16:27:06.917Z",
+    "policy": "public",
+    "requestId": "b2997244-3579-4898-86ae-c0395c2db1ee",
+    "serviceName": "api",
+    "message": "OK",
+    "code": 200,
+    "type": "SUCCESS"
+}
+```
+
+**HTTP Request**
+
+<span class="get-button"> GET </span>
+```<%= config[:endpoint] %>/api/public/v3/billing/aggreate/streamingMinute```
+
+**Header Request**
+
+| Header   | Type   | Description                              | Required |
+|-------------|--------|---------------------------------------|---------|
+| Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
+
+**Body Request**
+
+| Parameter | Type | Description | Required |
+| ------------- | ------------- | ------------- | ------------- |
+| **fromDate** | *string* | Start date for list| **Yes** |
+| **toDate** | *string* | End date for list| **Yes** |
+
+
+**Response Parameters**
+
+| Parameter   | Type   | Description |
+|-------------|--------|-------------------------|
+| **url** | *string* | Your server URL for callback |
+| **method** | *enum* | Method of callback (get-post-put..) |
+

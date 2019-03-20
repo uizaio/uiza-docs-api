@@ -1,0 +1,219 @@
+## Create entity
+
+
+> Example Request
+
+```bash
+curl -X POST \
+  <%= config[:endpoint] %>/api/public/v3/media/entity \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "name": "The Evolution of Dance",
+    "url": "<%= config[:sample_video] %>",
+    "inputType": "http",
+    "description": "Judson Laipply did a fantastic job in performing various dance moves",
+    "shortDescription": "How good a dancer can you be?",
+    "poster": "<%= config[:sample_poster] %>",
+    "thumbnail": "<%= config[:sample_thumbnail] %>",
+    "metadataId": "16a9e425-efb0-4360-bd92-8d49da111e88",
+    "extendMetadata": {
+        "movie_category":"action",
+        "imdb_score":8.8,
+        "published_year":"2018"
+    },
+    "embedMetadata": {
+        "artist":"John Doe",
+        "album":"Album sample",
+        "genre":"Pop"
+    },
+    "metadataIds":["16a9e425-efb0-4360-bd92-8d49da111e88"]
+}'
+```
+
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.authorization = "<%= config[:token] %>"
+
+params = {
+  name: "The Evolution of Dance",
+  url: "<%= config[:sample_video] %>",
+  inputType: "http",
+  description: "Judson Laipply did a fantastic job in performing various dance moves",
+  shortDescription: "How good a dancer can you be?",
+  poster: "<%= config[:sample_poster] %>",
+  thumbnail: "<%= config[:sample_thumbnail] %>"
+}
+
+begin
+  entity = Uiza::Entity.create params
+  puts entity.id
+  puts entity.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+from uiza.api_resources.entity import Entity
+
+entity_data = {
+  "name": "The Evolution of Dance",
+  "url": "<%= config[:sample_video] %>",
+  "inputType": "http",
+  "description": "Judson Laipply did a fantastic job in performing various dance moves",
+  "shortDescription": "How good a dancer can you be?"
+}
+res, status_code = Entity().create(**entity_data)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$params = [
+  "name" => "Name entity",
+  "url" => "http://google.com",
+  "inputType" => "http"
+];
+
+$entity = Uiza\Entity::create($params);
+ ?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<%= config[:endpoint] %>";
+Uiza.apiKey = "<%= config[:token] %>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("name", "The Evolution of Dance");
+params.put("url", "<%= config[:sample_video] %>");
+params.put("inputType", InputType.HTTP.toString());
+params.put("description", "Judson Laipply did a fantastic job in performing various dance moves");
+params.put("shortDescription", "How good a dancer can you be?");
+params.put("poster", "<%= config[:sample_poster] %>");
+params.put("thumbnail", "<%= config[:sample_thumbnail] %>");
+
+try {
+  JsonObject entity = Entity.create(params);
+  System.out.println(entity.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.create({
+  'name': 'The Evolution of Dance',
+  'url': '<%= config[:sample_video] %>',
+  'inputType': 'http',
+  'description': 'Judson Laipply did a fantastic job in performing various dance moves'
+  'shortDescription': 'How good a dancer can you be?'
+}).then((res) => {
+  //Identifier of entity has been created
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
+)
+
+var typeHTTP = uiza.InputTypeHTTP
+params :=  &uiza.EntityCreateParams{
+  Name: uiza.String("The Evolution of Dance"),
+  URL: uiza.String("<%= config[:sample_video] %>"),
+  InputType: &typeHTTP,
+  Description: uiza.String("Judson Laipply did a fantastic job in performing various dance moves"),
+  ShortDescription: uiza.String("How good a dancer can you be?")
+}
+
+response, _ := entity.Create(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "<%= config[:token] %>",
+  ApiBase = "<%= config[:endpoint] %>"
+});
+
+var result = UizaServices.Entity.Create(new CreateEntityParameter()
+{
+  Name = "The Evolution of Dance",
+  InputType = EntityInputTypes.S3Uiza,
+  Description = "Judson Laipply did a fantastic job in performing various dance moves"
+  ShortDescription = "How good a dancer can you be?"
+  URL = ""
+});
+
+Console.WriteLine(string.Format("Create New Entity Id = {0} Success", result.Data.id));
+```
+
+Entities can be created with the following types of link: HTTP, FTP, S3.
+
+```text
+With S3 URL, it must be public accessible.
+```
+
+> Entity Object
+
+```json
+{
+  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
+}
+```
+
+**HTTP Request**
+
+<span class="post-button"> POST </span>
+```<%= config[:endpoint] %>/api/public/v3/media/entity```
+
+**Entity Object**
+
+| Attribute | Description | Required |
+| ------------- | ------------- | ------------- |
+| **name** *string* | The video's name, meant to be displayable to end users. | **Yes** |
+| **url** *text* | URL of media file (HTTP/HTTPS, FTP, S3). Send **empty string** if you upload with SDK | **Yes** |
+| **inputType** *enum* | Type of URL (Acceptable valued: [ **http**&vert;**s3**&vert;**ftp**&vert;**s3-uiza** ] ). If `URL` is **empty**, this attribute must be **s3-uiza**  | **Yes** |
+| **description** *text* | The video's description, meant to be displayable to end users. Can contain up to 65,535 characters. |  |
+| **shortDescription** *text* | The video's short description, meant to be displayable to end users. Can contain up to 250 characters. |  |
+| **metadataId** *array* | MetadataID is [Category](#category) ID |  |
+| **poster** *string* | The video's poster `URL`, meant to be displayable to end users.  |  |
+| **thumbnail** *string* | The video's thumbnail `URL`, meant to be displayable to end users. |  |
+| **metadataIds** *array* | A list of categories for this entity. | |
+| **extendMetadata** *object* | A set of key-value pairs that you can attach to a video object, meant to be displayable to end users. |  |
+| **embedMetadata** *object* | A set of predefined key-value pairs that you can attach to a video object, meant to be displayable to end users. See [Embed Metadata](#embed-metadata). |  |
+
+
+
+
+
+**RETURNS**
+
+Returns an entity id if the call succeeded.
+
+| Parameter   | Type   | Description |
+|-------------|--------|-------------------------|
+| **id** | *string* | The identifier of the created entity. |
+
+```If you want to integrate with Uiza using AWS sdk to upload files to Uiza's storage. Please leave `URL` attribute **empty** and use `s3-uiza` for inputType attribute```

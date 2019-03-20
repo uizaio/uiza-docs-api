@@ -1,0 +1,126 @@
+## Delete an entity
+
+
+> Request
+
+```bash
+curl -X DELETE \
+  <%= config[:endpoint] %>/api/public/v3/media/entity?id=<%= config[:uiza_entity_id] %> \
+  -H 'Authorization: <%= config[:token] %>'
+```
+
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.authorization = "your-authorization"
+
+begin
+  entity = Uiza::Entity.delete "your-entity-id"
+  puts entity.id
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Entity().delete("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$entity = Uiza\Entity::retrieve("key ... ");
+$entity->destroy();
+
+// or
+
+Uiza\Entity::delete("key ...");
+?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<%= config[:endpoint] %>";
+Uiza.apiKey = "<%= config[:token] %>";
+
+try {
+  JsonObject entity = Entity.delete("<entity-id>");
+  System.out.println(entity.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.delete({'id': '5f1c78bd-69......'}).then((res) => {
+  // Identifier of entity has been deleted
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
+)
+
+params := &uiza.EntityDeleteParams{ID: uiza.String("Your entity ID")}
+response, _ := entity.Delete(params)
+log.Printf("%v\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+	ApiKey = "<%= config[:token] %>",
+	ApiBase = "<%= config[:endpoint] %>"
+});
+
+var result = UizaServices.Entity.Delete("Entity Id");
+Console.WriteLine(string.Format("Create New Entity Id = {0} Success", result.Data.id));
+```
+
+Permanently deletes a entity. It cannot be undone. Also immediately cancels any active subscriptions on the entity.
+
+> Response
+
+```json
+{
+  "id": "<%= config[:uiza_entity_id] %>"
+}
+```
+
+**HTTP Request**
+
+<span class="delete-button"> DELETE </span>
+```<%= config[:endpoint] %>/api/public/v3/media/entity```
+
+**ARGUMENTS**
+
+| Parameter | Type | Description | Required |
+| ------------- | ------------- | ------------- | ------------- |
+| **id** | *string* | The identifier of the entity to be deleted.| **Yes** |
+
+
+**RETURNS**
+
+Returns an id with a deleted parameter on success. If the entity ID does not exist, this call returns an [error](#errors).
+
+| Parameter   | Type   | Description |
+|-------------|--------|-------------------------|
+| **id** | *string* | Identifier of entity has been deleted |

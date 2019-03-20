@@ -1,0 +1,155 @@
+## Update an entity
+
+
+> Request
+
+```bash
+curl -X PUT \
+  <%= config[:endpoint] %>/api/public/v3/media/entity \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "id": "<%= config[:uiza_entity_id] %>",
+    "name": "The Evolution of Dance 2",
+    "description": "Judson Laipply did it again with a fantastic job in performing better dance moves",
+    "shortDescription":"You can never be as good a dancer as Judson Laipply.",
+    "poster": "<%= config[:sample_poster] %>",
+    "thumbnail": "<%= config[:sample_thumbnail] %>",
+    "extendMetadata":{
+        "movie_category":"action",
+        "imdb_score":8.8,
+        "published_year":"2018"
+	}
+}'
+```
+
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.authorization = "your-authorization"
+
+params = {
+  id: "your-entity-id",
+  name: "Name edited"
+}
+
+begin
+  entity = Uiza::Entity.update params
+  puts entity.id
+  puts entity.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+res, status_code = Entity().update(id="33a86c18-f502-41a4-9c4c-d4e14efca238", name="Update title")
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+$entity = Uiza\Entity::retrieve("key ... ");
+$entity->name = "Name change";
+$entity->save();
+
+// or
+
+Uiza\Entity::update("key ..", ["name" => "Name change"]);
+?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<%= config[:endpoint] %>";
+Uiza.apiKey = "<%= config[:token] %>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("name", "Name edited");
+params.put("description", "Description edited");
+
+try {
+  JsonObject entity = Entity.update("<entity-id>", params);
+  System.out.println(entity.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.update({
+  'id': '16de511f-5.......',
+  'name': '--Title edited--',
+}).then((res) => {
+  // Identifier of entity has been updated
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
+)
+params := &uiza.EntityUpdateParams{
+  ID: uiza.String("Your entity ID"),
+  Name: uiza.String("Update entity name"),
+}
+response, _ := entity.Update(params)
+log.Printf("%v\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+	ApiKey = "<%= config[:token] %>",
+	ApiBase = "<%= config[:endpoint] %>"
+});
+
+var result = uizaServices.Entity.Update(new UpdateEntityParameter()
+{
+	Id = "Entity Id",
+	Name = "Sample update",
+	Description = "Description update",
+	ShortDescription = "ShortDescription update",
+	Poster = "/example.com/updatePoster",
+	Thumbnail = "/example.com/updateThumbnail"
+});
+Console.WriteLine(string.Format("Update Entity Id = {0} Success", result.Data.id));
+```
+
+Updates the specified entity by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the name parameter, that becomes the entity’s new name.
+This request accepts mostly the same arguments as the entity creation call.
+
+> Response
+
+```json
+{
+  "id": "<%= config[:uiza_entity_id] %>"
+}
+```
+
+**HTTP Request**
+
+<span class="put-button"> PUT </span>
+```<%= config[:endpoint] %>/api/public/v3/media/entity```
+
+
+**RETURNS**
+
+Returns the entity id if the update succeeded. Returns an error if update parameters are invalid (e.g. specifying an invalid inputType or an invalid metadataId).
