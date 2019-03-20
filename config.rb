@@ -1,4 +1,4 @@
-# Unique header generation
+# Unique header eneration
 require './lib/unique_head.rb'
 
 # Markdown
@@ -63,3 +63,17 @@ set :port, 4567
 helpers do
   require './lib/toc_data.rb'
 end
+
+# Global Variables
+set :endpoint, 'https://api.uiza.co'
+config[:endpoint]
+set :token, 'uap-b2a3e6307dcf421a8a455825c01de914-a03248e7'
+config[:token]
+set :sample_video, 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_10mb.mp4'
+config[:sample_video]
+set :sample_poster, 'https://sample-videos.com/img/Sample-jpg-image-200kb.jpg'
+config[:sample_poster]
+set :sample_thumbnail, 'https://sample-videos.com/img/Sample-jpg-image-200kb.jpg'
+config[:sample_thumbnail]
+set :uiza_entity_id, '16ab25d3-fd0f-4568-8aa0-0339bbfd674f'
+config[:uiza_entity_id]

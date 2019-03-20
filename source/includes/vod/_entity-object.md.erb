@@ -1,0 +1,47 @@
+## The entity object
+
+```json
+{
+  "id": "<%= config[:uiza_entity_id] %>",
+  "name": "The Evolution of Dance",
+  "description": "Judson Laipply did a fantastic job in performing various dance moves",
+  "shortDescription": "How good a dancer can you be?",
+  "view": 0,
+  "poster": "<%= config[:sample_poster] %>",
+  "thumbnail": "<%= config[:sample_thumbnail] %>",
+  "type": "vod",
+  "status": 1,
+  "duration": "237.865215",
+  "publishToCdn":"success",
+  "metadataId": "16a9e425-efb0-4360-bd92-8d49da111e88",
+  "embedMetadata": {
+      "artist": "John Doe",
+      "album": "Album sample",
+      "genre": "Pop"
+  },
+  "extendMetadata": {
+      "movie_category":"action",
+      "imdb_score":8.8,
+      "published_year":"2018"
+  },
+  "createdAt": "2018-06-16T18:54:15.000Z",
+  "updatedAt": "2018-06-16T18:54:29.000Z"
+}
+```
+
+| Attribute   | Type   | Description |
+|-------------|--------|-------------------------|
+| **id** | *string* | Identifier of entity |
+| **name** | *string* | Name of entity |
+| **description** | *string* | Full description for entity (without max-length) |
+| **shortDescription** | *string* | Short description of entity (250 characters) |
+| **view** | *number* | Total view of entity |
+| **poster** | *string* | Poster of entity |
+| **thumbnail** | *string* | Thumbnail of entity |
+| **type** | *enum* | Has 2 types: VOD and AOD <span onclick="this.classList.toggle('inactive')" class = "tool-tip inactive"><br><i> VOD stand for Video On Demand. AOD stand for Audio On Demand.</i></span> |
+| **duration** | *string* | Duration of entity in seconds |
+| **publishToCdn** | *string* | Status of publish task, include [ **queue**, **not-ready**, **success**, **failed** ] |
+| **embedMetadata** | *object* | See [Embed Metadata](#embed-metadata) for more information |
+| **extendData** | *object* | Additional information of entity that already input while creating entity |
+| **createdAt** | *datetime* | Time created entity |
+| **updatedAt** | *datetime* | Last edited time of entity |

@@ -421,6 +421,10 @@ html, body {
   }
 
   table {
+    &.right {
+      width: 50%;
+      margin-left: calc((100vw - 20px) * .45);
+    }
     margin-bottom: 1em;
     overflow: auto;
     th,td {
@@ -494,6 +498,13 @@ html, body {
     padding: 3px;
     border-radius: $border-radius;
     @extend %break-words;
+    &.language-bash {
+      &:before {
+        content: "$ ";
+        color: $bash-dollar-color;
+      }
+      color: $bash-color;
+    }
     @extend %code-font;
   }
 

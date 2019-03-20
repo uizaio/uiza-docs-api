@@ -19,6 +19,13 @@ under the License.
   if current_page.data.includes
     current_page.data.includes.each do |include|
       page_content += partial("includes/#{include}")
+      # TODO implement was this helpful here
+      page_content += '
+      <p class="csat-widget">
+        <span class="csat-widget-text">Was this section helpful?</span>
+        <span class="csat-button csat-button-yes common-Button">Yes</span>
+        <span class="csat-button csat-button-no common-Button">No</span>
+      </p>'.html_safe
     end
   end
 %>
@@ -55,21 +62,7 @@ under the License.
       gtag('config', 'UA-117975538-1');
       gtag('config', 'UA-122873722-2');
     </script>
-    <script>
-      //Set your APP_ID
-      var APP_ID = "ctojplwt";
-      var obIntercom = { app_id : APP_ID };
-      var arrKey = ['userAgent','platform', 'language', 'geolocation' , 'appVersion', 'cookieEnabled'];
-      for(var i=0; i < arrKey.length; i++){
-        var key = arrKey[i];
-        if(window.navigator[key] && typeof(window.navigator[key]) ==='string' )  obIntercom[key] = window.navigator[key];
-      }
-      if(window.location.href)  obIntercom.href = window.location.href;
-      if(window.location.hostname)  obIntercom.hostname = window.location.hostname;
-      if(window.location.host)  obIntercom.host = window.location.host;
-      window.intercomSettings = obIntercom;
-      (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/' + APP_ID;var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
-    </script>
+    
 
     <!-- Google Tag Manager -->
       <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -81,7 +74,7 @@ under the License.
 
   </head>
 
-  <body class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
+  <body id="api-reference" class="<%= page_classes %>" data-languages="<%=h language_tabs.map{ |lang| lang.is_a?(Hash) ? lang.keys.first : lang }.to_json %>">
     <a href="#" id="nav-button">
       <span>
         NAV

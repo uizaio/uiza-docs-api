@@ -1,0 +1,239 @@
+## Search entity
+
+
+> Example Request
+
+```bash
+curl -X GET \
+  <%= config[:endpoint] %>/api/public/v3/media/entity/search?keyword=dance \
+  -H 'Authorization: <%= config[:token] %>'
+```
+
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.authorization = "your-authorization"
+
+begin
+  entities = Uiza::Entity.search "your-keyword"
+  puts entities.first.id
+  puts entities.first.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+import uiza
+
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Entity().search(keyword="Title")
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
+```
+
+```php
+<?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  $entity = Uiza\Entity::search(["keyword" => "sample"]);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
+?>
+```
+
+```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
+import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
+
+public class Main {
+
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
+
+    try {
+      JsonArray response = Entity.search("keyword");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+}
+```
+
+```javascript
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
+
+const params = {
+  'keyword': 'sample'
+};
+
+uiza.entity.search(params)
+  .then((res) => {
+    // Response search entity base on keyword entered
+  }).catch((err) => {
+    //Error
+  });
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
+)
+
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.EntitySearchParams{Keyword: uiza.String("Sample")}
+listEntity, err := entity.Search(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
+```
+
+```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
+});
+
+try
+{
+  var result = UizaServices.Entity.Search("Sample");
+
+  Console.WriteLine(string.Format("Search Success, total record {0}", result.Data.Count));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
+```
+
+Search entity base on keyword entered
+
+> Response
+
+```json
+{
+    "data": [
+      {
+          "id": "<%= config[:uiza_entity_id] %>",
+          "name": "Sample Video 001",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "shortDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+          "view": 0,
+          "poster": "https://example.com/picture001",
+          "thumbnail": "https://example.com/picture002",
+          "type": "vod",
+          "status": 1,
+          "duration": "237.865215",
+          "publishToCdn":"success",
+          "embedMetadata": {
+              "artist": "John Doe",
+              "album": "Album sample",
+              "genre": "Pop"
+          },
+          "extendMetadata": {
+              "movie_category":"action",
+              "imdb_score":8.8,
+              "published_year":"2018"
+          },
+          "createdAt": "2018-06-16T18:54:15.000Z",
+          "updatedAt": "2018-06-16T18:54:29.000Z"
+      },
+      {
+          "id": "<%= config[:uiza_entity_id] %>",
+          "name": "Sample video test",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "shortDescription": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+          "view": 0,
+          "poster": "https://example.com/picture003",
+          "thumbnail": "https://example.com/picture004",
+          "type": "vod",
+          "status": 1,
+          "duration": "178.178105",
+          "publishToCdn":"success",
+          "embedMetadata": {
+              "artist": "Jane Roe",
+              "album": "Album global 3",
+              "genre": "Country"
+          },
+          "extendMetadata": {
+              "movie_category":"action",
+              "imdb_score":8.8,
+              "published_year":"2018"
+          },
+          "createdAt": "2018-06-16T18:54:15.000Z",
+          "updatedAt": "2018-06-16T18:54:29.000Z"
+      }
+    ],
+    "metadata": {
+            "total": 2,
+            "result": 2,
+            "page": 1,
+            "limit": 20
+        },
+}
+```
+
+**HTTP Request**
+
+<span class="get-button"> GET </span>
+```<%= config[:endpoint] %>/api/public/v3/media/entity/search```
+
+**Body Request**
+
+| Parameter | Type | Description | Required |
+| ------------- | ------------- | ------------- | ------------- |
+| **keyword** | *string* | Keyword to search for | **Yes** |
+
+
+**RETURNS**
+
+A dictionary with a `data` property that contains an array of up to `limit` entities, starting after entity `page`. Each entry in the array is a separate entity object. If no more entities are available, the resulting array will be empty. This request should never return an error.

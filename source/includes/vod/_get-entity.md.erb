@@ -1,0 +1,146 @@
+## Retrieve an entity
+
+
+> Request
+
+```bash
+curl -X GET \
+  <%= config[:endpoint] %>/api/public/v3/media/entity?id=<%= config[:uiza_entity_id] %> \
+  -H 'Authorization: <%= config[:token] %>' \
+```
+
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.authorization = "your-authorization"
+
+begin
+  entity = Uiza::Entity.retrieve "your-entity-id"
+  puts entity.id
+  puts entity.name
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+entity_id = '33a86c18-f502-41a4-9c4c-d4e14efca238'
+
+res, status_code = Entity().retrieve(entity_id)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
+```php
+<?php
+Uiza\Entity::retrieve("key ... ");
+ ?>
+```
+
+```java
+import io.uiza.model.Entity;
+
+Uiza.apiDomain = "<%= config[:endpoint] %>";
+Uiza.apiKey = "<%= config[:token] %>";
+
+try {
+  JsonObject entity = Entity.retrieve("<entity-id>");
+  System.out.println(entity.get("name"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
+```javascript
+uiza.entity.retrieve({
+  'id': 'd1781e62-2d2c-4e3c-b8de-e808e50ac845'
+}).then((res) => {
+  //Identifier of entity
+}).catch((err) => {
+  //Error
+});
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
+)
+
+params := &uiza.EntityRetrieveParams{ID: uiza.String("Your entity ID")}
+response, _ := entity.Retrieve(params)
+log.Printf("%s\n", response)
+```
+
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+	ApiKey = "<%= config[:token] %>",
+	ApiBase = "<%= config[:endpoint] %>"
+});
+
+var result = UizaServices.Entity.Retrieve("Entity Id");
+Console.WriteLine(string.Format("Get Entity Id = {0} Success", result.Data.id));
+```
+
+Retrieves the details of an existing entity. Supply the unique entity ID from either an entity creation request or the entity list, and Uiza will return the corresponding entity information.
+
+> Response
+
+```json
+{
+  "id": "<%= config[:uiza_entity_id] %>",
+  "name": "The Evolution of Dance",
+  "description": "Judson Laipply did a fantastic job in performing various dance moves",
+  "shortDescription": "How good a dancer can you be?",
+  "view": 0,
+  "poster": "<%= config[:sample_poster] %>",
+  "thumbnail": "<%= config[:sample_thumbnail] %>",
+  "type": "vod",
+  "status": 1,
+  "duration": "237.865215",
+  "publishToCdn":"success",
+  "metadataId": "16a9e425-efb0-4360-bd92-8d49da111e88",
+  "embedMetadata": {
+      "artist": "John Doe",
+      "album": "Album sample",
+      "genre": "Pop"
+  },
+  "extendMetadata": {
+      "movie_category":"action",
+      "imdb_score":8.8,
+      "published_year":"2018"
+  },
+  "createdAt": "2018-06-16T18:54:15.000Z",
+  "updatedAt": "2018-06-16T18:54:29.000Z"
+}
+```
+
+**HTTP Request**
+
+<span class="get-button"> GET </span>
+```<%= config[:endpoint] %>/api/public/v3/media/entity?id=<%= config[:uiza_entity_id] %>```
+
+**ARGUMENTS**
+
+| Parameter | Type | Description | Required |
+| ------------- | ------------- | ------------- | ------------- |
+| **id** | *string* | The identifier of the video to be retrieved. | **Yes** |
+
+
+**RETURNS**
+
+Returns a entity object if a valid identifier was provided.
+
