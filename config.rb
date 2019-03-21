@@ -65,7 +65,7 @@ helpers do
 end
 
 # Global Variables
-set :endpoint, 'https://api.uiza.co'
+set :endpoint, 'https://api.uiza.co/api/public/v4'
 config[:endpoint]
 set :token, 'uap-b2a3e6307dcf421a8a455825c01de914-a03248e7'
 config[:token]

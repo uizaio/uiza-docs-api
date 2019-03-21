@@ -5,7 +5,7 @@
 
 ```bash
 curl -X DELETE \
-  <%= config[:endpoint] %>/api/public/v3/media/entity/related/metadata \
+  <%= config[:endpoint] %>/media/entity/related/metadata \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -160,7 +160,7 @@ Delete  relation for entity and category
 **HTTP Request**
 
 <span class="delete-button"> DELETE </span>
-```<%= config[:endpoint] %>/api/public/v3/media/entity/related/metadata```
+```<%= config[:endpoint] %>/media/entity/related/metadata```
 
 **Header Request**
 

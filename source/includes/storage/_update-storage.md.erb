@@ -7,7 +7,7 @@ Update storage's information
 
 ```bash
 curl -X PUT \
-  <%= config[:endpoint] %>/api/public/v3/media/storage \
+  <%= config[:endpoint] %>/media/storage \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -178,7 +178,7 @@ Console.WriteLine(string.Format("Update Storage Id = {0} Success", result.Data.i
 **HTTP Request**
 
 <span class="put-button"> PUT </span>
-```<%= config[:endpoint] %>/api/public/v3/media/storage```
+```<%= config[:endpoint] %>/media/storage```
 
 **Header Request**
 

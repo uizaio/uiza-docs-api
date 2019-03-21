@@ -4,7 +4,7 @@
 
 ```bash
 curl -X PUT \
-  <%= config[:endpoint] %>/api/public/v3/live/entity/feed \
+  <%= config[:endpoint] %>/live/entity/feed \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -114,7 +114,7 @@ Stop live event
 **HTTP Request**
 
 <span class="put-button"> PUT </span>
-```<%= config[:endpoint] %>/api/public/v3/live/entity/feed```
+```<%= config[:endpoint] %>/live/entity/feed```
 
 **Header Request**
 

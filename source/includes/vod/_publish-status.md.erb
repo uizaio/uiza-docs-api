@@ -5,8 +5,8 @@
 
 ```bash
 curl -X GET \
-  <%= config[:endpoint] %>/api/public/v3/media/entity/publish/status?id=<%= config[:uiza_entity_id] %> \
-  -H 'Authorization: <%= config[:token] %>' \
+  <%= config[:endpoint] %>/media/entity/publish/status?id=<%= config[:uiza_entity_id] %> \
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby
@@ -107,7 +107,7 @@ Checks progress of a publishing request. You need only supply the unique publish
 **HTTP Request**
 
 <span class="get-button"> GET </span>
-```<%= config[:endpoint] %>/api/public/v3/media/entity/publish/status```
+```<%= config[:endpoint] %>/media/entity/publish/status```
 
 **Arguments**
 
@@ -118,7 +118,7 @@ Checks progress of a publishing request. You need only supply the unique publish
 
 **RETURNS**
 
-Return `progress` and `status` of the publishing task if a valid identifier was provided. A successful task will have `progress` equals 100 (percent) and `status` as **success**
+Return `progress` and `status` of the publishing task if a valid identifier was provided. A successful task will have `progress` equals 100 (percent) and **success** as `status`.
 
 | Parameter   | Description             |
 |-------------|-------------------------|

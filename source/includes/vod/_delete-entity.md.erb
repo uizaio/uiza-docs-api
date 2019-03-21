@@ -5,7 +5,7 @@
 
 ```bash
 curl -X DELETE \
-  <%= config[:endpoint] %>/api/public/v3/media/entity?id=<%= config[:uiza_entity_id] %> \
+  <%= config[:endpoint] %>/media/entity?id=<%= config[:uiza_entity_id] %> \
   -H 'Authorization: <%= config[:token] %>'
 ```
 
@@ -108,7 +108,7 @@ Permanently deletes a entity. It cannot be undone. Also immediately cancels any 
 **HTTP Request**
 
 <span class="delete-button"> DELETE </span>
-```<%= config[:endpoint] %>/api/public/v3/media/entity```
+```<%= config[:endpoint] %>/media/entity```
 
 **ARGUMENTS**
 

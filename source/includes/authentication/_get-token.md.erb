@@ -4,7 +4,7 @@
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/admin/user/auth \
+  <%= config[:endpoint] %>/admin/user/auth \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -d '{"username": "test@uiza.co",
@@ -37,7 +37,7 @@ Get an access token that provides temporary, used to secure access to Uiza's API
 **HTTP Request**
 
 <span class="post-button"> POST </span>
-```<%= config[:endpoint] %>-api.uiza.co/api/public/v3/admin/user/auth```
+```<%= config[:endpoint] %>-api.uiza.co/admin/user/auth```
 
 | Parameter   | Type   | Description | Required |
 |-------------|--------|-------------|---------|

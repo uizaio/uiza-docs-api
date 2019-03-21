@@ -4,7 +4,7 @@
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/admin/user/auth/check-token \
+  <%= config[:endpoint] %>/admin/user/auth/check-token \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
 ```
@@ -35,7 +35,7 @@ Token will expire within 30 days, you can check token's expire time by calling t
 
 <span class="post-button"> POST </span>
 
-`<%= config[:endpoint] %>/api/public/v3/admin/user/auth/check-token`
+`<%= config[:endpoint] %>/admin/user/auth/check-token`
 
 | Header   | Type   | Description | Required |
 |-------------|--------|-------------|---------|

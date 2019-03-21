@@ -4,7 +4,7 @@
 
 ```bash
 curl -X DELETE \
-  <%= config[:endpoint] %>/api/public/v3/live/entity/dvr \
+  <%= config[:endpoint] %>/live/entity/dvr \
   -H 'Authorization: uap-bfd2314eac8d463395a304d3141d172b-6a641000' \
   -d '{
 	"id":"009596b1-f751-4102-86f7-7290a9f3f0cf"
@@ -116,7 +116,7 @@ Delete a recorded file
 **HTTP Request**
 
 <span class="delete-button"> DELETE </span>
-```<%= config[:endpoint] %>/api/public/v3/live/entity/dvr```
+```<%= config[:endpoint] %>/live/entity/dvr```
 
 **Header Request**
 

@@ -4,7 +4,7 @@
 
 ```bash
 curl -X GET \
-  '<%= config[:endpoint] %>/api/public/v3/analytic/entity/video-quality/type?start_date=2018-09-01&end_date=2018-11-25&type_filter=country' \
+  '<%= config[:endpoint] %>/analytic/entity/video-quality/type?start_date=2018-09-01&end_date=2018-11-25&type_filter=country' \
   -H 'Authorization: <%= config[:token] %>' \
 ```
 
@@ -161,7 +161,7 @@ Get data base on 5 type of filter: **country**, **device**, **title**, **player*
 **HTTP Request**
 
 <span class="get-button"> GET </span>
-```<%= config[:endpoint] %>/api/public/v3/analytic/entity/video-quality/type```
+```<%= config[:endpoint] %>/analytic/entity/video-quality/type```
 
 **Header Request**
 

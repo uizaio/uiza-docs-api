@@ -6,7 +6,7 @@ Create an user account for workspace
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/admin/user \
+  <%= config[:endpoint] %>/admin/user \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -204,7 +204,7 @@ Console.WriteLine(string.Format("Create New User Id = {0} Success", result.Data.
 **HTTP Request**
 
 <span class="post-button"> POST </span>
-```<%= config[:endpoint] %>/api/public/v3/admin/user```
+```<%= config[:endpoint] %>/admin/user```
 
 
 **Header Request**

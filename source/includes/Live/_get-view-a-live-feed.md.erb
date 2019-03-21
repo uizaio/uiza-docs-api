@@ -4,7 +4,7 @@
 
 ```bash
 curl -X GET \
-  <%= config[:endpoint] %>/api/public/v3/live/entity/tracking/current-view?id=f79cd626-bd60-4ef9-9790-c2066bcbdae9 \
+  <%= config[:endpoint] %>/live/entity/tracking/current-view?id=f79cd626-bd60-4ef9-9790-c2066bcbdae9 \
   -H 'Authorization: uap-a9ad1b44c05747e8870917e5ae9e956b-05a4fd49' \
   -H 'Cache-Control: no-cache'
 ```
@@ -119,7 +119,7 @@ This API use to get a live view status . This view only show when event has been
 **HTTP Request**
 
 <span class="get-button"> GET </span>
-```<%= config[:endpoint] %>/api/public/v3/live/entity/tracking/current-view?id=f79cd626-bd60-4ef9-9790-c2066bcbdae9```
+```<%= config[:endpoint] %>/live/entity/tracking/current-view?id=f79cd626-bd60-4ef9-9790-c2066bcbdae9```
 
 **Header Request**
 

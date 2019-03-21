@@ -4,7 +4,7 @@
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/live/entity/dvr/convert-to-vod \
+  <%= config[:endpoint] %>/live/entity/dvr/convert-to-vod \
   -H 'Authorization: uap-bfd2314eac8d463395a304d3141d172b-6a641000' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -118,7 +118,7 @@ Convert recorded file into VOD entity. After converted, your file can be stream 
 **HTTP Request**
 
 <span class="post-button"> POST </span>
-```<%= config[:endpoint] %>/api/public/v3/live/entity/dvr/convert-to-vod```
+```<%= config[:endpoint] %>/live/entity/dvr/convert-to-vod```
 
 **Header Request**
 
