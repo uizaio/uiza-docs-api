@@ -1,16 +1,12 @@
 ## Publish entity to CDN
 
 
-> Example Request
+> Request
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/media/entity/publish \
-  -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "id":"<%= config[:uiza_entity_id] %>"
-}'
+  <%= config[:endpoint] %>/api/public/v3/media/entity/publish?id=<%= config[:uiza_entity_id] %> \
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby
@@ -97,25 +93,17 @@ var result = UizaServices.Entity.Publish("Entity Id");
 Console.WriteLine(string.Format("Publish Entity Success : entityId = {0} ", result.Data.entityId));
 ```
 
-Publish entity to CDN, use for streaming
+All entities need to be [published](#publish-entity-to-cdn) before the public can access. Unpublished videos can still be [edited](#update-an-entity), [listed](#list-entities) by `API` or using `Dashboard` but [Player](#Player) will not play. 
 
-> Example Response
+```If you use Uiza's `Quick Start` on App's dashboard it will get published automatically.```
+
+> Response
 
 ```json
 {
-    "data": {
-        "id": "<%= config[:uiza_entity_id] %>",
-        "message": "Your entity started publish, check process status with this entity ID",
-        "entityId": "42ceb1ab-18ef-4f2e-b076-14299756d182"
-    },
-    "version": 3,
-    "datetime": "2018-06-22T19:30:58.896Z",
-    "policy": "public",
-    "requestId": "10a495a7-20f4-4efd-ac98-913889b56944",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+  "id": "<%= config[:uiza_entity_id] %>",
+  "message": "Your entity started publish, check process status with this entity ID",
+  "entityId": "42ceb1ab-18ef-4f2e-b076-14299756d182"
 }
 ```
 
@@ -124,23 +112,19 @@ Publish entity to CDN, use for streaming
 <span class="post-button"> POST </span>
 ```<%= config[:endpoint] %>/api/public/v3/media/entity/publish```
 
-**Header Request**
+**Arguments**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
-
-**Body Request**
-
-| Parameter | Type | Description | Required |
-| ------------- | ------------- | ------------- | ------------- |
-| **id** | *string* | Identifier of entity | **Yes** |
+| Parameter Type | Description | Required |
+| -------------- | ----------- | ------------- |
+| **id** *string* | Identifier of entity | **Yes** |
 
 
-**Response Parameters**
+**RETURNS**
 
-| Parameter   | Type   | Description |
-|-------------|--------|-------------------------|
-| **id** | *string* | Identifier of task publish |
-| **message** | *string* | Notification about publish status |
-| **entityId** | *string* | Identifier of entity |
+Return an identifier of the publishing request. Use `id` to [retrieve publishing status](#get-publish-status). The publishing process should take a few minutes to complete, varies by video's size and length.
+
+| Attribute   | Description |
+|-------------|-------------------------|
+| **id** *string* | The identifier of the publishing request |
+| **message** *string* | Detail message of the publishing request |
+| **entityId** *string* | The identifier of entity |

@@ -10,4 +10,6 @@ DELETE /api/public/v3/media/entity?id=:entity_id
 GET /api/public/v3/media/entity
 ```
 
-We call videos as `Entity`. You can create entities by uploading using HTTP, FTP, hyper links, S3 links. The API allows you to create, delete, and update entities. You can retrieve individual entities as well as a list of all your entities
+We call videos as `Entity`. You can create entities by uploading using HTTP, FTP, hyper links, S3 links. The API allows you to create, delete, and update entities. You can retrieve individual entities as well as a list of all your entities.
+
+All entities need to be [published](#publish-entity-to-cdn) before the public can access. Unpublished videos can still be [edited](#update-an-entity), [listed](#list-entities) by `API` or using `Dashboard` but [Player](#Player) will not play.
