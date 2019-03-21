@@ -29,19 +29,23 @@
 }
 ```
 
-| Attribute   | Type   | Description |
-|-------------|--------|-------------------------|
-| **id** | *string* | Identifier of entity |
-| **name** | *string* | Name of entity |
-| **description** | *string* | Full description for entity (without max-length) |
-| **shortDescription** | *string* | Short description of entity (250 characters) |
-| **view** | *number* | Total view of entity |
-| **poster** | *string* | Poster of entity |
-| **thumbnail** | *string* | Thumbnail of entity |
-| **type** | *enum* | Has 2 types: VOD and AOD <span onclick="this.classList.toggle('inactive')" class = "tool-tip inactive"><br><i> VOD stand for Video On Demand. AOD stand for Audio On Demand.</i></span> |
-| **duration** | *string* | Duration of entity in seconds |
-| **publishToCdn** | *string* | Status of publish task, include [ **queue**, **not-ready**, **success**, **failed** ] |
-| **embedMetadata** | *object* | See [Embed Metadata](#embed-metadata) for more information |
-| **extendData** | *object* | Additional information of entity that already input while creating entity |
-| **createdAt** | *datetime* | Time created entity |
-| **updatedAt** | *datetime* | Last edited time of entity |
+| Attribute | Description |
+| ------------- | ------------- |
+| **id** *string* | Identifier of entity |
+| **name** *string* | The video's name, meant to be displayable to end users. |
+| **url** *text* | URL of media file (HTTP/HTTPS, FTP, S3). Send **empty string** if you upload with SDK |
+| **inputType** *enum* | Type of URL (Acceptable values: [ **http**&vert;**s3**&vert;**ftp**&vert;**s3-uiza** ] ). If `URL` is **empty**, this attribute must be **s3-uiza**  |
+| **description** *text* | The video's description, meant to be displayable to end users. Can contain up to 65,535 characters. |
+| **shortDescription** *text* | The video's short description, meant to be displayable to end users. Can contain up to 250 characters. |
+| **metadataId** *array* | MetadataID is [Category](#category) ID |
+| **poster** *string* | The video's poster `URL`, meant to be displayable to end users.  |
+| **thumbnail** *string* | The video's thumbnail `URL`, meant to be displayable to end users. |
+| **type** *enum* | Has 2 types: VOD and AOD <span onclick="this.classList.toggle('inactive')" class = "tool-tip inactive"><br><i> VOD stand for Video On Demand. AOD stand for Audio On Demand.</i></span> |
+| **duration** *string* | Duration of entity in seconds. Measured up to oneth million of a second. |
+| **metadataIds** *array* | A list of categories of this entity. |
+| **view** *number* | Total times this entity has been viewed. |
+| **publishToCdn** *string* | Status of published task, possible values are [ **queue**, **not-ready**, **success**, **failed** ]
+| **extendMetadata** *object* | A set of key-value pairs that you can attach to a video object, meant to be displayable to end users. |
+| **embedMetadata** *object* | A set of predefined key-value pairs that you can attach to a video object, meant to be displayable to end users. See [Embed Metadata](#embed-metadata). |
+| **createdAt** *datetime* | The time at which the entity was created. The format is [ISO 8601](https://www.w3.org/TR/NOTE-datetime-970915). |
+| **updatedAt** *datetime* | The time at which the entity was last edited. The format is [ISO 8601](https://www.w3.org/TR/NOTE-datetime-970915). |

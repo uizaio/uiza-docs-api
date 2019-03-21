@@ -19,7 +19,7 @@ set :js_dir, 'javascripts'
 set :images_dir, 'images'
 set :fonts_dir, 'fonts'
 
-set :http_prefix, "/"
+set :http_prefix, ""
 #if ENV['DOC_ENV'] === "local"
 #  set :http_prefix, "/"
 #else
