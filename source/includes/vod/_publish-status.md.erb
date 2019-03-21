@@ -1,13 +1,12 @@
-## Get status publish
+## Get publish status
 
 
-> Example Request
+> Request
 
 ```bash
 curl -X GET \
   <%= config[:endpoint] %>/api/public/v3/media/entity/publish/status?id=<%= config[:uiza_entity_id] %> \
   -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
 ```
 
 ```ruby
@@ -153,24 +152,14 @@ catch (UizaException ex)
 }
 ```
 
-Publish entity to CDN, use for streaming
+Checks progress of a publishing request. You need only supply the unique publishing identifier that was returned upon [publishing entity](#publish-entity-to-cdn) request.
 
-> Example Response
+> Response
 
 ```json
 {
-    "data": {
-        "progress": 0,
-        "status": "processing"
-    },
-    "version": 3,
-    "datetime": "2018-06-22T19:32:39.986Z",
-    "policy": "public",
-    "requestId": "70d462bd-4a2d-4b38-8bbe-3578e91ead08",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+  "progress": 0,
+  "status": "processing"
 }
 ```
 
@@ -179,22 +168,18 @@ Publish entity to CDN, use for streaming
 <span class="get-button"> GET </span>
 ```<%= config[:endpoint] %>/api/public/v3/media/entity/publish/status```
 
-**Header Request**
+**Arguments**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
-
-**Body Request**
-
-| Parameter | Type | Description | Required |
-| ------------- | ------------- | ------------- | ------------- |
-| **id** | *string* | Identifier of entity | **Yes** |
+| Parameter       | Description   | Required |
+| --------------- | ------------- | ------------- |
+| **id** *string* | The identifier of the task received from publish API | **Yes** |
 
 
-**Response Parameters**
+**RETURNS**
 
-| Parameter   | Type   | Description |
-|-------------|--------|-------------------------|
-| **progress** | *number* | Progress of task publish, will be success when reach 100 |
-| **status** | *string* | Status of task publish (processing, success, error) |
+Return `progress` and `status` of the publishing task if a valid identifier was provided. A successful task will have `progress` equals 100 (percent) and `status` as **success**
+
+| Parameter   | Description             |
+|-------------|-------------------------|
+| **progress** *number* | Progress of the  task publish, in percentage |
+| **status** *string*   | Status of task publish (processing, success, error) |
