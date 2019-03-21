@@ -6,7 +6,7 @@ Updates the specified user by setting the values of the parameters passed. Any p
 
 ```bash
 curl -X PUT \
-  <%= config[:endpoint] %>/api/public/v3/admin/user \
+  <%= config[:endpoint] %>/admin/user \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -258,7 +258,7 @@ catch (UizaException ex)
 **HTTP Request**
 
 <span class="put-button"> PUT </span>
-```<%= config[:endpoint] %>/api/public/v3/admin/user```
+```<%= config[:endpoint] %>/admin/user```
 
 **Header Request**
 

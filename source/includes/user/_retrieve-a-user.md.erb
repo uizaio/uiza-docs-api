@@ -6,7 +6,7 @@ Retrieves the details of an existing user. You need only supply the unique userI
 
 ```bash
 curl -X GET \
-  <%= config[:endpoint] %>/api/public/v3/admin/user?id=37d6706e-be91-463e-b3b3-b69451dd4752 \
+  <%= config[:endpoint] %>/admin/user?id=37d6706e-be91-463e-b3b3-b69451dd4752 \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
 ```
@@ -185,7 +185,7 @@ catch (UizaException ex)
 **HTTP Request**
 
 <span class="get-button"> GET </span>
-```<%= config[:endpoint] %>/api/public/v3/admin/user```
+```<%= config[:endpoint] %>/admin/user```
 
 **Header Request**
 

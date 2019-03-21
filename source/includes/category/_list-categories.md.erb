@@ -5,7 +5,7 @@
 
 ```bash
 curl -X GET \
-  <%= config[:endpoint] %>/api/public/v3/media/metadata \
+  <%= config[:endpoint] %>/media/metadata \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
 ```
@@ -208,7 +208,7 @@ Get all category
 **HTTP Request**
 
 <span class="get-button"> GET </span>
-```<%= config[:endpoint] %>/api/public/v3/media/metadata```
+```<%= config[:endpoint] %>/media/metadata```
 
 **Header Request**
 

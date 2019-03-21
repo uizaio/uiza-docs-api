@@ -4,7 +4,7 @@
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/live/entity \
+  <%= config[:endpoint] %>/live/entity \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -272,7 +272,7 @@ Live Channel Minutes counts when the event starts.
 **HTTP Request**
 
 <span class="post-button"> POST </span>
-```<%= config[:endpoint] %>/api/public/v3/live/entity```
+```<%= config[:endpoint] %>/live/entity```
 
 **Header Request**
 

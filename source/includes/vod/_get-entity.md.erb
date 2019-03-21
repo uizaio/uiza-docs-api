@@ -5,7 +5,7 @@
 
 ```bash
 curl -X GET \
-  <%= config[:endpoint] %>/api/public/v3/media/entity?id=<%= config[:uiza_entity_id] %> \
+  <%= config[:endpoint] %>/media/entity?id=<%= config[:uiza_entity_id] %> \
   -H 'Authorization: <%= config[:token] %>' \
 ```
 
@@ -131,7 +131,7 @@ Retrieves the details of an existing entity. Supply the unique entity ID from ei
 **HTTP Request**
 
 <span class="get-button"> GET </span>
-```<%= config[:endpoint] %>/api/public/v3/media/entity?id=<%= config[:uiza_entity_id] %>```
+```<%= config[:endpoint] %>/media/entity?id=<%= config[:uiza_entity_id] %>```
 
 **ARGUMENTS**
 

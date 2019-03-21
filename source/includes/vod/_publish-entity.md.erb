@@ -5,7 +5,7 @@
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/media/entity/publish?id=<%= config[:uiza_entity_id] %> \
+  <%= config[:endpoint] %>/media/entity/publish?id=<%= config[:uiza_entity_id] %> \
   -H 'Authorization: <%= config[:token] %>'
 ```
 
@@ -168,7 +168,7 @@ All entities need to be [published](#publish-entity-to-cdn) before the public ca
 **HTTP Request**
 
 <span class="post-button"> POST </span>
-```<%= config[:endpoint] %>/api/public/v3/media/entity/publish```
+```<%= config[:endpoint] %>/media/entity/publish```
 
 **Arguments**
 

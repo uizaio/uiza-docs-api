@@ -5,7 +5,7 @@
 
 ```bash
 curl -X PUT \
-  <%= config[:endpoint] %>/api/public/v3/media/entity \
+  <%= config[:endpoint] %>/media/entity \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -199,7 +199,7 @@ This request accepts mostly the same arguments as the entity creation call.
 **HTTP Request**
 
 <span class="put-button"> PUT </span>
-```<%= config[:endpoint] %>/api/public/v3/media/entity```
+```<%= config[:endpoint] %>/media/entity```
 
 
 **RETURNS**

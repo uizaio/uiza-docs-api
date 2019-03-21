@@ -5,7 +5,7 @@
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/media/entity \
+  <%= config[:endpoint] %>/media/entity \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -186,7 +186,7 @@ With S3 URL, it must be public accessible.
 **HTTP Request**
 
 <span class="post-button"> POST </span>
-```<%= config[:endpoint] %>/api/public/v3/media/entity```
+```<%= config[:endpoint] %>/media/entity```
 
 **Entity Object**
 

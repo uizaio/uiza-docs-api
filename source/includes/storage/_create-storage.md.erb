@@ -8,7 +8,7 @@ You can sync your storage (FTP, AWS S3) with UIZA. After synced, you can select 
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/media/storage \
+  <%= config[:endpoint] %>/media/storage \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -243,7 +243,7 @@ catch (UizaException ex)
 **HTTP Request**
 
 <span class="post-button"> POST </span>
-```<%= config[:endpoint] %>/api/public/v3/media/storage```
+```<%= config[:endpoint] %>/media/storage```
 
 **Header Request**
 

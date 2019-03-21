@@ -4,7 +4,7 @@
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/media/entity/callback \
+  <%= config[:endpoint] %>/media/entity/callback \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
@@ -212,7 +212,7 @@ This API will allow you setup a callback to your server when an entity is comple
 **HTTP Request**
 
 <span class="post-button"> POST </span>
-```<%= config[:endpoint] %>/api/public/v3/media/entity/callback```
+```<%= config[:endpoint] %>/media/entity/callback```
 
 **Header Request**
 

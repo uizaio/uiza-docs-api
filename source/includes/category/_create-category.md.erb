@@ -5,7 +5,7 @@
 
 ```bash
 curl -X POST \
-  <%= config[:endpoint] %>/api/public/v3/media/metadata \
+  <%= config[:endpoint] %>/media/metadata \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -223,7 +223,7 @@ Create category for entity for easier management. Category use to group all the 
 **HTTP Request**
 
 <span class="post-button"> POST </span>
-```<%= config[:endpoint] %>/api/public/v3/media/metadata```
+```<%= config[:endpoint] %>/media/metadata```
 
 **Header Request**
 

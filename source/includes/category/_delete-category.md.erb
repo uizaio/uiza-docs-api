@@ -5,7 +5,7 @@
 
 ```bash
 curl -X DELETE \
-  <%= config[:endpoint] %>/api/public/v3/media/metadata \
+  <%= config[:endpoint] %>/media/metadata \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Cache-Control: no-cache' \
   -d '{
@@ -176,7 +176,7 @@ Delete category
 **HTTP Request**
 
 <span class="delete-button"> DELETE </span>
-```<%= config[:endpoint] %>/api/public/v3/media/metadata```
+```<%= config[:endpoint] %>/media/metadata```
 
 **Header Request**
 
