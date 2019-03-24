@@ -1,8 +1,8 @@
 ## Add a storage
 
-You can sync your storage (FTP, AWS S3) with UIZA. After synced, you can select your content easier from your storage to [create entity](#create-entity).
+Uiza allows you to add storages (FTP, S3 - both private and AWS) to your application. Storages can be used for [creating entities](#create-entity).
 
-> **Create a FTP Storage**
+> **Add a FTP Storage**
 
 > REQUEST
 
@@ -12,13 +12,31 @@ curl -X POST \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "name":"FTP Uiza",
-    "description":"FTP of Uiza, use for transcode",
-    "storageType":"ftp",
-    "host":"ftp-example.uiza.io",
-    "username":"uiza",
-    "password":"=59x@LPsd+w7qW",
-    "port":21
+    "name": "FTP Uiza",
+    "description": "FTP of Uiza, use for transcode",
+    "storageType": "ftp",
+    "host": "ftp-example.uiza.io",
+    "username": "uiza",
+    "password": "=59x@LPsd+w7qW",
+    "port": 21
+}'
+```
+
+> **Add a S3 Storage**
+
+```bash
+curl -X POST \
+  <%= config[:endpoint] %>/media/storage \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "name": "FTP Uiza",
+    "description": "FTP of Uiza, use for transcode",
+    "storageType": "ftp",
+    "host": "ftp-example.uiza.io",
+    "username": "uiza",
+    "password": "=59x@LPsd+w7qW",
+    "port": 21
 }'
 ```
 
@@ -166,17 +184,7 @@ Console.WriteLine(string.Format("Add New Storage Id = {0} Success", createResult
 
 ```json
 {
-    "data": {
-        "id": "cd003123-7ec9-4f3a-9d7c-f2de93e83e49"
-    },
-    "version": 3,
-    "datetime": "2018-06-19T03:01:56.476Z",
-    "policy": "public",
-    "requestId": "02387807-a0e2-4b06-9791-c45bcc9e1362",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+  "id": "cd003123-7ec9-4f3a-9d7c-f2de93e83e49"
 }
 ```
 
@@ -185,43 +193,35 @@ Console.WriteLine(string.Format("Add New Storage Id = {0} Success", createResult
 <span class="post-button"> POST </span>
 ```<%= config[:endpoint] %>/media/storage```
 
-**Header Request**
-
-
-
-
-
 **ARGUMENTS**
 
-### Add a FTP storage
+### FTP storage
 
-| Parameter   | Type   | Description | Required |
-|-------------|--------|-------------|---------|
-| name | *string* | Name of the storage| **Yes** |
-| host | *string* | Host name of the server or IP address | **Yes** |
-| port | *int* | Used port for FTP server. Normally will be 21 | **Yes** |
-| type | *string* | Storage can be FTP or AWS S3. Allowed values: **[S3, FTP]** | **Yes** |
-| username | *string* | Account username |  |
-| password | *string* | Account password |  |
-| description | *string* | Storage's description |  |
+| Parameter  | Description | Required |
+|-------------|-------------|---------|
+| **name** *string* | Storage's name. Used for references. | **Yes** |
+| **host** *string* | Host name or IP Address of the FTP server. | **Yes** |
+| **port** *int* | FTP Port. | **Yes** |
+| **type** *string* | Must be set to `ftp` for this storage type. | **Yes** |
+| **username** *string* | FTP username |  |
+| **password** *string* | FTP password |  |
+| **description** *string* | Storage's description |  |
 
-### Add a AWS S3 storage
+### S3 storage
 
-| Parameter   | Type   | Description | Required |
-|-------------|--------|-------------|---------|
-| name | *string* | Name of the storage| **Yes** |
-| host | *string* | Host name of the server or IP address | **Yes** |
-| port | *int* | Used port for S3 server. Normally will be 443  | **Yes** |
-| type | *string* | Storage can be FTP or AWS S3. Allowed values: **[S3, FTP]** | **Yes** |
-| awsAccessKey | *string* | AWS Access key ID |  |
-| awsSecretKey | *string* | AWS Secret key ID |  |
-| prefix | *string* |Prefix for objects store in AWS S3|  |
-| bucket | *string* |Bucket data of AWS S3|  |
-| region | *string* |AWS S3 region|  |
-| description | *string* | Storage's description |  |
+| Parameter   | Description | Required |
+|-------------|-------------|---------|
+| **name** *string* | Name of the storage| **Yes** |
+| **host** *string* | Host name or IP Address of the S3 server. | **Yes** |
+| **port** *int* | S3's port. Usually it's 443.  | **Yes** |
+| **type** *string* | Must be set to `s3` for this storage type. | **Yes** |
+| **awsAccessKey** *string* | AWS Access key ID. |  |
+| **awsSecretKey** *string* | AWS Secret key ID. |  |
+| **prefix** *string* | Prefix for objects store in this S3. |  |
+| **bucket** *string* | Bucket data of S3. |  |
+| **region** *string* | Storage's region, applicable for AWS S3. |  |
+| **description** *string* | Storage's description |  |
 
 **RETURNS**
 
-| Parameter   | Type   | Description |
-|-------------|--------|-------------------------|
-| **id** | *string* | Identifier of storage |
+Returns a storage identifier if the call succeeded.
