@@ -52,8 +52,9 @@ includes:
   - category/create-category-relation.md.erb
   - category/delete-category-relation.md.erb
   - storage/storage.md.erb
+  - storage/storage-object.md.erb
   - storage/create-storage.md.erb
-  - storage/get-storage.md.erb
+  - storage/retrieve-storage.md.erb
   - storage/update-storage.md.erb
   - storage/delete-storage.md.erb
   - Live/live-event.md.erb
