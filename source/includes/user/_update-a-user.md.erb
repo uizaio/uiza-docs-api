@@ -27,7 +27,7 @@ curl -X PUT \
 require "uiza"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 params = {
   id: "37d6706e-be91-463e-b3b3-b69451dd4752",
@@ -110,7 +110,7 @@ try {
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', 'your-authorization');
+const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', '<%= config[:token] %>');
 
 uiza.user.update({
   'id': '9e4df7c2-111d-4107-9c2e-6d2cb13c06f0',

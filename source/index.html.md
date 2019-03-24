@@ -41,7 +41,7 @@ includes:
   - vod/search.md.erb
   - vod/publish-entity.md.erb
   - vod/publish-status.md.erb
-  - vod/getawskey.md.erb
+  - vod/get-aws-key.md.erb
   - category/category.md.erb
   - category/create-category.md.erb
   - category/get-category.md.erb

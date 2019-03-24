@@ -15,7 +15,7 @@ curl -X PUT \
 ```ruby
 require "uiza"
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 begin
   live = Uiza::Live.stop_feed "your-live-id"
@@ -62,7 +62,7 @@ try {
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', 'your-authorization');
+const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', '<%= config[:token] %>');
 
 uiza.live.stop_feed('8bb4bb3e-0042-4be6-a5f0-25dc65145b14')
   .then((res) => {

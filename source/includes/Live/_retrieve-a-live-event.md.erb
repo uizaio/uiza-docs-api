@@ -16,7 +16,7 @@ curl -X GET \
 require "uiza"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 begin
   live = Uiza::Live.retrieve "your-live-id"
@@ -65,7 +65,7 @@ try {
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', 'your-authorization');
+const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', '<%= config[:token] %>');
 
 uiza.live.retrieve('1b2c6899-2bca-4d60-ae78-01d1c2f5a2ab')
   .then((res) => {

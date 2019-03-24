@@ -12,7 +12,7 @@ curl -X GET \
 require "uiza"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 params = {
   start_date: "YYYY-MM-DD hh:mm",
@@ -81,7 +81,7 @@ try {
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', 'your-authorization');
+const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', '<%= config[:token] %>');
 
 /** get_type */
 uiza.analytic.get_type({

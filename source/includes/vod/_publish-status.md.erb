@@ -13,7 +13,7 @@ curl -X GET \
 require "uiza"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 begin
   response = Uiza::Entity.get_status_publish "your-entity-id"

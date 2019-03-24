@@ -18,7 +18,7 @@ curl -X DELETE \
 require "uiza"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 begin
   user = Uiza::User.delete "your-user-id"
@@ -64,7 +64,7 @@ try {
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', 'your-authorization');
+const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', '<%= config[:token] %>');
 
 uiza.user.delete('9e4df7c2-111d-4107-9c2e-6d2cb13c06f0').then((res) => {
   //  Result of user has been deleted

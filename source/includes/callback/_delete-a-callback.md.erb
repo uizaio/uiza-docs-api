@@ -16,7 +16,7 @@ curl -X DELETE \
 require "uiza"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 begin
   callback = Uiza::Callback.delete "your-callback-id"
@@ -62,7 +62,7 @@ try {
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', 'your-authorization');
+const uiza = require('../lib/uiza')('<%= config[:endpoint] %>', '<%= config[:token] %>');
 
 uiza.callback.delete('1b1f97f9-9afd-46d1-a2e1-f3b3896374df').then((res) => {
   //Identifier of callback has been deleted

@@ -14,7 +14,7 @@ curl -X GET \
 require "json"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 begin
   storage = Uiza::Storage.retrieve "your-storage-id"
