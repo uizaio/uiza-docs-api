@@ -4,12 +4,8 @@
 
 ```bash
 curl -X DELETE \
-  <%= config[:endpoint] %>/media/entity/callback \
-  -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "id":"c54f115f-87b4-420c-9e52-e8dffe32e022"
-  }'
+  <%= config[:endpoint] %>/media/entity/callback?id=c54f115f-87b4-420c-9e52-e8dffe32e022
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby
@@ -100,17 +96,7 @@ Delete an existing callback.
 
 ```json
 {
-    "data": {
-        "id": "c54f115f-87b4-420c-9e52-e8dffe32e022"
-    },
-    "version": 3,
-    "datetime": "2018-06-23T01:30:46.699Z",
-    "policy": "public",
-    "requestId": "f0d39d74-376f-4091-9da7-dc9a95f854fc",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+  "id": "c54f115f-87b4-420c-9e52-e8dffe32e022"
 }
 ```
 
@@ -119,21 +105,13 @@ Delete an existing callback.
 <span class="delete-button"> DELETE </span>
 ```<%= config[:endpoint] %>/media/entity/callback```
 
-
-
-
-
-
-
 **ARGUMENTS**
 
-| Parameter | Type | Description | Required |
-| ------------- | ------------- | ------------- | ------------- |
-| **id** | *string* | Id of callback setting| **Yes** |
+| Parameter | Description | Required |
+| ------------- | ------------- | ------------- |
+| **id** *string* | The ID of the callback to be deleted.| **Yes** |
 
 
 **RETURNS**
 
-| Parameter   | Type   | Description |
-|-------------|--------|-------------------------|
-| **id** | *string* | Id of callback setting|
+Returns an ID of the deleted callback on success. Otherwise, this call returns an error.

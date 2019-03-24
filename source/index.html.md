@@ -79,7 +79,6 @@ includes:
   - analytic/type.md.erb
   - analytic/line.md.erb
   - embedData.md.erb
-  - error.md.erb
   - changelog.md.erb
 
 search: true

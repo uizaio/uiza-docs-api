@@ -1,0 +1,29 @@
+## The Callback Object
+
+> THE CALLBACK OBJECT
+
+```json
+{
+  "id": "0a6bf245-1cce-494f-a193-b5a44aa05558",
+  "url": "https://callback-url.uiza.co",
+  "headersData": null,
+  "jsonData": {
+    "text": "example callback"
+  },
+  "method": "POST",
+  "status": 1,
+  "createdAt": "2018-06-23T01:27:08.000Z",
+  "updatedAt": "2018-06-23T01:27:08.000Z"
+}
+```
+
+| Parameter   | Description |
+|-------------|-------------------------|
+| **id** *string* | The ID of the callback |
+| **url** *string* | The callback URL. |
+| **method** *enum* | The HTTP method of callback. Should only be `POST` or `GET` |
+| **jsonData** *object* | Extra data you want to attach when callback is called. |
+| **status** *integer* | TBD |
+| **headersData** *object* | The headers you want the callback to attach. |
+| **createdAt** *datetime* | The time at which the callback was created. The format is [ISO 8601](https://www.w3.org/TR/NOTE-datetime-970915). |
+| **updatedAt** *datetime* | The time at which the callback was last edited. The format is [ISO 8601](https://www.w3.org/TR/NOTE-datetime-970915). |

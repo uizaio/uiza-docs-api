@@ -6,11 +6,10 @@
 curl -X POST \
   <%= config[:endpoint] %>/media/entity/callback \
   -H 'Authorization: <%= config[:token] %>' \
-  -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -d '{
-    "url":"https://callback-url.uiza.co",
-    "method":"POST"
+    "url": "https://callback-url.uiza.co",
+    "method": "POST"
   }'
 ```
 
@@ -137,17 +136,7 @@ This API will allow you setup a callback to your server when an entity is comple
 
 ```json
 {
-    "data": {
-        "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
-    },
-    "version": 3,
-    "datetime": "2018-06-13T16:27:06.917Z",
-    "policy": "public",
-    "requestId": "b2997244-3579-4898-86ae-c0395c2db1ee",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
 }
 ```
 
@@ -156,24 +145,16 @@ This API will allow you setup a callback to your server when an entity is comple
 <span class="post-button"> POST </span>
 ```<%= config[:endpoint] %>/media/entity/callback```
 
-
-
-
-
-
-
 **ARGUMENTS**
 
-| Parameter | Type | Description | Required |
-| ------------- | ------------- | ------------- | ------------- |
-| **url** | *string* | Your server URL for callback | **Yes** |
-| **method** | *enum* | Method of callback (get-post-put..) | **Yes** |
-| **jsonData** | *object* | Extra data you want to attach in callback response |  |
-| **headersData** | *object* | Add parameter to headers |  |
+| Parameter  | Description | Required |
+| ------------- | ------------- | ------------- |
+| **url** *string* | The callback URL. | **Yes** |
+| **method** *enum* | HTTP method of callback. Should only be `POST` or `GET` | **Yes** |
+| **jsonData** *object* | Extra data you want to attach when callback is called. |  |
+| **headersData** *object* | The headers you want the callback to attach. |  |
 
 
 **RETURNS**
 
-| Parameter   | Type   | Description |
-|-------------|--------|-------------------------|
-| **id** | *string* | Id of callback setting |
+Returns a callback identifier if the call succeeded.

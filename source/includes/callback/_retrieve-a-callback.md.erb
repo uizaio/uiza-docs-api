@@ -100,26 +100,16 @@ Retrieves the details of an existing callback.
 
 ```json
 {
-    "data": {
-        "id": "0a6bf245-1cce-494f-a193-b5a44aa05558",
-        "url": "https://callback-url.uiza.co",
-        "headersData": null,
-        "jsonData": {
-          "text": "example callback"
-        },
-        "method": "POST",
-        "status": 1,
-        "createdAt": "2018-06-23T01:27:08.000Z",
-        "updatedAt": "2018-06-23T01:27:08.000Z"
-    },
-    "version": 3,
-    "datetime": "2018-06-23T01:28:47.240Z",
-    "policy": "public",
-    "requestId": "eaa569a4-e11d-4615-9def-d5c95a575cc2",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+  "id": "0a6bf245-1cce-494f-a193-b5a44aa05558",
+  "url": "https://callback-url.uiza.co",
+  "headersData": null,
+  "jsonData": {
+    "text": "example callback"
+  },
+  "method": "POST",
+  "status": 1,
+  "createdAt": "2018-06-23T01:27:08.000Z",
+  "updatedAt": "2018-06-23T01:27:08.000Z"
 }
 ```
 
@@ -128,25 +118,19 @@ Retrieves the details of an existing callback.
 <span class="get-button"> GET </span>
 ```<%= config[:endpoint] %>/media/entity/callback```
 
-
-
-
-
-
-
 **ARGUMENTS**
 
-| Parameter | Type | Description | Required |
-| ------------- | ------------- | ------------- | ------------- |
-| **id** | *string* | Id of callback setting| **Yes** |
+| Parameter | Description | Required |
+| ------------- | ------------- | ------------- |
+| **id** *string* | The ID of the callback.| **Yes** |
 
 
 **RETURNS**
 
-| Parameter   | Type   | Description |
-|-------------|--------|-------------------------|
-| **id** | *string* | Identifier of callback |
-| **url** | *string* | Your server URL for callback |
-| **method** | *enum* | Method of callback (get-post-put..) |
-| **jsonData** | *object* | Data you want you add to your callback as JSON format |
-| **headersData** | *object* | Parameter of header |
+| Parameter   | Description |
+|-------------|-------------------------|
+| **id** *string* | The ID of the callback |
+| **url** *string* | The callback URL. |
+| **method** *enum* | The HTTP method of callback. Should only be `POST` or `GET` |
+| **jsonData** *object* | Extra data you want to attach when callback is called. |
+| **headersData** *object* | The headers you want the callback to attach. |
