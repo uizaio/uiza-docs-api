@@ -6,7 +6,6 @@
 curl -X PUT \
   <%= config[:endpoint] %>/live/ \
   -H 'Authorization: <%= config[:token] %>' \
-  -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -d '{
     "id":"8b83886e-9cc3-4eab-9258-ebb16c0c73de",
@@ -148,23 +147,13 @@ var resultUpdate = UizaServices.Live.Update(new UpdateLiveStreamingParameter()
 Console.WriteLine(string.Format("Update Live Streaming Id = {0} Success", resultUpdate.Data.id));
 ```
 
-Update the specific Live event by edit values of parameters.
+Updates the specified live event by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
 > RESPONSE
 
 ```json
 {
-    "data": {
-        "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
-    },
-    "version": 3,
-    "datetime": "2018-06-13T16:27:06.917Z",
-    "policy": "public",
-    "requestId": "b2997244-3579-4898-86ae-c0395c2db1ee",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
 }
 ```
 
@@ -173,27 +162,19 @@ Update the specific Live event by edit values of parameters.
 <span class="put-button"> PUT </span>
 ```<%= config[:endpoint] %>/live/entity```
 
-
-
-
-
-| Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
-
 **ARGUMENTS**
 
-| Parameter | Type | Description | Required |
-| ------------- | ------------- | ------------- | ------------- |
-|**id**|*string*|Identifier of entity live|**Yes**|
-|**name**|*string*|The event name (limit 100 characters)|**Yes**|
-|**dvr**|*enum*|Feed after streamed will be recorded as a mp4 file <span onclick="this.classList.toggle('inactive')" class = "tool-tip inactive"><br><i>**0**: No record <p> </p> **1**: Active Feature record </i></span>|**Yes**|
-|**mode**|*integer*|Type of event ( ``pull`` or ``push``) <span onclick="this.classList.toggle('inactive')" class = "tool-tip inactive"><br><i>**Pull**: We has supported RTMP, HLS and direct Live Youtube link. Uiza pull feed from pull link and broadcast it using Uiza's SDK. **Push:** Uiza give you a **Publish endpoint**, you can push feed into the endpoint and Uiza will broadcast it using Uiza's SDK.</i></span>|**Yes**|
-|**encode**|*string*|Mode of live stream (``0`` = no encode, ``1`` = encoded)|**Yes**|
-|**resourceMode**|*enum*|Resource mode ( ``single`` = only 1 feed & output), ``redundant`` = more than 1 feed & output to backup)|**Yes**|
-
+| Parameter     | Description | Required |
+| ------------- | ------------- | ------------- |
+| **id** *string* | The identifier of the live event |**Yes**|
+| **name** *string* | The event's name (limit 100 characters) |**Yes**|
+| **description** *string* | An arbitrary string attached to the object. Often useful for displaying to users. | **YES** |
+| **dvr** *integer* | Decides wether to record a live stream. If set to `1`, a mp4 file will be created after the live stream ended. Set `0` to disable. | **YES** |
+| **mode** *string* | Type of event, allowed values [`pull`&vert;`push`]. <br />**Pull** links can either be a `RTMP` URL or a .m3u8 URL or a live youtube link <br />**Push**: Uiza will generate an end point. This end point can be used on Broadcasting softwares such as [OBS](https://obsproject.com/) to start your streaming. | **YES** |
+| **encode** *integer* | Set to `1` to enable live transcoding. Live transcoding will enable [Adaptive Bitrate](https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming) on the viewer's side which would help deliver a better viewing experience. When set to `0`, viewers will watch with source bitrate. | **Yes** |
+| **resourceMode** *enum* | Resource mode ( ``single`` = only 1 feed & output), ``redundant`` = more than 1 feed & output to backup)|**Yes**|
 
 
 **RETURNS**
 
-| Parameter   | Type   | Description |
-|-------------|--------|-------------------------|
-| **id** | *string* | Identifier of event has been updated|
+Returns the ID of the updated live event if the update succeeded.

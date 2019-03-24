@@ -1,0 +1,44 @@
+## The Live Event Object
+
+> THE LIVE STREAM OBJECT
+
+```json
+{
+  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de",
+  "name": "checking 01",
+  "description": "checking",
+  "mode": "pull",
+  "resourceMode": "single",
+  "encode": 0,
+  "channelName": "checking-01",
+  "lastPresetId": null,
+  "lastFeedId": null,
+  "poster": "https://example.com/poster.jpeg",
+  "thumbnail": "https://example.com/thumbnail.jpeg",
+  "linkPublishSocial": null,
+  "linkStream": "[\"https://www.youtube.com/watch?v=pQzaHPoNX1I\"]",
+  "lastPullInfo": null,
+  "lastPushInfo": null,
+  "lastProcess": null,
+  "eventType": null,
+  "createdAt": "2018-06-21T14:33:36.000Z",
+  "updatedAt": "2018-06-21T14:33:36.000Z"
+}
+```
+
+
+| Attribute  | Description |
+| ---------- | ----------- |
+| **name** *string* | The event's name (limit to 100 characters) |
+| **description** *string* | An arbitrary string attached to the object. Often useful for displaying to users. |
+| **mode** *string* | Type of event, allowed values [`pull`&vert;`push`]. <br />**Pull** links can either be a `RTMP` URL or a .m3u8 URL or a live youtube link <br />**Push**: Uiza will generate an end point. This end point can be used on Broadcasting softwares such as [OBS](https://obsproject.com/) to start your streaming. |
+| **linkStream** *array* | A list of streamable sources that will be used when `mode` = `pull`. |
+| **encode** *integer* | Set to `1` to enable live transcoding. Live transcoding will enable [Adaptive Bitrate](https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming) on the viewer's side which would help deliver a better viewing experience. When set to `0`, viewers will watch with source bitrate. |
+| **dvr** *integer* | Decides wether to record a live stream. If set to `1`, a mp4 file will be created after the live stream ended. Set `0` to disable. |
+| **linkPublishSocial** *array* | into of social feed will be shared to |
+| **poster** *string* | The video's poster `URL`, meant to be displayable to end users.  |
+| **thumbnail** *string* | An URL of the image that can be used to display to end users. |
+| **channelName** *string* | Key name of channel |
+| **resourceMode** *enum* | Resource mode ( ``single`` = only 1 feed & output), ``redundant`` = more than 1 feed & output to backup)|
+| **createdAt** *datetime* | The time at which the live event was created. The format is [ISO 8601](https://www.w3.org/TR/NOTE-datetime-970915). |
+| **updatedAt** *datetime* | The time at which the live event was last edited. The format is [ISO 8601](https://www.w3.org/TR/NOTE-datetime-970915). |
