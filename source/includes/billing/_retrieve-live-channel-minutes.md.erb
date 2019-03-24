@@ -1,12 +1,11 @@
 ## Retrieve Live Channel Minutes
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
   <%= config[:endpoint] %>/billing/aggreate/streamingMinute \
   -H 'Authorization: <%= config[:token] %>' \
-  -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -d '{
   "fromDate":"04/01/2018",
@@ -15,7 +14,7 @@ curl -X GET \
 ```
 Retrieves the details live channel minutes of your live event, it start when your event begin and the feed is started with the 1st signal
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -40,11 +39,11 @@ Retrieves the details live channel minutes of your live event, it start when you
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
+
+
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -52,7 +51,7 @@ Retrieves the details live channel minutes of your live event, it start when you
 | **toDate** | *string* | End date for list| **Yes** |
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

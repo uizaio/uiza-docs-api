@@ -1,6 +1,6 @@
 ## Line
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
@@ -187,7 +187,7 @@ catch (UizaException ex)
 }
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -243,12 +243,12 @@ catch (UizaException ex)
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
 
-**Body Request**
+
+
+
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -257,7 +257,7 @@ catch (UizaException ex)
 | **type** | *enum* | Value accept: [ **playback_failure_percentage**, **video_startup_time**, **aggregate_startup_time**, **exits_before_video_start**, **rebuffer_percentage**, **rebuffer_frequency**, **playback_failure_score**, **rebuffer_count**, **rebuffer_duration**, **upscale_percentage**, **downscale_percentage**, **max_upscale_percentage**, **max_downscale_percentage** ] | **Yes** |
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

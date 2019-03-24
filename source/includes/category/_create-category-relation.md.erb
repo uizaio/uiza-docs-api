@@ -1,7 +1,7 @@
 ## Create category relation
 
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X POST \
@@ -192,9 +192,9 @@ catch (UizaException ex)
 }
 ```
 
-Add relation for entity and category
+Category relation allows you to...
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -232,13 +232,7 @@ Add relation for entity and category
 <span class="post-button"> POST </span>
 ```<%= config[:endpoint] %>/media/entity/related/metadata```
 
-**Header Request**
-
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
-
-**Body Request**
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -246,8 +240,7 @@ Add relation for entity and category
 | **metadataIds** | *string* | Identifier of category | **Yes** |
 
 
-
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

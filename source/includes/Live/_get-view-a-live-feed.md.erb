@@ -1,6 +1,6 @@
 ## Get view of live feed
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
@@ -154,7 +154,7 @@ catch (UizaException ex)
 
 This API use to get a live view status . This view only show when event has been started and being processing.
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -181,11 +181,11 @@ This API use to get a live view status . This view only show when event has been
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
+
+
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -194,7 +194,7 @@ This API use to get a live view status . This view only show when event has been
 
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

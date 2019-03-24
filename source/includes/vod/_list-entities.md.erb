@@ -1,13 +1,12 @@
 ## List entities
 
 
-> Request
+> REQUEST
 
 ```bash
 curl -X GET \
   <%= config[:endpoint] %>/media/entity' \
-  -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby
@@ -168,7 +167,7 @@ catch (UizaException ex)
 
 Returns a list of entities. The entities are returned sorted by creation date, with the most recent entities appearing first.
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -236,7 +235,7 @@ Returns a list of entities. The entities are returned sorted by creation date, w
 <span class="get-button"> GET </span>
 ```<%= config[:endpoint] %>/media/entity```
 
-**Arguments**
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |

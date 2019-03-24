@@ -2,13 +2,12 @@
 
 Retrieves the details of an existing user. You need only supply the unique userId that was returned upon user creation.
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
   <%= config[:endpoint] %>/admin/user?id=37d6706e-be91-463e-b3b3-b69451dd4752 \
-  -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby
@@ -149,7 +148,7 @@ catch (UizaException ex)
 }
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -193,7 +192,7 @@ catch (UizaException ex)
 |-------------|--------|-------------|---------|
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -201,7 +200,7 @@ catch (UizaException ex)
 
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter | Type | Description |
 | ------------- | ------------- | ------------- |

@@ -1,6 +1,6 @@
 ## Retrieve a live event
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
@@ -156,7 +156,7 @@ catch (UizaException ex)
 
 Retrieves the details of an existing event. You need only provide the unique identifier of event that was returned upon Live event creation.
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -199,13 +199,13 @@ Retrieves the details of an existing event. You need only provide the unique ide
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
+
+
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
 
 
-**Body Request**
+**ARGUMENTS**
 
 
 | Parameter   | Type   | Description |
@@ -213,7 +213,7 @@ Retrieves the details of an existing event. You need only provide the unique ide
 | **id** | *string* | Identifier of live event.|
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |

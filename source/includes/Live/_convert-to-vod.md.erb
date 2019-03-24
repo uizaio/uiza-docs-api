@@ -1,6 +1,6 @@
 ## Convert into VOD
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X POST \
@@ -155,7 +155,7 @@ catch (UizaException ex)
 
 Convert recorded file into VOD entity. After converted, your file can be stream via Uiza's CDN.
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -180,19 +180,19 @@ Convert recorded file into VOD entity. After converted, your file can be stream 
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
+
+
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
 
-**Body Request**
+**ARGUMENTS**
 
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
 | **id** | *string* | Identifier of record (get from [list record](#list-record)) |
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

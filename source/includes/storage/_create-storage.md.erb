@@ -4,7 +4,7 @@ You can sync your storage (FTP, AWS S3) with UIZA. After synced, you can select 
 
 > **Create a FTP Storage**
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X POST \
@@ -222,7 +222,7 @@ catch (UizaException ex)
 }
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -247,11 +247,11 @@ catch (UizaException ex)
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+
+
+
+**ARGUMENTS**
 
 ### Add a FTP storage
 
@@ -280,7 +280,7 @@ catch (UizaException ex)
 | region | *string* |AWS S3 region|  |
 | description | *string* | Storage's description |  |
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

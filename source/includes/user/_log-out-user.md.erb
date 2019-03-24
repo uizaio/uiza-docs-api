@@ -2,13 +2,12 @@
 
 This API use to log out an user. After logged out, token will be removed.
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X POST \
   <%= config[:endpoint] %>/admin/user/logout \
-  -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby
@@ -151,7 +150,7 @@ catch (UizaException ex)
 }
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -176,13 +175,13 @@ catch (UizaException ex)
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
+
+
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

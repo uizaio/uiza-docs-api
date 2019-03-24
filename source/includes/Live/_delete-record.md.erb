@@ -1,6 +1,6 @@
 ## Delete a record file
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X DELETE \
@@ -154,7 +154,7 @@ catch (UizaException ex)
 
 Delete a recorded file
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -179,19 +179,19 @@ Delete a recorded file
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
+
+
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
 
-**Body Request**
+**ARGUMENTS**
 
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
 | **id** | *string* | Identifier of record (get from [list record](#list-record)) |
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter | Type | Description |
 | ------------- | ------------- | ------------- |

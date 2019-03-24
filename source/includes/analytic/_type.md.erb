@@ -1,6 +1,6 @@
 ## Type
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
@@ -188,7 +188,7 @@ catch (UizaException ex)
 }
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -224,11 +224,11 @@ Get data base on 5 type of filter: **country**, **device**, **title**, **player*
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+
+
+
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -237,7 +237,7 @@ Get data base on 5 type of filter: **country**, **device**, **title**, **player*
 | **type_filter** | *enum* | Value accept: [ **country**, **device**, **title**, **player**, **os** ] | **Yes** |
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
