@@ -57,16 +57,17 @@ includes:
   - storage/retrieve-storage.md.erb
   - storage/update-storage.md.erb
   - storage/delete-storage.md.erb
-  - Live/live-event.md.erb
-  - Live/create-a-live-event.md.erb
-  - Live/retrieve-a-live-event.md.erb
-  - Live/update-a-live-event.md.erb
-  - Live/start-a-live-feed.md.erb
-  - Live/get-view-a-live-feed.md.erb
-  - Live/stop-a-live-feed.md.erb
-  - Live/list-recorded-files.md.erb
-  - Live/delete-record.md.erb
-  - Live/convert-to-vod.md.erb
+  - live/live-event.md.erb
+  - live/the-live-event-object.md.erb
+  - live/create-a-live-event.md.erb
+  - live/retrieve-a-live-event.md.erb
+  - live/update-a-live-event.md.erb
+  - live/start-a-live-event.md.erb
+  - live/stop-a-live-event.md.erb
+  - live/retrieve-live-event-views.md.erb
+  - live/list-recorded-files.md.erb
+  - live/delete-record.md.erb
+  - live/convert-to-vod.md.erb
   - callback/callback.md.erb
   - callback/create-a-callback.md.erb
   - callback/retrieve-a-callback.md.erb

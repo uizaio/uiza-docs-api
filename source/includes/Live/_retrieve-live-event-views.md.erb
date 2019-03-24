@@ -1,12 +1,11 @@
-## Get view of live feed
+## Retrieve views
 
 > REQUEST
 
 ```bash
 curl -X GET \
   <%= config[:endpoint] %>/live/entity/tracking/current-view?id=f79cd626-bd60-4ef9-9790-c2066bcbdae9 \
-  -H 'Authorization: uap-a9ad1b44c05747e8870917e5ae9e956b-05a4fd49' \
-  -H 'Cache-Control: no-cache'
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby
@@ -152,52 +151,35 @@ catch (UizaException ex)
 }
 ```
 
-This API use to get a live view status . This view only show when event has been started and being processing.
+Retrieve the number of views of a running live event.
 
 > RESPONSE
 
 ```json
 {
-    "data": {
-        "stream_name": "peppa-pig-english-episodes",
-        "watchnow": 1,
-        "day": 1533271205999
-    },
-    "version": 3,
-    "datetime": "2018-08-03T04:40:27.804Z",
-    "policy": "public",
-    "requestId": "9f52c11d-c495-4d57-9129-baad2ab28b49",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+  "stream_name": "peppa-pig-english-episodes",
+  "watchnow": 1,
+  "day": 1533271205999
 }
 ```
 
 **HTTP Request**
 
 <span class="get-button"> GET </span>
-```<%= config[:endpoint] %>/live/entity/tracking/current-view?id=f79cd626-bd60-4ef9-9790-c2066bcbdae9```
+```<%= config[:endpoint] %>/live/entity/tracking/current-view```
 
-
-
-
-
-| Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
 **ARGUMENTS**
 
-| Parameter | Type | Description | Required |
-| ------------- | ------------- | ------------- | ------------- |
-| **id** | *string* | EventId has been created.| **Yes** |
-
-
+| Parameter | Description | Required |
+|  ------------- | ------------- | ------------- |
+| **id** *string* | The ID of the live event.| **Yes** |
 
 
 **RETURNS**
 
-| Parameter   | Type   | Description |
-|-------------|--------|-------------------------|
-| **stream_name** | *string* | Name of event|
-| **day** | *number* | Timestamp while getting view |
-| **watchnow** | *number* | Current view of event|
+| Parameter    | Description |
+|--------------|-------------------------|
+| **stream_name** *string* | The event's name |
+| **day** *number* | Timestamp of this view request |
+| **watchnow** *number* | Current views of the live event|

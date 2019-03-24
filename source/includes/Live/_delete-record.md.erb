@@ -4,11 +4,8 @@
 
 ```bash
 curl -X DELETE \
-  <%= config[:endpoint] %>/live/entity/dvr \
-  -H 'Authorization: uap-bfd2314eac8d463395a304d3141d172b-6a641000' \
-  -d '{
-	"id":"009596b1-f751-4102-86f7-7290a9f3f0cf"
-}'
+  <%= config[:endpoint] %>/live/entity/dvr?id=009596b1-f751-4102-86f7-7290a9f3f0cf \
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby
@@ -158,18 +155,8 @@ Delete a recorded file
 
 ```json
 {
-     "data": {
-         "id": "009596b1-f751-4102-86f7-7290a9f3f0cf"
-     },
-     "version": 3,
-     "datetime": "2018-12-20T04:16:52.893Z",
-     "policy": "public",
-     "requestId": "f3f1b857-e6ca-4419-b610-947e62583481",
-     "serviceName": "api",
-     "message": "OK",
-     "code": 200,
-     "type": "SUCCESS"
- }
+  "id": "009596b1-f751-4102-86f7-7290a9f3f0cf"
+}
 ```
 
 **HTTP Request**
@@ -177,22 +164,13 @@ Delete a recorded file
 <span class="delete-button"> DELETE </span>
 ```<%= config[:endpoint] %>/live/entity/dvr```
 
-
-
-
-
-| Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
-
-
 **ARGUMENTS**
 
 
-| Parameter   | Type   | Description |
-|-------------|--------|-------------------------|
-| **id** | *string* | Identifier of record (get from [list record](#list-record)) |
+| Parameter   | Description |
+|-------------|-------------------------|
+| **id** *string* | The ID of recorded file taken from [list record](#list-record) |
 
 **RETURNS**
 
-| Parameter | Type | Description |
-| ------------- | ------------- | ------------- |
-| **id** | **string** | Identifier of record has been deleted |
+Returns an ID of the deleted recorded file on success. Otherwise, this call returns an error.
