@@ -17,7 +17,7 @@ curl -X GET \
 require "uiza"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 begin
   users = Uiza::User.list

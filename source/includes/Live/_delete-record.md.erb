@@ -15,7 +15,7 @@ curl -X DELETE \
 require "uiza"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 begin
   live = Uiza::Live.delete "your-record-id" # Identifier of record (get from list record)

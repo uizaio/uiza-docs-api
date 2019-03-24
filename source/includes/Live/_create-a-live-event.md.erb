@@ -26,7 +26,7 @@ curl -X POST \
 require "uiza"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 params = {
   name: "test event",

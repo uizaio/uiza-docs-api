@@ -18,7 +18,7 @@ curl -X POST \
 require "uiza"
 
 Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
-Uiza.authorization = "your-authorization"
+Uiza.authorization = "<%= config[:token] %>"
 
 params = {
   url: "https://callback-url.uiza.co",
