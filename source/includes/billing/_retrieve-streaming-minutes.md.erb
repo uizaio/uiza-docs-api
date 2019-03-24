@@ -1,6 +1,6 @@
 ## Retrieve Streaming Minutes
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
@@ -15,7 +15,7 @@ curl -X GET \
 ```
 Retrieves the details streaming minutes of your both video & live.
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -40,11 +40,11 @@ Retrieves the details streaming minutes of your both video & live.
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
+
+
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -52,7 +52,7 @@ Retrieves the details streaming minutes of your both video & live.
 | **toDate** | *string* | End date for list| **Yes** |
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

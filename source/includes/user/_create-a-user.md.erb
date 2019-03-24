@@ -2,7 +2,7 @@
 
 Create an user account for workspace
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X POST \
@@ -183,7 +183,7 @@ var result = UizaServices.User.Create(new CreatUserParameter()
 Console.WriteLine(string.Format("Create New User Id = {0} Success", result.Data.id));
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -209,11 +209,11 @@ Console.WriteLine(string.Format("Create New User Id = {0} Success", result.Data.
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
+
+
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -231,7 +231,7 @@ Console.WriteLine(string.Format("Create New User Id = {0} Success", result.Data.
 
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

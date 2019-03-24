@@ -1,7 +1,7 @@
-## Update category
+## Update a category
 
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X PUT \
@@ -14,7 +14,7 @@ curl -X PUT \
     "type":"folder",
     "description":"Folder description new",
     "orderNumber":1,
-    "icon":"/exemple.com/icon_001.png"
+    "icon":"http://exemple.com/icon_001.png"
 }'
 ```
 
@@ -139,21 +139,11 @@ Console.WriteLine(string.Format("Update Category Id = {0} Success", resultUpdate
 
 Update information of category
 
-> Example Response
+> RESPONSE
 
 ```json
 {
-    "data": {
-        "id": "095778fa-7e42-45cc-8a0e-6118e540b61d"
-    },
-    "version": 3,
-    "datetime": "2018-06-18T05:05:05.639Z",
-    "policy": "public",
-    "requestId": "ffc89642-8acd-4819-86ee-fec1d591017a",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+  "id": "095778fa-7e42-45cc-8a0e-6118e540b61d"
 }
 ```
 
@@ -162,27 +152,18 @@ Update information of category
 <span class="put-button"> PUT </span>
 ```<%= config[:endpoint] %>/media/metadata```
 
-**Header Request**
+**ARGUMENTS**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
-
-**Body Request**
-
-| Parameter | Type | Description | Required |
-| ------------- | ------------- | ------------- | ------------- |
-| **id** | *string* | Identifier of category | **Yes** |
-| **name** | *string* | Name of category | **Yes** |
-| **type** | *enum* | Has 3 types of category [ **folder**, **playlist**, **tag** ] | **Yes** |
-| **description** | *string* | Description for category |  |
-| **orderNumber** | *integer* | Order number for category, lower number is higher order |  |
-| **icon** | *string* | Small icon for each category |  |
+| Parameter  | Description | Required |
+| -------------  | ------------- | ------------- |
+| **id** *string* | Identifier of category | **Yes** |
+| **name** *string* | The category’s name, meant to be displayable to end users. | **Yes** |
+| **type** *enum* | Allowed values [ **folder**&vert;**playlist**&vert;**tag** ]. | **Yes** |
+| **description** *string* | The category’s description, meant to be displayable to end users. |  |
+| **orderNumber** *integer* | The category's display order, categories with smaller number will be displayed first. |  |
+| **icon** *string* | The URL to the category's icon. |  |
 
 
+**RETURNS**
 
-**Response Parameters**
-
-| Parameter   | Type   | Description |
-|-------------|--------|-------------------------|
-| **id** | *string* | Identifier of category has been updated |
+Returns the ID of the updated category if the update succeeded.

@@ -2,7 +2,7 @@
 
 Updates the specified user by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X PUT \
@@ -183,7 +183,7 @@ var updateResult = UizaServices.User.Update(new UpdateUserParameter()
 Console.WriteLine(string.Format("Update User Id = {0} Success", updateResult.Data.id));
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -217,7 +217,7 @@ Console.WriteLine(string.Format("Update User Id = {0} Success", updateResult.Dat
 |-------------|--------|-------------|---------|
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -234,7 +234,7 @@ Console.WriteLine(string.Format("Update User Id = {0} Success", updateResult.Dat
 
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

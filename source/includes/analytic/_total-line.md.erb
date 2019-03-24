@@ -1,6 +1,6 @@
 ## Total Line
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
@@ -132,7 +132,7 @@ var getTotalLine = UizaServices.Analytic.GetTotalLine(new AnalyticTotalLineParam
 Console.WriteLine(string.Format("Get Total Line Success, total record {0}", getTotalLine.Data.Count));
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -172,12 +172,12 @@ Console.WriteLine(string.Format("Get Total Line Success, total record {0}", getT
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
 
-**Body Request**
+
+
+
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -186,7 +186,7 @@ Console.WriteLine(string.Format("Get Total Line Success, total record {0}", getT
 | **metric** | *string* | You can get data of any metric from [list](#analytic-metrics) (use Slug) | **Yes** |
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

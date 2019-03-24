@@ -1,6 +1,6 @@
 ## Retrieve a callback
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
@@ -96,7 +96,7 @@ Console.WriteLine(string.Format("Get Callback Id = {0} Success", retrieveResult.
 
 Retrieves the details of an existing callback.
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -130,18 +130,18 @@ Retrieves the details of an existing callback.
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
+
+
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
 | **id** | *string* | Id of callback setting| **Yes** |
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

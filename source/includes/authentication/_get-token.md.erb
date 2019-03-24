@@ -1,11 +1,10 @@
 ## Create token
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X POST \
   <%= config[:endpoint] %>/admin/user/auth \
-  -H 'Cache-Control: no-cache' \
   -H 'Content-Type: application/json' \
   -d '{"username": "test@uiza.co",
 "password":"test12345",
@@ -15,7 +14,7 @@ curl -X POST \
 
 Get an access token that provides temporary, used to secure access to Uiza's APIs.
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -51,7 +50,7 @@ Get an access token that provides temporary, used to secure access to Uiza's API
   Token will be expired within 30 days
 </aside>
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

@@ -1,17 +1,16 @@
 ## Check token
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X POST \
   <%= config[:endpoint] %>/admin/user/auth/check-token \
-  -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 Token will expire within 30 days, you can check token's expire time by calling this API.
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -43,7 +42,7 @@ Token will expire within 30 days, you can check token's expire time by calling t
 
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

@@ -34,7 +34,7 @@ includes:
   - vod/vod.md.erb
   - vod/entity-object.md.erb
   - vod/create-entity.md.erb
-  - vod/get-entity.md.erb
+  - vod/retrieve-entity.md.erb
   - vod/list-entities.md.erb
   - vod/update-entity.md.erb
   - vod/delete-entity.md.erb
@@ -43,8 +43,9 @@ includes:
   - vod/publish-status.md.erb
   - vod/get-aws-key.md.erb
   - category/category.md.erb
+  - category/category-object.md.erb
   - category/create-category.md.erb
-  - category/get-category.md.erb
+  - category/retrieve-category.md.erb
   - category/list-categories.md.erb
   - category/update-category.md.erb
   - category/delete-category.md.erb

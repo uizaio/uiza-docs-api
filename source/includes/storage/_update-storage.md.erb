@@ -3,7 +3,7 @@ Update storage's information
 
 > **Create FTP a Storage**
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X PUT \
@@ -157,7 +157,7 @@ var result =uizaServices.Storage.Update(new UpdateStorageParameter()
 Console.WriteLine(string.Format("Update Storage Id = {0} Success", result.Data.id));
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -182,11 +182,11 @@ Console.WriteLine(string.Format("Update Storage Id = {0} Success", result.Data.i
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+
+
+
+**ARGUMENTS**
 
 ### Update FTP storage
 
@@ -217,7 +217,7 @@ Console.WriteLine(string.Format("Update Storage Id = {0} Success", result.Data.i
 | region | *string* |AWS S3 region|  |
 | description | *string* | Storage's description |  |
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

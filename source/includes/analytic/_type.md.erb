@@ -1,6 +1,6 @@
 ## Type
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
@@ -129,7 +129,7 @@ var getType = UizaServices.Analytic.GetType(new AnalyticTypeParameter()
 Console.WriteLine(string.Format("Get Type Success, total record {0}", getType.Data.Count));
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -165,11 +165,11 @@ Get data base on 5 type of filter: **country**, **device**, **title**, **player*
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+
+
+
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -178,7 +178,7 @@ Get data base on 5 type of filter: **country**, **device**, **title**, **player*
 | **type_filter** | *enum* | Value accept: [ **country**, **device**, **title**, **player**, **os** ] | **Yes** |
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

@@ -2,7 +2,7 @@
 
 Permanently deletes an user. It cannot be undone. Also immediately cancels all token & information of this user.
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X DELETE \
@@ -107,7 +107,7 @@ var deleteResult = UizaServices.User.Delete((string)result.Data.id);
 Console.WriteLine(string.Format("Delete User Id = {0} Success", deleteResult.Data.id));
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -136,7 +136,7 @@ Console.WriteLine(string.Format("Delete User Id = {0} Success", deleteResult.Dat
 |-------------|--------|-------------|---------|
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+**ARGUMENTS**
 
 | Parameter | Type | Description | Required |
 | ------------- | ------------- | ------------- | ------------- |
@@ -144,7 +144,7 @@ Console.WriteLine(string.Format("Delete User Id = {0} Success", deleteResult.Dat
 
 
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|

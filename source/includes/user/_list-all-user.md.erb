@@ -4,13 +4,12 @@ Returns a list of your user. The users are returned sorted by creation date, wit
 
 If you use Admin token, you will get all the user. If you use User token, you can only get the information of that user
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X GET \
   <%= config[:endpoint] %>/admin/user \
-  -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby
@@ -98,7 +97,7 @@ var listResult = UizaServices.User.List();
 Console.WriteLine(string.Format("List User Success, total record {0}", listResult.Data.Count));
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -148,7 +147,7 @@ Console.WriteLine(string.Format("List User Success, total record {0}", listResul
 |-------------|--------|-------------|---------|
 | Authorization | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Response Parameters**
+**RETURNS**
 
 
 | Parameter | Type | Description |

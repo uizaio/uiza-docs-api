@@ -4,7 +4,7 @@ You can sync your storage (FTP, AWS S3) with UIZA. After synced, you can select 
 
 > **Create a FTP Storage**
 
-> Example Request
+> REQUEST
 
 ```bash
 curl -X POST \
@@ -162,7 +162,7 @@ var createResult = UizaServices.Storage.Add(new AddStorageParameter()
 Console.WriteLine(string.Format("Add New Storage Id = {0} Success", createResult.Data.id));
 ```
 
-> Example Response
+> RESPONSE
 
 ```json
 {
@@ -187,11 +187,11 @@ Console.WriteLine(string.Format("Add New Storage Id = {0} Success", createResult
 
 **Header Request**
 
-| Header   | Type   | Description                              | Required |
-|-------------|--------|---------------------------------------|---------|
-| **Authorization** | *string* |Token get from API [Get API key](#get-api-key) | **Yes** |
 
-**Body Request**
+
+
+
+**ARGUMENTS**
 
 ### Add a FTP storage
 
@@ -220,7 +220,7 @@ Console.WriteLine(string.Format("Add New Storage Id = {0} Success", createResult
 | region | *string* |AWS S3 region|  |
 | description | *string* | Storage's description |  |
 
-**Response Parameters**
+**RETURNS**
 
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
