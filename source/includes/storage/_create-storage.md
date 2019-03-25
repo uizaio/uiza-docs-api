@@ -49,7 +49,13 @@ end
 ```
 
 ```python
+import uiza
+
 from uiza.api_resources.storage import Storage
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
 
 storage_data = {
   "name":"FTP Uiza Test",
@@ -58,14 +64,23 @@ storage_data = {
   "host":"ftp-example.uiza.io"
 }
 
-res, status_code = Storage().add(**storage_data)
+try:
+  res, status_code = Storage().add(**storage_data)
 
-print("id: ", res.id)
-print("status_code", status_code)
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
   "name" => "FTP Uiza",
   "description" => "FTP of Uiza, use for transcode",
@@ -76,36 +91,55 @@ $params = [
   "port" => 21
 ];
 
-Uiza\Storage::add($params);
+try {
+  Uiza\Storage::add($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Storage;
+import io.uiza.model.Storage.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "FTP Uiza");
-params.put("host", "ftp-example.uiza.io");
-params.put("port", "21");
-params.put("type", StorageType.FTP.toString());
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonObject storage = Storage.add(params);
-  System.out.println(storage.get("name"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "FTP Uiza");
+    params.put("host", "ftp-example.uiza.io");
+    params.put("port", 21);
+    params.put("storageType", StorageType.FTP.toString());
 
+    try {
+      JsonObject response = Storage.add(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-uiza.storage.add({
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
+
+const params = {
   'name': 'axon',
   'description': 'axon of Uiza, use for transcode',
   'storageType': 'ftp',
@@ -113,11 +147,14 @@ uiza.storage.add({
   'username': 'uiza',
   'password': '=59x@LPsd+w7qW',
   'port': 21
-}).then((res) => {
-  //Identifier of storage has been add
-}).catch((err) => {
-  //Error
-});
+}
+
+uiza.storage.add(params)
+  .then((res) => {
+    //Identifier of storage has been add
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -125,6 +162,11 @@ import (
   uiza "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/storage"
 )
+
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
 
 params :=  &uiza.StorageAddParams{
   Name: uiza.String("FTP Uiza"),
@@ -136,30 +178,48 @@ params :=  &uiza.StorageAddParams{
   Description: uiza.String("FTP of Uiza, use for transcode"),
 }
 
-response, _ := storage.Add(params)
-log.Printf("%v\n", response)
+response, err := storage.Add(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var createResult = UizaServices.Storage.Add(new AddStorageParameter()
+try
 {
-  Name = "FTP Uiza",
-  Host = "ftp-example.uiza.io",
-  Description = "FTP of Uiza, use for transcode",
-  StorageType = StorageInputTypes.Ftp,
-  UserName = "uiza",
-  Password = "=59x@LPsd+w7qW",
-  Port = 21
-});
-Console.WriteLine(string.Format("Add New Storage Id = {0} Success", createResult.Data.id));
+  var result = UizaServices.Storage.Add(new AddStorageParameter()
+  {
+    Name = "FTP Uiza",
+    Host = "ftp-example.uiza.io",
+    Description = "FTP of Uiza, use for transcode",
+    StorageType = StorageInputTypes.Ftp,
+    UserName = "uiza",
+    Password = "=59x@LPsd+w7qW",
+    Port = 21
+  });
+
+  Console.WriteLine(string.Format("Add New Storage Id = {0} Success", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 > Example Response

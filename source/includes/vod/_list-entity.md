@@ -37,51 +37,83 @@ end
 ```
 
 ```python
-res, status_code = Entity().list(name="Title")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Entity().list(name="Title")
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-$listEntity = Uiza\Entity::all();
+require __DIR__."/../vendor/autoload.php";
 
-// or
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-$listEntity = Uiza\Entity::list();
+try {
+  $listEntity = Uiza\Entity::list();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("publishToCdn", PublishStatus.NOT_READY.toString());
-params.put("metadataId", "<your-folder/playlist-id>");
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonArray entities = Entity.list(params);
-  JsonObject firstEntity = entities.get(0).getAsJsonObject();
-  System.out.println(firstEntity.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("publishToCdn", PublishStatus.NOT_READY.toString());
+    params.put("metadataId", "<your-folder/playlist-id>");
 
+    try {
+      JsonArray response = Entity.list(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-uiza.entity.list().then((res) => {
-  //Get list of entities including all detail.
-}).catch((err) => {
-  //Error
-});
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
+
+uiza.entity.list()
+  .then((res) => {
+    //Get list of entities including all detail.
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -90,27 +122,48 @@ import (
   "github.com/uizaio/api-wrapper-go/entity"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.EntityListParams{}
-listEntity, _ := entity.List(params)
-for _, v := range listEntity {
-  log.Printf("%v\n", v)
+listEntity, err := entity.List(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
 }
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result =  UizaServices.Entity.List(new RetrieveListEntitiesParameter()
+try
 {
-  publishToCdn = EntityPublishStatus.Success
-});
-Console.WriteLine(string.Format("Success Get EntitiesList, total record {0}", result.MetaData.result));
+  var result =  UizaServices.Entity.List(new RetrieveListEntitiesParameter()
+  {
+    publishToCdn = EntityPublishStatus.Success
+  });
+
+  Console.WriteLine(string.Format("Get Entity List Success, total record {0}", result.MetaData.result));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 Get list of entities including all detail.

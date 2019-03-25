@@ -31,42 +31,74 @@ end
 ```
 
 ```python
-user_id = "33a86c18-f502-41a4-9c4c-d4e14efca238"
+import uiza
 
-res, status_code = User().retrieve(user_id)
+from uiza.api_resources.user import User
+from uiza.exceptions import ServerException
 
-print("id: ", res.id)
-print("status_code", status_code)
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = User().retrieve("your-user-id")
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?
-Uiza\User::retrieve("id user");
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain('your-workspace-api-domain.uiza.co');
+Uiza\Base::setApiKey('your-api-key');
+
+try {
+  Uiza\User::retrieve("your-user-id");
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.User;
+import io.uiza.model.User.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonObject user = User.retrieve("<user-id>");
-  System.out.println(user.get("username"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
+    try {
+      JsonObject response = User.retrieve("<user-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
 
-uiza.user.retrieve('55ff6888-55b7-4d5b-b090-b5b3ad511fe7')
+uiza.user.retrieve('your-user-id')
   .then((res) => {
     // Identifier of user
   }).catch((err) => {
@@ -80,9 +112,18 @@ import (
   "github.com/uizaio/api-wrapper-go/user"
 )
 
-params := &uiza.UserIDParams{ID: uiza.String("263bbbb8-c0c9-4e1f-9123-af3a3fd46b80")}
-response, _ := user.Retrieve(params)
-log.Printf("%s\n", response)
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.UserIDParams{ID: uiza.String("your-user-id")}
+response, err := user.Retrieve(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
@@ -90,22 +131,22 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.User.Create(new CreatUserParameter()
+try
 {
-  Status = UserStatus.Active,
-  UserName = Guid.NewGuid().ToString(),
-  Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
-  PassWord = Guid.NewGuid().ToString();,
-  FullName = Guid.NewGuid().ToString(),
-  Avatar = "https://static.uiza.io/uiza_logo_128.png"
-});
+  var result = UizaServices.User.Retrieve("your-user-id");
 
-var retrieveResult = UizaServices.User.Retrieve((string)result.Data.id);
-Console.WriteLine(string.Format("Get User Id = {0} Success", retrieveResult.Data.id));
+  Console.WriteLine(string.Format("Get User Id = {0} Success", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 > Example Response

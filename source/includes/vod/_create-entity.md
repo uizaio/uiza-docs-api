@@ -60,7 +60,13 @@ end
 ```
 
 ```python
+import uiza
+
 from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
 
 entity_data = {
   "name": "Sample Video Python1",
@@ -68,62 +74,95 @@ entity_data = {
   "inputType": "http",
   "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
 }
-res, status_code = Entity().create(**entity_data)
 
-print("id: ", res.id)
-print("status_code", status_code)
+try:
+  res, status_code = Entity().create(**entity_data)
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
   "name" => "Name entity",
   "url" => "http://google.com",
   "inputType" => "http"
 ];
 
-$entity = Uiza\Entity::create($params);
+try {
+  $entity = Uiza\Entity::create($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
  ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "Sample Video");
-params.put("url", "https://example.com/video.mp4");
-params.put("inputType", InputType.HTTP.toString());
-params.put("description", "Lorem Ipsum is simply dummy text of the printing and typesetting industry");
-params.put("shortDescription", "Lorem Ipsum is simply dummy text.");
-params.put("poster", "https://example.com/picture001.jpeg");
-params.put("thumbnail", "https://example.com/picture002.jpeg");
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonObject entity = Entity.create(params);
-  System.out.println(entity.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "Sample Video");
+    params.put("url", "https://example.com/video.mp4");
+    params.put("inputType", InputType.HTTP.toString());
+    params.put("description",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry");
+    params.put("shortDescription", "Lorem Ipsum is simply dummy text.");
+    params.put("poster", "https://example.com/picture001.jpeg");
+    params.put("thumbnail", "https://example.com/picture002.jpeg");
 
+    try {
+      JsonObject response = Entity.create(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-uiza.entity.create({
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
+
+const params = {
   'name': 'Sample Video',
   'url': 'https://example.com/video.mp4',
   'inputType': 'http',
-  'description': 'tes'
-}).then((res) => {
-  //Identifier of entity has been created
-}).catch((err) => {
-  //Error
-});
+  'description': 'test'
+};
+
+uiza.entity.create(params)
+  .then((res) => {
+    //Identifier of entity has been created
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -131,6 +170,11 @@ import (
   uiza "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/entity"
 )
+
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
 
 var typeHTTP = uiza.InputTypeHTTP
 params :=  &uiza.EntityCreateParams{
@@ -140,27 +184,44 @@ params :=  &uiza.EntityCreateParams{
   Description: uiza.String("Lorem Ipsum is simply dummy text of the printing and typesetting industry"),
 }
 
-response, _ := entity.Create(params)
-log.Printf("%s\n", response)
+response, err := entity.Create(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.Entity.Create(new CreateEntityParameter()
+try
 {
-  Name = "Sample Video",
-  InputType = EntityInputTypes.S3Uiza,
-  URL = ""
-});
+  var result = UizaServices.Entity.Create(new CreateEntityParameter()
+  {
+    Name = "Sample Video",
+    InputType = EntityInputTypes.S3Uiza,
+    URL = ""
+  });
 
-Console.WriteLine(string.Format("Create New Entity Id = {0} Success", result.Data.id));
+  Console.WriteLine(string.Format("Create New Entity Id = {0} Success", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 Create entity using full URL. Direct HTTP, FTP or AWS S3 link are acceptable.
