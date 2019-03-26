@@ -1,4 +1,4 @@
-# Unique header generation
+# Unique header eneration
 require './lib/unique_head.rb'
 
 # Markdown
@@ -19,7 +19,7 @@ set :js_dir, 'javascripts'
 set :images_dir, 'images'
 set :fonts_dir, 'fonts'
 
-set :http_prefix, "/"
+set :http_prefix, ""
 #if ENV['DOC_ENV'] === "local"
 #  set :http_prefix, "/"
 #else
@@ -42,8 +42,8 @@ activate :autoprefixer do |config|
 end
 
 # Github pages require relative links
-# activate :relative_assets
-# set :relative_links, false
+activate :relative_assets
+set :relative_links, true
 
 # Build Configuration
 configure :build do
@@ -63,3 +63,18 @@ set :port, 4567
 helpers do
   require './lib/toc_data.rb'
 end
+
+# Global Variables
+# set :endpoint, 'https://api.uiza.co/api/public/v4'
+set :endpoint, 'https://stag-ap-southeast-1-api.uizadev.io/api/public/v4'
+config[:endpoint]
+set :token, 'uap-b2a3e6307dcf421a8a455825c01de914-a03248e7'
+config[:token]
+set :sample_video, 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_10mb.mp4'
+config[:sample_video]
+set :sample_poster, 'https://sample-videos.com/img/Sample-jpg-image-200kb.jpg'
+config[:sample_poster]
+set :sample_thumbnail, 'https://sample-videos.com/img/Sample-jpg-image-200kb.jpg'
+config[:sample_thumbnail]
+set :uiza_entity_id, '16ab25d3-fd0f-4568-8aa0-0339bbfd674f'
+config[:uiza_entity_id]

@@ -1,0 +1,10 @@
+# Pagination
+
+All top-level API resources have support for bulk fetches via "list" API methods. For instance, you can [list entities](#list-entities), [list categories](#list-categories), and [list invoices](#list-recorded-files). These list API methods share a common structure, taking at least these three parameters: `limit`, `page`.
+
+***LIST RESPONSE FORMAT***
+
+| Attribute | Type | Description |
+| ------------- | ------------- | ------------- |
+| **data** | *string* | An array containing the actual response elements, paginated by any request parameters. |
+| **metadata** | *string* | Contains `total` as total number of `data` without pagination, `result` as number of paginated `data`, `page` as current page, `limit` as how many records each array of `data` contain. |

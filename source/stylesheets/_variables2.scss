@@ -28,6 +28,7 @@ $tg-slate: #2d3033;
 $tg-grey: #6c7279;
 $tg-teal: #65d5d9;
 $tg-red: #f6574d;
+$code-red: #b93d6a;
 $tg-bermuda-green: #7be3bd;
 $base-grey-10: #f4f4f5;
 $base-grey-5: rgba($base-grey-10, .5);
@@ -54,6 +55,9 @@ $aside-warning-bg: #E1AD05;
 $aside-success-bg: #6ac174;
 $search-notice-bg: #c97a7e;
 
+// CODE COLORS
+$bash-dollar-color: #939da3;
+$bash-color: #d0d0d0;
 
 // TEXT COLORS
 ////////////////////
@@ -63,7 +67,7 @@ $nav-active-text: $main-text;
 $nav-footer-text: $base-grey-70;
 $content-link: $tg-green;
 $content-link-hover: $tg-dark-green;
-$code: $tg-red;
+$code: $code-red;
 $lang-select-text: $white; // color of unselected language tab text
 $lang-select-active-text: $white; // color of selected language tab text
 $lang-select-pressed-text: $white; // color of language tab text when mouse is pressed

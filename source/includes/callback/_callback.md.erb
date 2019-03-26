@@ -1,0 +1,31 @@
+# Callback
+
+Uiza allows you to register callback (also known as [Webhook](https://en.wikipedia.org/wiki/Webhook)) for [entity](#video).
+
+> Example callback after create entity success
+
+```json
+{
+  "text": "Your video was created successfully.",
+  "id": "7fd1c81e-eecc-4aa1-8c7b-6aa647a468d9",
+  "status": "Create success"
+}
+```
+
+> Example callback after publish entity success
+
+```json
+{
+  "text": "Your video was published successfully.",
+  "id": "7fd1c81e-eecc-4aa1-8c7b-6aa647a468d9",
+  "status": "Entity publish success"
+}
+```
+
+**RETURNS**
+
+| Parameter   | Type   | Description |
+|-------------|--------|-------------------------|
+| **id** | *string* | The ID of entity that has been created or published.  |
+| **text** | *string* | The JSON Data you put in callback.  |
+| **status** | *enum* | Message contains additional information of the callback. |

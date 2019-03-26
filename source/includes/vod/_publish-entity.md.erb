@@ -1,0 +1,188 @@
+## Publish entity to CDN
+
+
+> REQUEST
+
+```shell
+curl -X POST \
+  <%= config[:endpoint] %>/media/entity/publish?id=<%= config[:uiza_entity_id] %> \
+  -H 'Authorization: <%= config[:token] %>'
+```
+
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.authorization = "<%= config[:token] %>"
+
+begin
+  response = Uiza::Entity.publish "your-entity-id"
+  puts response.message
+  puts response.entityId
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+import uiza
+
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Entity().publish("your-entity-id")
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
+```
+
+```php
+<?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  $entity = Uiza\Entity::publish(["id" => "your-entity-id"]);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
+?>
+```
+
+```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
+import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
+
+public class Main {
+
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
+
+    try {
+      JsonObject response = Entity.publish("<entity-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+}
+```
+
+```javascript
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
+
+uiza.entity.publish('your-entity-id')
+  .then((res) => {
+    // Identifier of task publish
+  }).catch((err) => {
+    //Error
+  });
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/entity"
+)
+
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.EntityPublishParams{ID: uiza.String("your-entity-id")}
+response, err := entity.Publish(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
+```
+
+```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
+});
+
+try
+{
+  var result = UizaServices.Entity.Publish("your-entity-id");
+
+  Console.WriteLine(string.Format("Publish Entity Success : entityId = {0} ", result.Data.entityId));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
+```
+
+All entities need to be [published](#publish-entity-to-cdn) before the public can access. Unpublished videos can still be [edited](#update-an-entity), [listed](#list-entities) by `API` or using `Dashboard` but [Player](#Player) will not play. 
+
+```If you use Uiza's `Quick Start` on App's dashboard it will get published automatically.```
+
+> RESPONSE
+
+```json
+{
+  "id": "<%= config[:uiza_entity_id] %>",
+  "message": "Your entity started publish, check process status with this entity ID",
+  "entityId": "42ceb1ab-18ef-4f2e-b076-14299756d182"
+}
+```
+
+**HTTP Request**
+
+<span class="post-button"> POST </span>
+```<%= config[:endpoint] %>/media/entity/publish```
+
+**ARGUMENTS**
+
+| Parameter | Description | Required |
+| -------------- | ----------- | ------------- |
+| **id** *string* | Identifier of entity | **Yes** |
+
+
+**RETURNS**
+
+Return an identifier of the publishing request. Use `id` to [retrieve publishing status](#get-publish-status). The publishing process should take a few minutes to complete, varies by video's size and length.
+
+| Attribute   | Description |
+|-------------|-------------------------|
+| **id** *string* | The identifier of the publishing request |
+| **message** *string* | Detail message of the publishing request |
+| **entityId** *string* | The identifier of entity |
