@@ -505,6 +505,13 @@ html, body {
       }
       color: $bash-color;
     }
+    &.language-shell {
+      &:before {
+        content: "$ ";
+        color: $bash-dollar-color;
+      }
+      color: $bash-color;
+    }
     @extend %code-font;
   }
 

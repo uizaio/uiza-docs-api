@@ -6,7 +6,7 @@ Uiza allows you to add storages (FTP, S3 - both private and AWS) to your applica
 
 > REQUEST
 
-```bash
+```shell
 curl -X POST \
   <%= config[:endpoint] %>/media/storage \
   -H 'Authorization: <%= config[:token] %>' \
@@ -24,7 +24,7 @@ curl -X POST \
 
 > **Add a S3 Storage**
 
-```bash
+```shell
 curl -X POST \
   <%= config[:endpoint] %>/media/storage \
   -H 'Authorization: <%= config[:token] %>' \

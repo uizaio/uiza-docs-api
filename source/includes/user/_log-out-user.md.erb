@@ -4,7 +4,7 @@ This API use to log out an user. After logged out, token will be removed.
 
 > REQUEST
 
-```bash
+```shell
 curl -X POST \
   <%= config[:endpoint] %>/admin/user/logout \
   -H 'Authorization: <%= config[:token] %>'

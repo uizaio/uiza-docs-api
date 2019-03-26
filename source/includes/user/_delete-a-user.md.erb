@@ -4,7 +4,7 @@ Permanently deletes an user. It cannot be undone. Also immediately cancels all t
 
 > REQUEST
 
-```bash
+```shell
 curl -X DELETE \
   <%= config[:endpoint] %>/admin/user \
   -H 'Authorization: <%= config[:token] %>' \

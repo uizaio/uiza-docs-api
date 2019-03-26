@@ -3,9 +3,9 @@
 
 > REQUEST
 
-```bash
+```shell
 curl -X POST \
-  <%= config[:endpoint] %>/media/entity \
+  '<%= config[:endpoint] %>/media/entity' \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{

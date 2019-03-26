@@ -6,7 +6,7 @@ If you use Admin token, you will get all the user. If you use User token, you ca
 
 > REQUEST
 
-```bash
+```shell
 curl -X GET \
   <%= config[:endpoint] %>/admin/user \
   -H 'Authorization: <%= config[:token] %>'

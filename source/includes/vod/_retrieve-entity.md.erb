@@ -3,9 +3,9 @@
 
 > REQUEST
 
-```bash
+```shell
 curl -X GET \
-  <%= config[:endpoint] %>/media/entity?id=<%= config[:uiza_entity_id] %> \
+  '<%= config[:endpoint] %>/media/entity?id=<%= config[:uiza_entity_id] %>' \
   -H 'Authorization: <%= config[:token] %>' \
 ```
 
