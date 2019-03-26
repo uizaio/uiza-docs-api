@@ -41,62 +41,99 @@ end
 ```
 
 ```python
-res, status_code = User().change_password(
-  id="9f1cd871-9244-48a1-a233-846a3b540741",
-  old_password="S57Eb{:aMZhW=)G$",
-  new_password="FMpsr<4[dGPu?B#u"
-)
+import uiza
 
-print("id", res.id)
-print("status_code", status_code)
+from uiza.api_resources.user import User
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = User().change_password(
+    id="your-user-id",
+    old_password="S57Eb{:aMZhW=)G$",
+    new_password="FMpsr<4[dGPu?B#u"
+  )
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain('your-workspace-api-domain.uiza.co');
+Uiza\Base::setApiKey('your-api-key');
+
 $params = [
-  "id" => "id user",
+  "id" => "your-user-id",
   "oldPassword" => "FMpsr<4[dGPu?B#u",
   "newPassword" => "S57Eb{:aMZhW=)G$"
 ];
 
-Uiza\User::changePassword($params);
+try {
+  Uiza\User::changePassword($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.User;
+import io.uiza.model.User.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("oldPassword", "FMpsr<4[dGPu?B#u");
-params.put("newPassword", "S57Eb{:aMZhW=)G$");
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonObject user = User.changePassword("<user-id>", params);
-  System.out.println(user);
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("oldPassword", "FMpsr<4[dGPu?B#u");
+    params.put("newPassword", "S57Eb{:aMZhW=)G$");
 
+    try {
+      JsonObject response = User.changePassword("<user-id>", params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
 
-uiza.user.change_password({
-  'id': '263bbbb8-c0c9-4e1f-9123-af3a3fd46b80',
+const params = {
+  'id': 'your-user-id',
   'oldPassword': 'FMpsr<4[dGPu?B#u',
   'newPassword': 'S57Eb{:aMZhW=)G$'
-}).then((res) => {
-  // Identifier of user has been reset password
-}).catch((err) => {
-  //Error
-});
+};
+
+uiza.user.change_password(params)
+  .then((res) => {
+    // Identifier of user has been reset password
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -105,43 +142,54 @@ import (
   "github.com/uizaio/api-wrapper-go/user"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.UserChangePasswordParams{
-  ID: uiza.String("263bbbb8-c0c9-4e1f-9123-af3a3fd46b80"),
+  ID: uiza.String("your-user-id"),
   OldPassword: uiza.String("FMpsr<4[dGPu?B#u"),
   NewPassword: uiza.String("S57Eb{:aMZhW=)G$"),
 }
-response, _ := user.ChangePassword(params)
-log.Printf("%s\n", response)
+response, err := user.ChangePassword(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var curentPW = Guid.NewGuid().ToString();
-var result = UizaServices.User.Create(new CreatUserParameter()
+try
 {
-  Status = UserStatus.Active,
-  UserName = Guid.NewGuid().ToString(),
-  Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
-  PassWord = curentPW,
-  FullName = Guid.NewGuid().ToString(),
-  Avatar = "https://static.uiza.io/uiza_logo_128.png"
-});
+  var result = UizaServices.User.ChangePassword(new ChangePasswordParameter()
+  {
+    Id = "your-user-id",
+    NewPassword = Guid.NewGuid().ToString(),
+    OldPassWord = "curent password",
+  });
 
-var changePWResult = UizaServices.User.ChangePassword(new ChangePasswordParameter()
+  Console.WriteLine(string.Format("Change Password User Id = {0} Success", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
 {
-  Id = (string)result.Data.id,
-  NewPassword = Guid.NewGuid().ToString(),
-  OldPassWord = curentPW,
-});
-
-Console.WriteLine(string.Format("Change Password User Id = {0} Success", changePWResult.Data.id));
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 > Example Response

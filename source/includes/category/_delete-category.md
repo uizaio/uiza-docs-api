@@ -32,43 +32,74 @@ end
 ```
 
 ```python
-res, status_code = Category().delete("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.category import Category
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Category().delete("your-category-id")
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-$category = Uiza\Category::retrieve("key ... ");
-$category->destroy();
+require __DIR__."/../vendor/autoload.php";
 
-// or
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-Uiza\Category::delete("key ...");
+try {
+  Uiza\Category::delete("your-category-id");
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Category;
+import io.uiza.model.Category.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonObject category = Category.delete("<category-id>");
-  System.out.println(category.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
+    try {
+      JsonObject response = Category.delete("<category-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-uiza.category.delete('c0d3e5f2-9ae7-4e46-94a2-29612d562db0')
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
+
+uiza.category.delete('your-category-id')
   .then((res) => {
     //Identifier of category has been deleted
   }).catch((err) => {
@@ -82,22 +113,44 @@ import (
   "github.com/uizaio/api-wrapper-go/category"
 )
 
-params := &uiza.CategoryIDParams{ID: uiza.String("Your category ID")}
-response, _ := category.Delete(params)
-log.Printf("%v", response)
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.CategoryIDParams{ID: uiza.String("your-category-id")}
+response, err := category.Delete(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var resultDelete = UizaServices.Category.Delete((string)createResult.Data.id);
-Console.WriteLine(string.Format("Delete Category Id = {0} Success", resultUpdate.Data.id));
+try
+{
+  var result = UizaServices.Category.Delete("your-category-id");
+  Console.WriteLine(string.Format("Delete Category Id = {0} Success", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 Delete category

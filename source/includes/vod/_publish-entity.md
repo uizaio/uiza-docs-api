@@ -33,44 +33,79 @@ end
 ```
 
 ```python
-res, status_code = Entity().publish("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Entity().publish("your-entity-id")
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-$entity = Uiza\Entity::publish(["id" => "key .."]);
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  $entity = Uiza\Entity::publish(["id" => "your-entity-id"]);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonObject response = Entity.publish("<entity-id>");
-  System.out.println(response.get("message"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
+    try {
+      JsonObject response = Entity.publish("<entity-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-uiza.entity.publish({
-  'id': '1a6600c0-6ecd-4ca9-9ee1-3125e7c9d9f8',
-}).then((res) => {
-  // Identifier of task publish
-}).catch((err) => {
-  //Error
-});
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
+
+uiza.entity.publish('your-entity-id')
+  .then((res) => {
+    // Identifier of task publish
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -79,22 +114,45 @@ import (
   "github.com/uizaio/api-wrapper-go/entity"
 )
 
-params := &uiza.EntityPublishParams{ID: uiza.String("Your entity ID")}
-response, _ := entity.Publish(params)
-log.Printf("%v\n", response)
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.EntityPublishParams{ID: uiza.String("your-entity-id")}
+response, err := entity.Publish(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.Entity.Publish("Entity Id");
-Console.WriteLine(string.Format("Publish Entity Success : entityId = {0} ", result.Data.entityId));
+try
+{
+  var result = UizaServices.Entity.Publish("your-entity-id");
+
+  Console.WriteLine(string.Format("Publish Entity Success : entityId = {0} ", result.Data.entityId));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 Publish entity to CDN, use for streaming

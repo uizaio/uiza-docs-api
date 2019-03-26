@@ -56,7 +56,13 @@ end
 ```
 
 ```python
+import uiza
+
 from uiza.api_resources.live import Live
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
 
 live_data = {
   "name":"test event python 1",
@@ -69,14 +75,23 @@ live_data = {
   "resourceMode":"single"
 }
 
-res, status_code = Live().create(**live_data)
+try:
+  res, status_code = Live().create(**live_data)
 
-print("id: ", res.id)
-print("status_code", status_code)
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
   "name" => "test event",
   "mode" => "push",
@@ -91,41 +106,57 @@ $params = [
   "resourceMode" => "single"
 ];
 
-Uiza\Live::create($params);
+try {
+  Uiza\Live::create($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Live;
+import io.uiza.model.Live.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "<your-live-event-name>");
-params.put("mode", Mode.PULL.toString());
-params.put("encode", Encode.ENCODE.getVal());
-params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
-params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
-params.put("resourceMode", ResourceMode.SINGLE.toString());
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonObject live = Live.create(params);
-  System.out.println(live.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "<your-live-event-name>");
+    params.put("mode", Mode.PULL.toString());
+    params.put("encode", Encode.ENCODE.getVal());
+    params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
+    params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
+    params.put("resourceMode", ResourceMode.SINGLE.toString());
 
+    try {
+      JsonObject response = Live.create(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
 
-/** create */
-uiza.live.create({
+const params = {
   'name': 'test event',
   'mode': 'push',
   'encode': 1,
@@ -137,11 +168,14 @@ uiza.live.create({
     'https://playlist.m3u8'
   ],
   'resourceMode': 'single'
-}).then((res) => {
-    //Identifier of event has been created
-}).catch((err) => {
-  //Error
-});
+};
+
+uiza.live.create(params)
+  .then((res) => {
+      //Identifier of event has been created
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -149,6 +183,11 @@ import (
   uiza "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/live"
 )
+
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
 
 dvrType := uiza.DvrTypeOne
 resourceMode := uiza.ResourceModeSingle
@@ -163,30 +202,49 @@ params := &uiza.LiveCreateParams{
   LinkStream: &[]string{*uiza.String("https://playlist.m3u8")},
   ResourceMode: &resourceMode,
 }
-response, _ := live.Create(params)
-log.Printf("%v\n", response)
+response, err := live.Create(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-	ApiKey = "your-ApiKey",
-	ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var createResult = UizaServices.Live.Create(new CreateLiveStreamingParameter()
+try
 {
-	Name = Guid.NewGuid().ToString(),
-	Mode = "push",
-	Encode = EncodeTypes.Encode,
-	Drv = DvrTypes.ActiveFeatureRecord,
-	LinkStream = new List<string>() { "https://playlist.m3u8" },
-	Poster = "//image1.jpeg",
-	Thumbnail = "//image1.jpeg",
-	ResourceMode = ResourceModes.Single
-});
+  var result = UizaServices.Live.Create(new CreateLiveStreamingParameter()
+  {
+    Name = Guid.NewGuid().ToString(),
+    Mode = "push",
+    Encode = EncodeTypes.Encode,
+    Drv = DvrTypes.ActiveFeatureRecord,
+    LinkStream = new List<string>() { "https://playlist.m3u8" },
+    Poster = "//image1.jpeg",
+    Thumbnail = "//image1.jpeg",
+    ResourceMode = ResourceModes.Single
+  });
+
+  Console.WriteLine(string.Format("Create Live Streaming Success New Id = {0}", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 These APIs use to create a live streaming and manage the live streaming input (output).

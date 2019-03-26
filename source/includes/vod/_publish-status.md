@@ -30,44 +30,80 @@ end
 ```
 
 ```python
-res, status_code = Entity().get_status_publish("33a86c18-f502-41a4-9c4c-d4e14efca238")
+import uiza
 
-print("status_code", status_code)
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Entity().get_status_publish("your-entity-id")
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-Uiza\Entity::getStatusPublish("key ...");
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\Entity::getStatusPublish("your-entity-id");
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonObject response = Entity.getStatusPublish("<entity-id>");
-  System.out.println(response.get("status"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
+    try {
+      JsonObject response = Entity.getStatusPublish("<entity-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-uiza.entity.get_status_publish({
-  'id': '8c6de86e-f468-4226-b476-4f320bda225a',
-}).then((res) => {
-  //Progress of task publish, will be success when reach 100
-  // Status of task publish (processing, success, error)
-}).catch((err) => {
-  //Error
-});
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
+
+uiza.entity.get_status_publish('your-entity-id')
+  .then((res) => {
+    //Progress of task publish, will be success when reach 100
+    // Status of task publish (processing, success, error)
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -76,22 +112,45 @@ import (
   "github.com/uizaio/api-wrapper-go/entity"
 )
 
-params := &uiza.EntityPublishParams{ID: uiza.String("Your entity ID")}
-response, _ := entity.GetStatusPublish(params)
-log.Printf("%v\n", response)
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.EntityPublishParams{ID: uiza.String("your-entity-id")}
+response, err := entity.GetStatusPublish(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result =  UizaServices.Entity.GetStatusPublish("Entity Id");
-Console.WriteLine(string.Format("Get Status Publish Success : temp_access_id = {0} ", result.Data.status));
+try
+{
+  var result =  UizaServices.Entity.GetStatusPublish("your-entity-id");
+
+  Console.WriteLine(string.Format("Get Status Publish Success : temp_access_id = {0} ", result.Data.status));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 Publish entity to CDN, use for streaming

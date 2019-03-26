@@ -43,68 +43,102 @@ end
 ```
 
 ```python
+import uiza
+
 from uiza.api_resources.category import Category
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
 
 category_data = {
   "name": "Test name 1",
   "type": "folder"
 }
 
-res, status_code = Category().create(**category_data)
+try:
+  res, status_code = Category().create(**category_data)
 
-print("id: ", res.id)
-print("status_code", status_code)
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
   "name" => "Folder sample",
   "type" => "folder",
   "description" => "Folder description"
 ];
 
-Uiza\Category::create($params);
+try {
+  Uiza\Category::create($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Category;
+import io.uiza.model.Category.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "Playlist Sample");
-params.put("type", Type.PLAYLIST.toString());
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonObject category = Category.create(params);
-  System.out.println(category.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "Playlist Sample");
+    params.put("type", Type.PLAYLIST.toString());
 
+    try {
+      JsonObject response = Category.create(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
 
-/** create */
-uiza.category.create({
+const params = {
   'name': 'Folder sample 2',
   'type': 'folder',
   'orderNumber': 1,
   'description': 'Folder description',
   'icon': 'https://exemple.com/icon.png'
-}).then((res) => {
-  //Identifier of category has been created
-}).catch((err) => {
-  //Error
-});
+};
+
+uiza.category.create(params)
+  .then((res) => {
+    //Identifier of category has been created
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -112,6 +146,11 @@ import (
   "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/category"
 )
+
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
 
 var typeCategory = uiza.CategoryFolderType
 params := &uiza.CategoryCreateParams{
@@ -122,26 +161,43 @@ params := &uiza.CategoryCreateParams{
   OrderNumber:uiza.Int64(1),
 }
 
-response, _ := category.Create(params)
-log.Printf("%v", response)
+response, err := category.Create(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
- var createResult = UizaServices.Category.Create(new CreateCategoryParameter()
+try
 {
-  Name = string.Format("Category name {0}", Guid.NewGuid().ToString()),
-  Type = CategoryTypes.Folder
-});
+  var result = UizaServices.Category.Create(new CreateCategoryParameter()
+  {
+    Name = string.Format("Category name {0}", Guid.NewGuid().ToString()),
+    Type = CategoryTypes.Folder
+  });
 
-Console.WriteLine(string.Format("Create New Category Id = {0} Success", createResult.Data.id));
+  Console.WriteLine(string.Format("Create New Category Id = {0} Success", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 Create category for entity for easier management. Category use to group all the same entities into a group (like Folder/ playlist/or tag)

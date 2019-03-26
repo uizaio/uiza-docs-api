@@ -30,43 +30,83 @@ end
 ```
 
 ```python
-res, status_code = Entity().search(keyword="Title")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Entity().search(keyword="Title")
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-$entity = Uiza\Entity::search(["keyword" => "sample"]);
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  $entity = Uiza\Entity::search(["keyword" => "sample"]);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonArray entities = Entity.search("keyword");
-  JsonObject firstEntity = entities.get(0).getAsJsonObject();
-  System.out.println(firstEntity.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
+    try {
+      JsonArray response = Entity.search("keyword");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-uiza.entity.search({'keyword': 'sample'}).then((res) => {
-  // Response search entity base on keyword entered
-}).catch((err) => {
-  //Error
-});
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
+
+const params = {
+  'keyword': 'sample'
+};
+
+uiza.entity.search(params)
+  .then((res) => {
+    // Response search entity base on keyword entered
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -75,24 +115,45 @@ import (
   "github.com/uizaio/api-wrapper-go/entity"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.EntitySearchParams{Keyword: uiza.String("Sample")}
-listEntity, _ := entity.Search(params)
-for _, v := range listEntity {
-  log.Printf("%v\n", v)
+listEntity, err := entity.Search(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
 }
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-	ApiKey = "your-ApiKey",
-	ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.Entity.Search("Sample");
-Console.WriteLine(string.Format("Search Success, , total record {0}", result.Data.Count));
+try
+{
+  var result = UizaServices.Entity.Search("Sample");
+
+  Console.WriteLine(string.Format("Search Success, total record {0}", result.Data.Count));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 Search entity base on keyword entered

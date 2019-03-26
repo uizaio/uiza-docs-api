@@ -33,44 +33,79 @@ end
 ```
 
 ```python
-res, status_code = User().delete("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.user import User
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = User().delete("your-user-id")
+
+  print("res ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?
-Uiza\User::delete("id user");
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\User::delete("your-user-id");
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.User;
+import io.uiza.model.User.*;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+public class Main {
 
-try {
-  JsonObject user = User.delete("<user-id>");
-  System.out.println(user.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
+    try {
+      JsonObject response = User.delete("<user-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
 
-uiza.user.delete('9e4df7c2-111d-4107-9c2e-6d2cb13c06f0').then((res) => {
-  //  Result of user has been deleted
-}).catch((err) => {
-  //Error
-});
+uiza.user.delete('your-user-id')
+  .then((res) => {
+    //  Result of user has been deleted
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -79,32 +114,45 @@ import (
   "github.com/uizaio/api-wrapper-go/user"
 )
 
-params := &uiza.UserIDParams{ID:uiza.String("d0b81f08-0a93-4b0e-a6b4-15027349b7d6")}
-response, _ := user.Delete(params)
-log.Printf("%s\n", response)
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.UserIDParams{ID:uiza.String("your-user-id")}
+response, err := user.Delete(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.User.Create(new CreatUserParameter()
+try
 {
-  Status = UserStatus.Active,
-  UserName = Guid.NewGuid().ToString(),
-  Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
-  PassWord = Guid.NewGuid().ToString();,
-  FullName = Guid.NewGuid().ToString(),
-  Avatar = "https://static.uiza.io/uiza_logo_128.png"
-});
+  var result = UizaServices.User.Delete("your-user-id");
 
-var deleteResult = UizaServices.User.Delete((string)result.Data.id);
-Console.WriteLine(string.Format("Delete User Id = {0} Success", deleteResult.Data.id));
+  Console.WriteLine(string.Format("Delete User Id = {0} Success", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 > Example Response
