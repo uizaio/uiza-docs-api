@@ -9,9 +9,10 @@ curl -X PUT \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "id": "<%= config[:uiza_entity_id] %>",
-    "name": "The Evolution of Dance 2",
-    "description": "Judson Laipply did it again with a fantastic job in performing better dance moves",
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:entity_update_id] %>",
+    "name": "<%= config[:entity_update_name] %>",
+    "description": "<%= config[:entity_update_description] %>",
     "shortDescription":"You can never be as good a dancer as Judson Laipply.",
     "poster": "<%= config[:sample_poster] %>",
     "thumbnail": "<%= config[:sample_thumbnail] %>",
@@ -26,12 +27,13 @@ curl -X PUT \
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 params = {
-  id: "your-entity-id",
-  name: "Name edited"
+  id: "<%= config[:entity_update_id] %>",
+  name: "<%= config[:entity_update_name] %>",
+  description: "<%= config[:entity_update_description] %>"
 }
 
 begin
@@ -53,13 +55,19 @@ import uiza
 from uiza.api_resources.entity import Entity
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
+
+entity_data = {
+  "id": "<%= config[:entity_update_id] %>",
+  "name": "<%= config[:entity_update_name] %>",
+  "description": "<%= config[:entity_update_description] %>"
+}
 
 try:
-  res, status_code = Entity().update(id="your-entity-id", name="Update title")
+  res, status_code = Entity().update(**entity_data)
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -70,11 +78,18 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
+
+$params = [
+  "name" => "<%= config[:entity_update_name] %>",
+  "description" => "<%= config[:entity_update_description] %>"
+];
 
 try {
-  Uiza\Entity::update("your-enity-id", ["name" => "Name change"]);
+  $entity = Uiza\Entity::update("<%= config[:entity_update_id] %>", $params);
+
+  print_r($entity);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -93,15 +108,15 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     Map<String, Object> params = new HashMap<>();
-    params.put("name", "Name edited");
-    params.put("description", "Description edited");
+    params.put("name", "<%= config[:entity_update_name] %>");
+    params.put("description", "<%= config[:entity_update_description] %>");
 
     try {
-      JsonObject response = Entity.update("<entity-id>", params);
+      JsonObject response = Entity.update("<%= config[:entity_update_id] %>", params);
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -116,10 +131,17 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
 
-uiza.entity.update('your-entity-id')
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+const params = {
+  'id': '<%= config[:entity_update_id] %>',
+  'name': '<%= config[:entity_update_name] %>',
+  'description': '<%= config[:entity_update_description] %>'
+};
+
+uiza.entity.update(params)
   .then((res) => {
     // Identifier of entity has been updated
   }).catch((err) => {
@@ -134,13 +156,14 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
 params := &uiza.EntityUpdateParams{
-  ID: uiza.String("your-entity-id"),
-  Name: uiza.String("Update entity name"),
+  ID: uiza.String("<%= config[:entity_update_id] %>"),
+  Name: uiza.String("<%= config[:entity_update_name] %>"),
+  Description: uiza.String("<%= config[:entity_update_description] %>"),
 }
 response, err := entity.Update(params)
 if err != nil {
@@ -159,20 +182,17 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var result =uizaServices.Entity.Update(new UpdateEntityParameter()
+  var result = uizaServices.Entity.Update(new UpdateEntityParameter()
   {
-    Id = "your-entity-id",
-    Name = "Sample update",
-    Description = "Description update",
-    ShortDescription = "ShortDescription update",
-    Poster = "/example.com/updatePoster",
-    Thumbnail = "/example.com/updateThumbnail"
+    Id = "<%= config[:entity_update_id] %>",
+    Name = "<%= config[:entity_update_name] %>",
+    Description = "<%= config[:entity_update_description] %>"
   });
 
   Console.WriteLine(string.Format("Update Entity Id = {0} Success", result.Data.id));
@@ -192,7 +212,7 @@ This request accepts mostly the same arguments as the entity creation call.
 
 ```json
 {
-  "id": "<%= config[:uiza_entity_id] %>"
+  "id": "<%= config[:entity_update_id] %>"
 }
 ```
 

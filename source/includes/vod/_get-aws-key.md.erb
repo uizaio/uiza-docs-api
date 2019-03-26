@@ -5,14 +5,18 @@
 
 ```shell
 curl -X GET \
-  <%= config[:endpoint] %>/admin/app/config/aws \
-  -H 'Authorization: <%= config[:token] %>'
+  '<%= config[:endpoint] %>/admin/app/config/aws' \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>"
+}'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 begin
@@ -29,42 +33,82 @@ end
 ```
 
 ```python
-res, status_code = Entity().get_aws_upload_key()
+import uiza
 
-print("status_code", status_code)
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
+
+try:
+  res, status_code = Entity().get_aws_upload_key()
+
+  print("res: ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-Uiza\Entity::getAWSUploadKey();
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
+
+try {
+  $response = Uiza\Entity::getAWSUploadKey();
+
+  print_r($response);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.apiDomain = "<%= config[:endpoint] %>";
-Uiza.apiKey = "<%= config[:token] %>";
+public class Main {
 
-try {
-  JsonObject response = Entity.getAwsUploadKey();
-  System.out.println(response.get("region_name"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
+    try {
+      JsonObject response = Entity.getAwsUploadKey();
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
+const uiza = require('uiza');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
 uiza.entity.get_aws_upload_key()
-.then((res) => {
-  // The response body will return you the paramaters that used for input to aws sdk , then upload your files to Uiza’s storage
-}).catch((err) => {
-  //Error
-});
+  .then((res) => {
+    // The response body will return you the paramaters that used for input to aws sdk , then upload your files to Uiza’s storage
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -73,21 +117,44 @@ import (
   "github.com/uizaio/api-wrapper-go/entity"
 )
 
-response, _ := entity.GetAWSUploadKey()
-log.Printf("%v\n", response)
+func init() {
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
+}
+
+response, err := entity.GetAWSUploadKey()
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-	ApiKey = "<%= config[:token] %>",
-	ApiBase = "<%= config[:endpoint] %>"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
-var result =  UizaServices.Entity.GetAWSUploadKey();
-Console.WriteLine(string.Format("Get AWS Upload Key Success : temp_access_id = {0} ", result.Data.temp_access_id));
+try
+{
+  var result =  UizaServices.Entity.GetAWSUploadKey();
+
+  Console.WriteLine(string.Format("Get AWS Upload Key Success : temp_access_id = {0} ", result.Data.temp_access_id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 Videos can be uploaded in builk to AWS S3. Uiza provides a temporary S3 bucket on AWS for you to upload videos to. Each `organization` may have one temporary bucket at a time.

@@ -5,18 +5,23 @@
 
 ```shell
 curl -X GET \
-  '<%= config[:endpoint] %>/media/entity?id=<%= config[:uiza_entity_id] %>' \
+  '<%= config[:endpoint] %>/media/entity' \
   -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:entity_retrieve_id] %>"
+}'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 begin
-  entity = Uiza::Entity.retrieve "your-entity-id"
+  entity = Uiza::Entity.retrieve "<%= config[:entity_retrieve_id] %>"
   puts entity.id
   puts entity.name
 rescue Uiza::Error::UizaError => e
@@ -29,46 +34,87 @@ end
 ```
 
 ```python
-entity_id = '33a86c18-f502-41a4-9c4c-d4e14efca238'
+import uiza
 
-res, status_code = Entity().retrieve(entity_id)
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
 
-print("id: ", res.id)
-print("status_code", status_code)
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
+
+try:
+  res, status_code = Entity().retrieve(id="<%= config[:entity_retrieve_id] %>")
+
+  print("res: ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-Uiza\Entity::retrieve("key ... ");
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
+
+try {
+  $entity = Uiza\Entity::retrieve("<%= config[:entity_retrieve_id] %>");
+
+  print_r($entity);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
  ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.apiDomain = "<%= config[:endpoint] %>";
-Uiza.apiKey = "<%= config[:token] %>";
+public class Main {
 
-try {
-  JsonObject entity = Entity.retrieve("<entity-id>");
-  System.out.println(entity.get("name"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
+    try {
+      JsonObject response = Entity.retrieve("<%= config[:entity_retrieve_id] %>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-uiza.entity.retrieve({
-  'id': 'd1781e62-2d2c-4e3c-b8de-e808e50ac845'
-}).then((res) => {
-  //Identifier of entity
-}).catch((err) => {
-  //Error
-});
+const uiza = require('uiza');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+const params = {
+  'id': '<%= config[:entity_retrieve_id] %>'
+};
+
+
+uiza.entity.retrieve(params)
+  .then((res) => {
+    //Identifier of entity
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -77,22 +123,45 @@ import (
   "github.com/uizaio/api-wrapper-go/entity"
 )
 
-params := &uiza.EntityRetrieveParams{ID: uiza.String("Your entity ID")}
-response, _ := entity.Retrieve(params)
-log.Printf("%s\n", response)
+func init() {
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
+}
+
+params := &uiza.EntityRetrieveParams{ID: uiza.String("<%= config[:entity_retrieve_id] %>")}
+response, err := entity.Retrieve(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-	ApiKey = "<%= config[:token] %>",
-	ApiBase = "<%= config[:endpoint] %>"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
-var result = UizaServices.Entity.Retrieve("Entity Id");
-Console.WriteLine(string.Format("Get Entity Id = {0} Success", result.Data.id));
+try
+{
+  var result = UizaServices.Entity.Retrieve("<%= config[:entity_retrieve_id] %>");
+
+  Console.WriteLine(string.Format("Get Entity Id = {0} Success", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 Retrieves the details of an existing entity. Supply the unique entity ID from either an entity creation request or the entity list, and Uiza will return the corresponding entity information.
@@ -101,7 +170,7 @@ Retrieves the details of an existing entity. Supply the unique entity ID from ei
 
 ```json
 {
-  "id": "<%= config[:uiza_entity_id] %>",
+  "id": "<%= config[:entity_retrieve_id] %>",
   "name": "The Evolution of Dance",
   "description": "Judson Laipply did a fantastic job in performing various dance moves",
   "shortDescription": "How good a dancer can you be?",
@@ -143,4 +212,3 @@ Retrieves the details of an existing entity. Supply the unique entity ID from ei
 **RETURNS**
 
 Returns a entity object if a valid identifier was provided.
-

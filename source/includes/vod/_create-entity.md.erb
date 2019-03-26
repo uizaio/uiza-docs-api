@@ -9,6 +9,7 @@ curl -X POST \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
+    "appId": "<%= config[:app_id] %>",
     "name": "The Evolution of Dance",
     "url": "<%= config[:sample_video] %>",
     "inputType": "http",
@@ -34,17 +35,15 @@ curl -X POST \
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 params = {
-  name: "The Evolution of Dance",
-  url: "<%= config[:sample_video] %>",
-  inputType: "http",
-  description: "Judson Laipply did a fantastic job in performing various dance moves",
-  shortDescription: "How good a dancer can you be?",
-  poster: "<%= config[:sample_poster] %>",
-  thumbnail: "<%= config[:sample_thumbnail] %>"
+  name: "<%= config[:entity_create_name] %>",
+  url: "<%= config[:entity_create_url] %>",
+  inputType: "<%= config[:entity_create_input_type] %>",
+  description: "<%= config[:entity_create_description] %>",
+  shortDescription: "<%= config[:entity_create_short_description] %>"
 }
 
 begin
@@ -61,72 +60,113 @@ end
 ```
 
 ```python
+import uiza
+
 from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 entity_data = {
-  "name": "The Evolution of Dance",
-  "url": "<%= config[:sample_video] %>",
-  "inputType": "http",
-  "description": "Judson Laipply did a fantastic job in performing various dance moves",
-  "shortDescription": "How good a dancer can you be?"
+  "name": "<%= config[:entity_create_name] %>",
+  "url": "<%= config[:entity_create_url] %>",
+  "inputType": "<%= config[:entity_create_input_type] %>",
+  "description": "<%= config[:entity_create_description] %>",
+  "shortDescription": "<%= config[:entity_create_short_description] %>"
 }
-res, status_code = Entity().create(**entity_data)
 
-print("id: ", res.id)
-print("status_code", status_code)
+try:
+  res, status_code = Entity().create(**entity_data)
+
+  print("res: ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
+
 $params = [
-  "name" => "Name entity",
-  "url" => "http://google.com",
-  "inputType" => "http"
+  "name" => "<%= config[:entity_create_name] %>",
+  "url" => "<%= config[:entity_create_url] %>",
+  "inputType" => "<%= config[:entity_create_input_type] %>",
+  "description" => "<%= config[:entity_create_description] %>",
+  "shortDescription" => "<%= config[:entity_create_short_description] %>"
 ];
 
-$entity = Uiza\Entity::create($params);
+try {
+  $entity = Uiza\Entity::create($params);
+
+  print_r($entity);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
  ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.apiDomain = "<%= config[:endpoint] %>";
-Uiza.apiKey = "<%= config[:token] %>";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "The Evolution of Dance");
-params.put("url", "<%= config[:sample_video] %>");
-params.put("inputType", InputType.HTTP.toString());
-params.put("description", "Judson Laipply did a fantastic job in performing various dance moves");
-params.put("shortDescription", "How good a dancer can you be?");
-params.put("poster", "<%= config[:sample_poster] %>");
-params.put("thumbnail", "<%= config[:sample_thumbnail] %>");
+  public static void main(String[] args) {
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
-try {
-  JsonObject entity = Entity.create(params);
-  System.out.println(entity.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "<%= config[:entity_create_name] %>");
+    params.put("url", "<%= config[:entity_create_url] %>");
+    params.put("inputType", InputType.HTTP.toString());
+    params.put("description", <%= config[:entity_create_description] %>);
+    params.put("shortDescription", "<%= config[:entity_create_short_description] %>");
 
+    try {
+      JsonObject response = Entity.create(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
 ```javascript
-uiza.entity.create({
-  'name': 'The Evolution of Dance',
-  'url': '<%= config[:sample_video] %>',
-  'inputType': 'http',
-  'description': 'Judson Laipply did a fantastic job in performing various dance moves'
-  'shortDescription': 'How good a dancer can you be?'
-}).then((res) => {
-  //Identifier of entity has been created
-}).catch((err) => {
-  //Error
-});
+const uiza = require('uiza');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+const params = {
+  'name': '<%= config[:entity_create_name] %>',
+  'url': '<%= config[:entity_create_url] %>',
+  'inputType': '<%= config[:entity_create_input_type] %>',
+  'description': '<%= config[:entity_create_description] %>',
+  'shortDescription': '<%= config[:entity_create_short_description] %>'
+};
+
+uiza.entity.create(params)
+  .then((res) => {
+    //Identifier of entity has been created
+  }).catch((err) => {
+    //Error
+  });
 ```
 
 ```go
@@ -135,38 +175,58 @@ import (
   "github.com/uizaio/api-wrapper-go/entity"
 )
 
-var typeHTTP = uiza.InputTypeHTTP
-params :=  &uiza.EntityCreateParams{
-  Name: uiza.String("The Evolution of Dance"),
-  URL: uiza.String("<%= config[:sample_video] %>"),
-  InputType: &typeHTTP,
-  Description: uiza.String("Judson Laipply did a fantastic job in performing various dance moves"),
-  ShortDescription: uiza.String("How good a dancer can you be?")
+func init() {
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-response, _ := entity.Create(params)
-log.Printf("%s\n", response)
+params :=  &uiza.EntityCreateParams{
+  Name: uiza.String("<%= config[:entity_create_name] %>"),
+  URL: uiza.String("<%= config[:entity_create_url] %>"),
+  InputType: uiza.String("<%= config[:entity_create_input_type] %>"),
+  Description: uiza.String("<%= config[:entity_create_description] %>"),
+  ShortDescription: uiza.String("<%= config[:entity_create_short_description] %>")
+}
+
+response, err := entity.Create(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "<%= config[:token] %>",
-  ApiBase = "<%= config[:endpoint] %>"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
-var result = UizaServices.Entity.Create(new CreateEntityParameter()
+try
 {
-  Name = "The Evolution of Dance",
-  InputType = EntityInputTypes.S3Uiza,
-  Description = "Judson Laipply did a fantastic job in performing various dance moves"
-  ShortDescription = "How good a dancer can you be?"
-  URL = ""
-});
-
-Console.WriteLine(string.Format("Create New Entity Id = {0} Success", result.Data.id));
+  var result = UizaServices.Entity.Create(new CreateEntityParameter()
+  {
+    Name = "<%= config[:entity_create_name] %>",
+    InputType = "<%= config[:entity_create_input_type] %>"),
+    Description = <%= config[:entity_create_description] %>,
+    ShortDescription = <%= config[:entity_create_short_description] %>,
+    URL = "<%= config[:entity_create_url] %>"
+  });
+  Console.WriteLine(string.Format("Create New Entity Id = {0} Success", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
 ```
 
 Entities can be created with the following types of link: HTTP, FTP, S3.
@@ -179,7 +239,7 @@ With S3 URL, it must be public accessible.
 
 ```json
 {
-  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
+  "id": "<%= config[:entity_create_id] %>"
 }
 ```
 

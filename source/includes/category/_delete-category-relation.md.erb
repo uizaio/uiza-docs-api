@@ -9,20 +9,21 @@ curl -X DELETE \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "entityId":"<%= config[:uiza_entity_id] %>",
-    "metadataIds":["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
+    "appId": "<%= config[:app_id] %>",
+    "entityId": "<%= config[:category_delete_relation_entity_id] %>",
+    "metadataIds": ["<%= config[:category_delete_relation_category_id_1] %>", "<%= config[:category_delete_relation_category_id_2] %>"]
 }'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 params = {
-  entityId: "your-entity-id",
-  metadataIds: ["your-category-id-1", "your-category-id-2"]
+  entityId: "<%= config[:category_delete_relation_entity_id] %>",
+  metadataIds: ["<%= config[:category_delete_relation_category_id_1] %>", "<%= config[:category_delete_relation_category_id_2] %>"]
 }
 
 begin
@@ -44,16 +45,18 @@ import uiza
 from uiza.api_resources.category import Category
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
+
+relations_data = {
+  "entity_id": "<%= config[:category_delete_relation_entity_id] %>",
+  "metadata_ids": ["<%= config[:category_delete_relation_category_id_1] %>", "<%= config[:category_delete_relation_category_id_2] %>"]
+}
 
 try:
-  res, status_code = Category().delete_relation(
-    entity_id="your-entity-id",
-    metadata_ids=["your-category-id-1","your-category-id-2"]
-  )
+  res, status_code = Category().delete_relation(**relations_data)
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -64,16 +67,18 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 $params = [
-  "entityId" => "your-entity-id",
-  "metadataIds" => ["your-category-id-1","your-category-id-2"]
+  "entityId" => "<%= config[:category_delete_relation_entity_id] %>",
+  "metadataIds" => ["<%= config[:category_delete_relation_category_id_1] %>", "<%= config[:category_delete_relation_category_id_2] %>"]
 ];
 
 try {
-  Uiza\Category::deleteRelation($params);
+  $response = Uiza\Category::deleteRelation($params);
+
+  print_r($response);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -92,12 +97,12 @@ import io.uiza.model.Category.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     Map<String, Object> params = new HashMap<>();
-    params.put("entityId", "<entity-id>");
-    params.put("metadataIds", new String[] {"<category-id-1>", "<category-id-2>"});
+    params.put("entityId", "<%= config[:category_delete_relation_entity_id] %>");
+    params.put("metadataIds", new String[] {"<%= config[:category_delete_relation_category_id_1] %>", "<%= config[:category_delete_relation_category_id_2] %>"});
 
     try {
       JsonArray response = Category.deleteRelation(params);
@@ -115,12 +120,13 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
 
 const params = {
-  'entityId': 'your-entity-id',
-  'metadataIds': ['your-category-id-1','your-category-id-2']
+  'entityId': '<%= config[:category_delete_relation_entity_id] %>',
+  'metadataIds': ['<%= config[:category_delete_relation_category_id_1] %>','<%= config[:category_delete_relation_category_id_2] %>']
 };
 
 uiza.category.delete_relation(params)
@@ -138,15 +144,15 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
 params := &uiza.CategoryRelationParams{
-  EntityId: uiza.String("your-entity-id"),
-  MetadataIds: []*string{
-  uiza.String("your-category-id-1"),
-  uiza.String("your-category-id-2"),
+  MetadataId: uiza.String("<%= config[:category_delete_relation_category_id_1] %>"),
+  EntityIds: []*string{
+      uiza.String("<%= config[:category_delete_relation_entity_id] %>"),
+  }}
 }}
 response, err := category.DeleteRelation(params)
 if err != nil {
@@ -165,21 +171,21 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
   var listMetadata = new List<string>()
   {
-    "your-category-id-1",
-    "your-category-id-2"
+    "<%= config[:category_delete_relation_category_id_1] %>",
+    "<%= config[:category_delete_relation_category_id_2] %>"
   };
 
   var result = UizaServices.Category.DeleteRelation(new CategoryRelationParameter()
   {
-    EntityId = "your-entity-id",
+    EntityId = "<%= config[:category_delete_relation_entity_id] %>",
     MetadataIds = listMetadata
   });
   Console.WriteLine(string.Format("Delete Category Relation Success, total record {0}", result.MetaData.result));
@@ -201,8 +207,8 @@ Delete relation for entity and category
     "data": [
         {
             "id": "5620ed3c-b725-4a9a-8ec1-ecc9df3e5aa6",
-            "entityId": "<%= config[:uiza_entity_id] %>",
-            "metadataId": "095778fa-7e42-45cc-8a0e-6118e540b61d"
+            "entityId": "<%= config[:category_delete_relation_entity_id] %>",
+            "metadataId": "<%= config[:category_delete_relation_category_id_1] %>"
         },
     ],
     "metadata": {
