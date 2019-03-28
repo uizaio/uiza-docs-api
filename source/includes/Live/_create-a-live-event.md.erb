@@ -8,38 +8,39 @@ curl -X POST \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "name":"test event",
-    "mode":"push",
-    "encode":1,
-    "dvr":1,
-    "description":"This is for test event",
-    "poster":"//image1.jpeg",
-    "thumbnail":"//image1.jpeg",
-    "linkStream":[
-              "https://playlist.m3u8"
-            ],
-    "resourceMode":"single"
+    "appId": "<%= config[:app_id] %>",
+    "name": "<%= config[:live_create_name] %>",
+    "mode": "<%= config[:live_create_mode] %>",
+    "encode": <%= config[:live_create_encode] %>,
+    "dvr": <%= config[:live_create_dvr] %>,
+    "description": "<%= config[:live_create_description] %>",
+    "poster": "<%= config[:live_create_poster] %>",
+    "thumbnail": "<%= config[:live_create_thumbnail] %>",
+    "linkStream": [
+      "<%= config[:live_create_link_stream] %>"
+    ],
+    "resourceMode": "<%= config[:live_create_resource_mode] %>"
 }'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 params = {
-  name: "test event",
-  mode: "push",
-  encode: 1,
-  dvr: 1,
-  description: "This is for test event",
-  poster: "https://example.com/poster.jpeg",
-  thumbnail: "https://example.com/poster.jpeg",
+  name: "<%= config[:live_create_name] %>",
+  mode: "<%= config[:live_create_mode] %>",
+  encode: <%= config[:live_create_encode] %>,
+  dvr: <%= config[:live_create_dvr] %>,
+  description: "<%= config[:live_create_description] %>",
+  poster: "<%= config[:live_create_poster] %>",
+  thumbnail: "<%= config[:live_create_thumbnail] %>",
   linkStream: [
-    "https://playlist.m3u8"
+    "<%= config[:live_create_link_stream] %>"
   ],
-  resourceMode: "single"
+  resourceMode: "<%= config[:live_create_resource_mode] %>"
 }
 
 begin
@@ -61,24 +62,27 @@ import uiza
 from uiza.api_resources.live import Live
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 live_data = {
-  "name":"test event python 1",
-  "mode":"push",
-  "encode":1,
-  "dvr":1,
-  "linkStream":[
-    "https://playlist.m3u8"
+  "name": "<%= config[:live_create_name] %>",
+  "mode": "<%= config[:live_create_mode] %>",
+  "encode": <%= config[:live_create_encode] %>,
+  "dvr": <%= config[:live_create_dvr] %>,
+  "description": "<%= config[:live_create_description] %>",
+  "poster": "<%= config[:live_create_poster] %>",
+  "thumbnail": "<%= config[:live_create_thumbnail] %>",
+  "linkStream": [
+    "<%= config[:live_create_link_stream] %>"
   ],
-  "resourceMode":"single"
+  "resourceMode": "<%= config[:live_create_resource_mode] %>"
 }
 
 try:
   res, status_code = Live().create(**live_data)
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -89,25 +93,27 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 $params = [
-  "name" => "test event",
-  "mode" => "push",
-  "encode" => 1,
-  "dvr" => 1,
-  "description" => "This is for test event",
-  "poster" => "//image1.jpeg",
-  "thumbnail" => "//image1.jpeg",
+  "name" => "<%= config[:live_create_name] %>",
+  "mode" => "<%= config[:live_create_mode] %>",
+  "encode" => <%= config[:live_create_encode] %>,
+  "dvr" => <%= config[:live_create_dvr] %>,
+  "description" => "<%= config[:live_create_description] %>",
+  "poster" => "<%= config[:live_create_poster] %>",
+  "thumbnail" => "<%= config[:live_create_thumbnail] %>",
   "linkStream" => [
-    "https://playlist.m3u8"
+    "<%= config[:live_create_link_stream] %>"
   ],
-  "resourceMode" => "single"
+  "resourceMode" => "<%= config[:live_create_resource_mode] %>"
 ];
 
 try {
-  Uiza\Live::create($params);
+  $live = Uiza\Live::create($params);
+
+  print_r($live);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -126,15 +132,18 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     Map<String, Object> params = new HashMap<>();
-    params.put("name", "<your-live-event-name>");
-    params.put("mode", Mode.PULL.toString());
+    params.put("name", "<%= config[:live_create_name] %>");
+    params.put("mode", Mode.PUSH.toString());
     params.put("encode", Encode.ENCODE.getVal());
     params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
-    params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
+    params.put("description", "<%= config[:live_create_description] %>");
+    params.put("poster", "<%= config[:live_create_poster] %>");
+    params.put("thumbnail", "<%= config[:live_create_thumbnail] %>");
+    params.put("linkStream", new String[] {"<%= config[:live_create_link_stream] %>"});
     params.put("resourceMode", ResourceMode.SINGLE.toString());
 
     try {
@@ -153,21 +162,22 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
 
 const params = {
-  'name': 'test event',
-  'mode': 'push',
-  'encode': 1,
-  'dvr': 1,
-  'description': 'This is for test event',
-  'poster': '//image1.jpeg',
-  'thumbnail': '//image1.jpeg',
+  'name': '<%= config[:live_create_name] %>',
+  'mode': '<%= config[:live_create_mode] %>',
+  'encode': <%= config[:live_create_encode] %>,
+  'dvr': <%= config[:live_create_dvr] %>,
+  'description': '<%= config[:live_create_description] %>',
+  'poster': '<%= config[:live_create_poster] %>',
+  'thumbnail': '<%= config[:live_create_thumbnail] %>',
   'linkStream': [
-    'https://playlist.m3u8'
+    '<%= config[:live_create_link_stream] %>'
   ],
-  'resourceMode': 'single'
+  'resourceMode': '<%= config[:live_create_resource_mode] %>'
 };
 
 uiza.live.create(params)
@@ -185,22 +195,20 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-dvrType := uiza.DvrTypeOne
-resourceMode := uiza.ResourceModeSingle
-
 params := &uiza.LiveCreateParams{
-  Name: uiza.String("test event Go"),
-  Mode: uiza.String("push"),
-  Encode: uiza.Int64(1),
-  Dvr: &dvrType,
-  Description: uiza.String("This is for test event"),
-  Thumbnail: uiza.String("//image1.jpeg"),
-  LinkStream: &[]string{*uiza.String("https://playlist.m3u8")},
-  ResourceMode: &resourceMode,
+  Name: uiza.String("<%= config[:live_create_name] %>"),
+  Mode: uiza.String("<%= config[:live_create_mode] %>"),
+  Encode: <%= config[:live_create_encode] %>,
+  Dvr: <%= config[:live_create_dvr] %>,
+  Description: uiza.String("<%= config[:live_create_description] %>"),
+  Thumbnail: uiza.String("<%= config[:live_create_thumbnail] %>"),
+  Poster: uiza.String("<%= config[:live_create_poster] %>"),
+  LinkStream: &[]string{*uiza.String("<%= config[:live_create_link_stream] %>")},
+  ResourceMode: uiza.String("<%= config[:live_create_resource_mode] %>"),
 }
 response, err := live.Create(params)
 if err != nil {
@@ -219,22 +227,25 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var result = UizaServices.Live.Create(new CreateLiveStreamingParameter()
+  var result = UizaServices.Live.Create(new CreateLiveParameter()
   {
-    Name = Guid.NewGuid().ToString(),
-    Mode = "push",
-    Encode = EncodeTypes.Encode,
-    Drv = DvrTypes.ActiveFeatureRecord,
-    LinkStream = new List<string>() { "https://playlist.m3u8" },
-    Poster = "//image1.jpeg",
-    Thumbnail = "//image1.jpeg",
-    ResourceMode = ResourceModes.Single
+    Name: "<%= config[:live_create_name] %>",
+    Mode: "<%= config[:live_create_mode] %>",
+    Description: "<%= config[:live_create_description] %>",
+    Encode: <%= config[:live_create_encode] %>,
+    Dvr: <%= config[:live_create_dvr] %>,
+    Poster: "<%= config[:live_create_poster] %>",
+    Thumbnail: new List<string>() {"<%= config[:live_create_thumbnail] %>"},
+    LinkStream: [
+      "<%= config[:live_create_link_stream] %>"
+    ],
+    resourceMode: "<%= config[:live_create_resource_mode] %>"
   });
 
   Console.WriteLine(string.Format("Create Live Streaming Success New Id = {0}", result.Data.id));
@@ -258,7 +269,7 @@ Creates a new live event to manage a live stream.
 
 ```json
 {
-  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
+  "id": "<%= config[:live_create_id] %>"
 }
 ```
 

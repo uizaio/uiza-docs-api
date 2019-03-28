@@ -4,32 +4,33 @@
 
 ```shell
 curl -X PUT \
-  <%= config[:endpoint] %>/live/ \
+  <%= config[:endpoint] %>/live/entity \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "id":"8b83886e-9cc3-4eab-9258-ebb16c0c73de",
-    "name":"live test",
-    "mode":"pull",
-    "encode":0,
-    "dvr":1
-    "resourceMode":"single"
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:live_update_id] %>",
+    "name": "<%= config[:live_update_name] %>",
+    "mode": "<%= config[:live_update_mode] %>",
+    "encode": <%= config[:live_update_encode] %>,
+    "dvr": <%= config[:live_update_dvr] %>,
+    "resourceMode": "<%= config[:live_update_resource_mode] %>"
 }'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 params = {
-  id: "your-live-id",
-  name: "live test",
-  mode: "pull",
-  encode: 0,
-  dvr: 1,
-  resourceMode: "single"
+  id: "<%= config[:live_update_id] %>",
+  name: "<%= config[:live_update_name] %>",
+  mode: "<%= config[:live_update_mode] %>",
+  encode: <%= config[:live_update_encode] %>,
+  dvr: <%= config[:live_update_dvr] %>,
+  resourceMode: "<%= config[:live_update_resource_mode] %>"
 }
 
 begin
@@ -51,13 +52,22 @@ import uiza
 from uiza.api_resources.live import Live
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
+
+live_data = {
+  "id": "<%= config[:live_update_id] %>",
+  "name": "<%= config[:live_update_name] %>",
+  "mode": "<%= config[:live_update_mode] %>",
+  "encode": <%= config[:live_update_encode] %>,
+  "dvr": <%= config[:live_update_dvr] %>,
+  "resourceMode": "<%= config[:live_update_resource_mode] %>"
+}
 
 try:
-  res, status_code = Live().update(id="your-live-id", name="Update title")
+  res, status_code = Live().update(**live_data)
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -68,19 +78,21 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 $params = [
-  "name" => "live test",
-  "mode" => "pull",
-  "encode" => 0,
-  "dvr" => 1,
-  "resourceMode" => "single"
+  "name" => "<%= config[:live_update_name] %>",
+  "mode" => "<%= config[:live_update_mode] %>",
+  "encode" => <%= config[:live_update_encode] %>,
+  "dvr" => <%= config[:live_update_dvr] %>,
+  "resourceMode" => "<%= config[:live_update_resource_mode] %>"
 ];
 
 try {
-  Uiza\Live::update("your-live-id", $params);
+  $live = Uiza\Live::update("<%= config[:live_update_id] %>", $params);
+
+  print_r($live);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -99,19 +111,18 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     Map<String, Object> params = new HashMap<>();
-    params.put("name", "<your-live-event-name>");
+    params.put("name", "<%= config[:live_update_name] %>");
     params.put("mode", Mode.PULL.toString());
-    params.put("encode", Encode.ENCODE.getVal());
+    params.put("encode", Encode.NO_ENCODE.getVal());
     params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
-    params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
     params.put("resourceMode", ResourceMode.SINGLE.toString());
 
     try {
-      JsonObject response = Live.update("<live-event-id>", params);
+      JsonObject response = Live.update("<%= config[:live_update_id] %>", params);
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -126,16 +137,17 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
 
 const params = {
-  'id': 'your-live-id',
-  'name': 'live test',
-  'mode': 'pull',
-  'encode': 0,
-  'dvr': 1,
-  'resourceMode': 'single'
+  'id': '<%= config[:live_update_id] %>',
+  'name': '<%= config[:live_update_name] %>',
+  'mode': '<%= config[:live_update_mode] %>',
+  'encode': <%= config[:live_update_encode] %>,
+  'dvr': <%= config[:live_update_dvr] %>,
+  'resourceMode': '<%= config[:live_update_resource_mode] %>'
 };
 
 uiza.live.update(params)
@@ -153,17 +165,19 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
 dvrType := uiza.DvrTypeOne
 resourceMode := uiza.ResourceModeSingle
 params := &uiza.LiveUpdateParams{
-  ID: uiza.String("your-live-id"),
-  Name: uiza.String("Live streaming Update name"),
-  Dvr: &dvrType,
-  ResourceMode: &resourceMode,
+  ID: uiza.String("<%= config[:live_update_id] %>"),
+  Name: uiza.String("<%= config[:live_update_name] %>"),
+  Mode: uiza.String("<%= config[:live_update_mode] %>"),
+  Encode: <%= config[:live_update_encode] %>,
+  Dvr: <%= config[:live_update_dvr] %>,
+  ResourceMode: uiza.String("<%= config[:live_update_resource_mode] %>"),
 }
 response, err := live.Update(params)
 if err != nil {
@@ -182,23 +196,23 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var result = UizaServices.Live.Update(new UpdateLiveStreamingParameter()
+  var result = UizaServices.Live.Update(new UpdateLiveParameter()
   {
-    Id = "your-live-id",
-    Name = Guid.NewGuid().ToString(),
-    Mode = "pull",
-    Encode = EncodeTypes.Encode,
-    Drv = DvrTypes.ActiveFeatureRecord,
-    ResourceMode = ResourceModes.Single
+    Id = "<%= config[:live_update_id] %>",
+    Name: "<%= config[:live_update_name] %>",
+    Mode: "<%= config[:live_update_mode] %>",
+    Encode: <%= config[:live_update_encode] %>,
+    Dvr: <%= config[:live_update_dvr] %>,
+    resourceMode: "<%= config[:live_update_resource_mode] %>"
   });
 
-  Console.WriteLine(string.Format("Update Live Streaming Id = {0} Success", result.Data.id));
+  Console.WriteLine(string.Format("Update Category Id = {0} Success", result.Data.id));
   Console.ReadLine();
 }
 catch (UizaException ex)
@@ -214,7 +228,7 @@ Updates the specified live event by setting the values of the parameters passed.
 
 ```json
 {
-  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
+  "id": "<%= config[:live_update_id] %>"
 }
 ```
 

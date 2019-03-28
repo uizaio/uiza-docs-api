@@ -6,13 +6,17 @@
 ```shell
 curl -X GET \
   <%= config[:endpoint] %>/media/metadata \
-  -H 'Authorization: <%= config[:token] %>'
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>"
+  }'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 begin
@@ -34,13 +38,13 @@ import uiza
 from uiza.api_resources.category import Category
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 try:
   res, status_code = Category().list()
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -51,11 +55,13 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 try {
-  $listCategory = Uiza\Category::list();
+  $categories =  Uiza\Category::list();
+
+  print_r($categories);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -74,8 +80,8 @@ import io.uiza.model.Category.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     try {
       JsonArray response = Category.list();
@@ -93,8 +99,9 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
 
 uiza.category.list()
   .then((res) => {
@@ -111,15 +118,11 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-params := &uiza.CategoryListParams{
-  Page:uiza.Int64(2),
-  Limit:uiza.Int64(10),
-}
-
+params := &uiza.CategoryListParams{}
 listData, err := category.List(params)
 if err != nil {
   log.Printf("%v\n", err)
@@ -137,15 +140,15 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var listResult = UizaServices.Category.List();
+  var result = UizaServices.Category.List();
 
-  Console.WriteLine(string.Format("Get List Category Success, total record {0}", listResult.MetaData.result));
+  Console.WriteLine(string.Format("Success Get List Category, total record {0}", result.MetaData.result));
   Console.ReadLine();
 }
 catch (UizaException ex)

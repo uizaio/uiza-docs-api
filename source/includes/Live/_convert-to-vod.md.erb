@@ -6,16 +6,25 @@
 curl -X POST \
   <%= config[:endpoint] %>/live/entity/dvr/convert-to-vod?id=3fec45e9-932b-4efe-b97f-dc3053acaa05 \
   -H 'Authorization: <%= config[:token] %>'
+
+curl -X POST \
+  <%= config[:endpoint] %>/live/entity/dvr/convert-to-vod \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:live_convert_to_vod] %>"
+}'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 begin
-  live = Uiza::Live.convert_to_vod "your-record-id" # Identifier of record (get from list record)
+  live = Uiza::Live.convert_to_vod "<%= config[:live_convert_to_vod] %>" # Identifier of record (get from list record)
   puts live.id
 rescue Uiza::Error::UizaError => e
   puts "description_link: #{e.description_link}"
@@ -32,13 +41,13 @@ import uiza
 from uiza.api_resources.live import Live
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 try:
-  res, status_code = Live().convert_into_vod("your-record-id") # Identifier of record (get from list record)
+  res, status_code = Live().convert_into_vod(id="<%= config[:live_delete_record_id] %>") # Identifier of record (get from list record)
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -49,11 +58,13 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 try {
-  Uiza\Live::convertToVOD(["id" => "your-record-id"]); // Identifier of record (get from list record)
+  $entity = Uiza\Live::convertToVOD(["id" => "<%= config[:live_delete_record_id] %>"]); // Identifier of record (get from list record)
+
+  print_r($entity);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -72,11 +83,11 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     try {
-      JsonObject response = Live.convertToVod("<record-id>");
+      JsonObject response = Live.convertToVod("<%= config[:live_convert_to_vod] %>");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -91,10 +102,15 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
 
-uiza.live.convert_to_vod('your-record-id') // Identifier of record (get from list record)
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+const params = {
+  'id': '<%= config[:live_convert_to_vod] %>'
+};
+
+uiza.live.convert_to_vod(params) // Identifier of record (get from list record)
   .then((res) => {
     // Identifier of record (get from list record)
   }).catch((err) => {
@@ -109,11 +125,11 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-param := &uiza.LiveIDParams{ID: uiza.String("your-recorded-id")} // Identifier of record (get from list record)
+param := &uiza.LiveIDParams{ID: uiza.String("<%= config[:live_convert_to_vod] %>")} // Identifier of record (get from list record)
 response, err := live.ConvertToVOD(param)
 if err != nil {
   log.Printf("%v\n", err)
@@ -131,13 +147,13 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var result = UizaServices.Live.ConvertToVOD("your-live-id");
+  var result = UizaServices.Live.ConvertToVOD("<%= config[:live_convert_to_vod] %>");
 
   Console.WriteLine(string.Format("Convert VOD Success", result.Data.id));
   Console.ReadLine();

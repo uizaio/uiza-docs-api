@@ -6,24 +6,21 @@
 ```shell
 curl -X GET \
   '<%= config[:endpoint] %>/media/entity' \
-  -H 'Authorization: <%= config[:token] %>'
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>"
+}'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
-params = {
-  publishToCdn: "not-ready",
-  metadataId: "your-folder/playlist-id"
-}
-
 begin
-  entities = Uiza::Entity.list params
-  # params is optional
-  # or entities = Uiza::Entity.list
+  entities = Uiza::Entity.list
   puts entities.first.id
   puts entities.first.name
 rescue Uiza::Error::UizaError => e
@@ -41,13 +38,13 @@ import uiza
 from uiza.api_resources.entity import Entity
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 try:
   res, status_code = Entity().list(name="Title")
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -58,11 +55,13 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 try {
-  $listEntity = Uiza\Entity::list();
+  $entities = Uiza\Entity::list();
+
+  print_r($entities);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -81,15 +80,11 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
-
-    Map<String, Object> params = new HashMap<>();
-    params.put("publishToCdn", PublishStatus.NOT_READY.toString());
-    params.put("metadataId", "<your-folder/playlist-id>");
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     try {
-      JsonArray response = Entity.list(params);
+      JsonArray response = Entity.list();
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -104,8 +99,9 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
 
 uiza.entity.list()
   .then((res) => {
@@ -122,8 +118,8 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
 params := &uiza.EntityListParams{}
@@ -144,16 +140,13 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var result =  UizaServices.Entity.List(new RetrieveListEntitiesParameter()
-  {
-    publishToCdn = EntityPublishStatus.Success
-  });
+  var result = UizaServices.Entity.List();
 
   Console.WriteLine(string.Format("Get Entity List Success, total record {0}", result.MetaData.result));
   Console.ReadLine();

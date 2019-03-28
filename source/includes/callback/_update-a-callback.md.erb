@@ -8,28 +8,35 @@ curl -X PUT \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "id": "0a6bf245-1cce-494f-a193-b5a44aa05558"
-    "url": "https://callback-url.uiza.co",
-    "method": "GET",
-    "headersData": {
-      "Authorization": "Bearer <%= config[:token] %>"
-    },
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:callback_update_id] %>",
+    "url": "<%= config[:callback_update_url] %>",
+    "method": "<%= config[:callback_update_method] %>",
     "jsonData": {
-      "text": "example callback"
+      "data": "<%= config[:callback_update_json_data] %>"
     },
-  }'
+    "headersData": {
+      "data": "<%= config[:callback_update_headers_data] %>"
+    }
+}'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 params = {
-  id: "your-callback-id",
-  url: "https://callback-url.uiza.co",
-  method: "GET"
+  id: "<%= config[:callback_update_id] %>",
+  url: "<%= config[:callback_update_url] %>",
+  method: "<%= config[:callback_update_method] %>",
+  jsonData: {
+    data: "<%= config[:callback_update_json_data] %>"
+  },
+  headersData: {
+    data: "<%= config[:callback_update_headers_data] %>"
+  }
 }
 
 begin
@@ -51,13 +58,25 @@ import uiza
 from uiza.api_resources.callback import Callback
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
+
+callback_data = {
+  "id": "<%= config[:callback_update_id] %>",
+  "url": "<%= config[:callback_update_url] %>",
+  "method": "<%= config[:callback_update_method] %>",
+  "jsonData": {
+    "data": "<%= config[:callback_update_json_data] %>"
+  },
+  "headersData": {
+    "data": "<%= config[:callback_update_headers_data] %>"
+  }
+}
 
 try:
-  res, status_code = Callback().update(id="your-callback-id", method="POST")
+  res, status_code = Callback().update(**callback_data)
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -68,16 +87,24 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 $params = [
-  "url" => "https://callback-url.uiza.co",
-  "method" => "POST"
+  "url" => "<%= config[:callback_update_url] %>",
+  "method" => "<%= config[:callback_update_method] %>",
+  "jsonData" => [
+    "data" => "<%= config[:callback_update_json_data] %>"
+  ],
+  "headersData" => [
+    "data" => "<%= config[:callback_update_headers_data] %>"
+  ]
 ];
 
 try {
-  Uiza\Callback::update("your-callback-id", $params);
+  $callback = Uiza\Callback::update("<%= config[:callback_update_id] %>", $params);
+
+  print_r($callback);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -96,15 +123,23 @@ import io.uiza.model.Callback.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
+
+    JsonObject jsonData = new JsonObject();
+    jsonData.addProperty("data", "<%= config[:callback_update_json_data] %>");
+
+    JsonObject headersData = new JsonObject();
+    headersData.addProperty("data", "<%= config[:callback_update_headers_data] %>");
 
     Map<String, Object> params = new HashMap<>();
-    params.put("url", "<your-server-callback>");
+    params.put("url", "<%= config[:callback_update_url] %>");
     params.put("method", Method.POST);
+    params.put("jsonData", jsonData);
+    params.put("headersData", headersData);
 
     try {
-      JsonObject response = Callback.update("<callback-id>", params);
+      JsonObject response = Callback.update("<%= config[:callback_update_id] %>", params);
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -119,13 +154,20 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
 
 const params = {
-  'id': 'your-callback-id',
-  'url': 'https://callback-url.uiza.co',
-  'method': 'GET'
+  'id': '<%= config[:callback_update_id] %>',
+  'url': '<%= config[:callback_update_url] %>',
+  'method': '<%= config[:callback_update_method] %>',
+  'jsonData': {
+    'data': '<%= config[:callback_update_json_data] %>'
+  },
+  'headersData': {
+    'data': '<%= config[:callback_update_headers_data] %>'
+  }
 };
 
 uiza.callback.update(params)
@@ -143,17 +185,19 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-callbackMethodPOST := uiza.HTTPMethodPost
 params := &uiza.CallbackUpdateParams{
-	ID:    uiza.String("your-callback-id"),
-	Url:    uiza.String("https://callback-url.uiza.commm"),
-	Method: &callbackMethodPOST,
-}
-
+  ID:    uiza.String("<%= config[:callback_update_id] %>"),
+  Url:    uiza.String("<%= config[:callback_update_url] %>"),
+  Method: "<%= config[:callback_update_method] %>",
+  JsonData: {
+    data: "<%= config[:callback_update_json_data] %>"},
+  HeadersData: {
+    data:  "<%= config[:callback_update_headers_data] %>"},
+  }
 response, err := callback.Update(params)
 if err != nil {
   log.Printf("%v\n", err)
@@ -171,17 +215,23 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
   var result = UizaServices.Callback.Update(new UpdateCallbackParameter()
   {
-    Id = "your-callback-id",
-    Url = "https://callback-url.uiza.co/update",
-    Method = CallbackMethodTypes.Post
+    Id = "<%= config[:callback_update_id] %>",
+    Url = "<%= config[:callback_update_url] %>",
+    Method = "<%= config[:callback_update_method] %>",
+    JsonData = {
+      data = "<%= config[:callback_update_json_data] %>"
+    },
+    HeadersData = {
+      data = "<%= config[:callback_update_headers_data] %>"}
+    }
   });
 
   Console.WriteLine(string.Format("Update Callback Id = {0} Success", result.Data.id));
@@ -200,7 +250,7 @@ Updates the specified callback by setting the values of the parameters passed. A
 
 ```json
 {
-  "id": "8b83886e-9cc3-4eab-9258-ebb16c0c73de"
+  "id": "<%= config[:callback_update_id] %>"
 }
 ```
 

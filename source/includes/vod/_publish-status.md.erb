@@ -5,18 +5,23 @@
 
 ```shell
 curl -X GET \
-  <%= config[:endpoint] %>/media/entity/publish/status?id=<%= config[:uiza_entity_id] %> \
-  -H 'Authorization: <%= config[:token] %>'
+  '<%= config[:endpoint] %>/media/entity/publish/status' \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:entity_get_status_publish_id] %>"
+}'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 begin
-  response = Uiza::Entity.get_status_publish "your-entity-id"
+  response = Uiza::Entity.get_status_publish "<%= config[:entity_get_status_publish_id] %>"
   puts response.progress
   puts response.status
 rescue Uiza::Error::UizaError => e
@@ -34,13 +39,13 @@ import uiza
 from uiza.api_resources.entity import Entity
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 try:
-  res, status_code = Entity().get_status_publish("your-entity-id")
+  res, status_code = Entity().get_status_publish(id="<%= config[:entity_get_status_publish_id] %>")
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -51,11 +56,13 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 try {
-  Uiza\Entity::getStatusPublish("your-entity-id");
+  $response = Uiza\Entity::getStatusPublish("<%= config[:entity_get_status_publish_id] %>");
+
+  print_r($response);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -74,11 +81,11 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     try {
-      JsonObject response = Entity.getStatusPublish("<entity-id>");
+      JsonObject response = Entity.getStatusPublish("<%= config[:entity_get_status_publish_id] %>");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -93,10 +100,15 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
 
-uiza.entity.get_status_publish('your-entity-id')
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+const params = {
+  'id': '<%= config[:entity_get_status_publish_id] %>'
+};
+
+uiza.entity.get_status_publish(params)
   .then((res) => {
     //Progress of task publish, will be success when reach 100
     // Status of task publish (processing, success, error)
@@ -112,11 +124,11 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-params := &uiza.EntityPublishParams{ID: uiza.String("your-entity-id")}
+params := &uiza.EntityPublishParams{ID: uiza.String("<%= config[:entity_get_status_publish_id] %>")}
 response, err := entity.GetStatusPublish(params)
 if err != nil {
   log.Printf("%v\n", err)
@@ -134,13 +146,13 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var result =  UizaServices.Entity.GetStatusPublish("your-entity-id");
+  var result = UizaServices.Entity.GetStatusPublish("<%= config[:entity_get_status_publish_id] %>");
 
   Console.WriteLine(string.Format("Get Status Publish Success : temp_access_id = {0} ", result.Data.status));
   Console.ReadLine();

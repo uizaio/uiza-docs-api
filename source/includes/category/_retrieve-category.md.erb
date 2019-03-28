@@ -5,18 +5,23 @@
 
 ```shell
 curl -X GET \
-  <%= config[:endpoint] %>/media/metadata?id=095778fa-7e42-45cc-8a0e-6118e540b61d \
-  -H 'Authorization: <%= config[:token] %>'
+  <%= config[:endpoint] %>/media/metadata \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:category_retrieve_id] %>"
+}'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 begin
-  category = Uiza::Category.retrieve "your-category-id"
+  category = Uiza::Category.retrieve "<%= config[:category_retrieve_id] %>"
   puts category.id
   puts category.name
 rescue Uiza::Error::UizaError => e
@@ -34,13 +39,13 @@ import uiza
 from uiza.api_resources.category import Category
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 try:
-  res, status_code = Category().retrieve("your-category-id")
+  res, status_code = Category().retrieve(id="<%= config[:category_retrieve_id] %>")
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -51,11 +56,13 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 try {
-  Uiza\Category::retrieve("your-category-id");
+  $category = Uiza\Category::retrieve("<%= config[:category_retrieve_id] %>");
+
+  print_r($category);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -74,11 +81,11 @@ import io.uiza.model.Category.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     try {
-      JsonObject response = Category.retrieve("<category-id>");
+      JsonObject response = Category.retrieve("<%= config[:category_retrieve_id] %>");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -93,10 +100,15 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
 
-uiza.category.retrieve('your-category-id')
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+const params = {
+  'id': '<%= config[:category_retrieve_id] %>'
+};
+
+uiza.category.retrieve(params)
   .then((res) => {
     //Identifier of category
   }).catch((err) => {
@@ -111,11 +123,11 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-params := &uiza.CategoryIDParams{ID :uiza.String("your-category-id")}
+params := &uiza.CategoryIDParams{ID :uiza.String("<%= config[:category_retrieve_id] %>")}
 response, err := category.Retrieve(params)
 if err != nil {
   log.Printf("%v\n", err)
@@ -133,14 +145,16 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var result = UizaServices.Category.Retrieve("your-category-id");
-
+  var result = UizaServices.Category.Retrieve(new RetriveCategoryParameter()
+  {
+    Id = "<%= config[:category_retrieve_id] %>"
+  });
   Console.WriteLine(string.Format("Get Category Id = {0} Success", result.Data.id));
   Console.ReadLine();
 }
@@ -157,12 +171,12 @@ Retrieve the details of an existing category. Supply the unique category ID from
 
 ```json
 {
-  "id": "f932aa79-852a-41f7-9adc-19935034f944",
-  "name": "Playlist sample",
-  "description": "Playlist description",
+  "id": "<%= config[:category_retrieve_id] %>",
+  "name": "<%= config[:category_retrieve_name] %>",
+  "description": "<%= config[:category_retrieve_description] %>",
   "slug": "playlist-sample",
   "type": "playlist",
-  "orderNumber": 3,
+  "orderNumber": <%= config[:category_retrieve_order_number] %>,
   "icon": "https:///example.com/image002.png",
   "status": 1,
   "createdAt": "2018-06-18T04:29:05.000Z",

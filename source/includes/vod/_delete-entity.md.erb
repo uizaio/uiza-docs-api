@@ -5,19 +5,24 @@
 
 ```shell
 curl -X DELETE \
-  <%= config[:endpoint] %>/media/entity?id=<%= config[:uiza_entity_id] %> \
-  -H 'Authorization: <%= config[:token] %>'
+  '<%= config[:endpoint] %>/media/entity' \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:entity_delete_id] %>"
+}'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 begin
-  entity = Uiza::Entity.delete "your-entity-id"
-  puts entity.id
+  response = Uiza::Entity.delete "<%= config[:entity_delete_id] %>"
+  puts response.id
 rescue Uiza::Error::UizaError => e
   puts "description_link: #{e.description_link}"
   puts "code: #{e.code}"
@@ -33,13 +38,13 @@ import uiza
 from uiza.api_resources.entity import Entity
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 try:
-  res, status_code = Entity().delete("your-entity-id")
+  res, status_code = Entity().delete(id="<%= config[:entity_delete_id] %>")
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -50,11 +55,13 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 try {
-  Uiza\Entity::delete("your-entity-id");
+  $response = Uiza\Entity::delete("<%= config[:entity_delete_id] %>");
+
+  print_r($response);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -73,11 +80,11 @@ import io.uiza.model.Entity.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     try {
-      JsonObject response = Entity.delete("<entity-id>");
+      JsonObject response = Entity.delete("<%= config[:entity_delete_id] %>");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -92,10 +99,15 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
 
-uiza.entity.delete('your-entity-id')
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+const params = {
+  'id': '<%= config[:entity_delete_id] %>'
+};
+
+uiza.entity.delete(params)
   .then((res) => {
     // Identifier of entity has been deleted
   }).catch((err) => {
@@ -110,11 +122,11 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-params := &uiza.EntityDeleteParams{ID: uiza.String("your-entity-id")}
+params := &uiza.EntityDeleteParams{ID: uiza.String("<%= config[:entity_delete_id] %>")}
 response, err := entity.Delete(params)
 if err != nil {
   log.Printf("%v\n", err)
@@ -132,13 +144,13 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var result = UizaServices.Entity.Delete("your-entity-id");
+  var result = UizaServices.Entity.Delete("<%= config[:entity_delete_id] %>");
 
   Console.WriteLine(string.Format("Delete Entity Id = {0} Success", result.Data.id));
   Console.ReadLine();
@@ -156,7 +168,7 @@ Permanently deletes a entity. It cannot be undone.
 
 ```json
 {
-  "id": "<%= config[:uiza_entity_id] %>"
+  "id": "<%= config[:entity_delete_id] %>"
 }
 ```
 

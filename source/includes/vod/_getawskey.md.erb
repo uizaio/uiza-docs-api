@@ -52,6 +52,10 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
+require __DIR__."/../vendor/autoload.php";
+
 Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
 Uiza\Base::setAuthorization("your-authorization");
 
@@ -94,6 +98,7 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
+
 uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
 uiza.authorization('your-authorization-key');
 
@@ -139,7 +144,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var result =  UizaServices.Entity.GetAWSUploadKey();
+  var result = UizaServices.Entity.GetAWSUploadKey();
 
   Console.WriteLine(string.Format("Get AWS Upload Key Success : temp_access_id = {0} ", result.Data.temp_access_id));
   Console.ReadLine();
