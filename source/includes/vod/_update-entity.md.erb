@@ -188,7 +188,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var result = uizaServices.Entity.Update(new UpdateEntityParameter()
+  var result = UizaServices.Entity.Update(new UpdateEntityParameter()
   {
     Id = "<%= config[:entity_update_id] %>",
     Name = "<%= config[:entity_update_name] %>",

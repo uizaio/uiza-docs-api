@@ -214,9 +214,9 @@ try
   var result = UizaServices.Entity.Create(new CreateEntityParameter()
   {
     Name = "<%= config[:entity_create_name] %>",
-    InputType = "<%= config[:entity_create_input_type] %>"),
-    Description = <%= config[:entity_create_description] %>,
-    ShortDescription = <%= config[:entity_create_short_description] %>,
+    InputType = "<%= config[:entity_create_input_type] %>",
+    Description = "<%= config[:entity_create_description] %>",
+    ShortDescription = "<%= config[:entity_create_short_description] %>",
     URL = "<%= config[:entity_create_url] %>"
   });
   Console.WriteLine(string.Format("Create New Entity Id = {0} Success", result.Data.id));

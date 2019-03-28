@@ -181,13 +181,13 @@ func init() {
 }
 
 params :=  &uiza.StorageAddParams{
-  Name: uiza.String("<%= config[:storage_add_s3_name] %>"),
-  Host: uiza.String("<%= config[:storage_add_s3_host] %>"),
-  Port: <%= config[:storage_add_s3_port] %>,
-  StorageType: "<%= config[:storage_add_s3_storage_type] %>",
-  Username: uiza.String("<%= config[:storage_add_s3_username] %>"),
-  Password: uiza.String("<%= config[:storage_add_s3_password] %>"),
-  Description: uiza.String("<%= config[:storage_add_s3_description] %>"),
+  Name: uiza.String("<%= config[:storage_add_fpt_name] %>"),
+  Host: uiza.String("<%= config[:storage_add_fpt_host] %>"),
+  Port: <%= config[:storage_add_fpt_port] %>,
+  StorageType: "<%= config[:storage_add_fpt_storage_type] %>",
+  Username: uiza.String("<%= config[:storage_add_fpt_username] %>"),
+  Password: uiza.String("<%= config[:storage_add_fpt_password] %>"),
+  Description: uiza.String("<%= config[:storage_add_fpt_description] %>"),
 }
 
 response, err := storage.Add(params)
@@ -215,13 +215,13 @@ try
 {
   var result = UizaServices.Storage.Add(new AddStorageParameter()
   {
-    Name = "<%= config[:storage_add_s3_name] %>",
-    Description = "<%= config[:storage_add_s3_description] %>",
-    StorageType = "<%= config[:storage_add_s3_storage_type] %>",
-    Host = "<%= config[:storage_add_s3_host] %>",
-    Username = "<%= config[:storage_add_s3_username] %>",
-    Password = "<%= config[:storage_add_s3_password] %>",
-    Port = <%= config[:storage_add_s3_port] %>
+    Name = "<%= config[:storage_add_fpt_name] %>",
+    Description = "<%= config[:storage_add_fpt_description] %>",
+    StorageType = "<%= config[:storage_add_fpt_storage_type] %>",
+    Host = "<%= config[:storage_add_fpt_host] %>",
+    Username = "<%= config[:storage_add_fpt_username] %>",
+    Password = "<%= config[:storage_add_fpt_password] %>",
+    Port = <%= config[:storage_add_fpt_port] %>
   });
 
   Console.WriteLine(string.Format("Add New Storage Id = {0} Success", createResult.Data.id));
@@ -412,13 +412,13 @@ func init() {
 }
 
 params :=  &uiza.StorageAddParams{
-  Name: uiza.String("<%= config[:storage_add_fpt_name] %>"),
-  Host: uiza.String("<%= config[:storage_add_fpt_host] %>"),
-  Port: <%= config[:storage_add_fpt_port] %>,
-  StorageType: "<%= config[:storage_add_fpt_storage_type] %>",
-  Username: uiza.String("<%= config[:storage_add_fpt_username] %>"),
-  Password: uiza.String("<%= config[:storage_add_fpt_password] %>"),
-  Description: uiza.String("<%= config[:storage_add_fpt_description] %>"),
+  Name: uiza.String("<%= config[:storage_add_s3_name] %>"),
+  Host: uiza.String("<%= config[:storage_add_s3_host] %>"),
+  Port: <%= config[:storage_add_s3_port] %>,
+  StorageType: "<%= config[:storage_add_s3_storage_type] %>",
+  Username: uiza.String("<%= config[:storage_add_s3_username] %>"),
+  Password: uiza.String("<%= config[:storage_add_s3_password] %>"),
+  Description: uiza.String("<%= config[:storage_add_s3_description] %>"),
 }
 
 response, err := storage.Add(params)
@@ -446,13 +446,13 @@ try
 {
   var result = UizaServices.Storage.Add(new AddStorageParameter()
   {
-    Name = "<%= config[:storage_add_fpt_name] %>",
-    Description = "<%= config[:storage_add_fpt_description] %>",
-    StorageType = "<%= config[:storage_add_fpt_storage_type] %>",
-    Host = "<%= config[:storage_add_fpt_host] %>",
-    Username = "<%= config[:storage_add_fpt_username] %>",
-    Password = "<%= config[:storage_add_fpt_password] %>",
-    Port = <%= config[:storage_add_fpt_port] %>
+    Name = "<%= config[:storage_add_s3_name] %>",
+    Description = "<%= config[:storage_add_s3_description] %>",
+    StorageType = "<%= config[:storage_add_s3_storage_type] %>",
+    Host = "<%= config[:storage_add_s3_host] %>",
+    Username = "<%= config[:storage_add_s3_username] %>",
+    Password = "<%= config[:storage_add_s3_password] %>",
+    Port = <%= config[:storage_add_s3_port] %>
   });
 
   Console.WriteLine(string.Format("Add New Storage Id = {0} Success", createResult.Data.id));

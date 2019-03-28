@@ -130,7 +130,7 @@ func init() {
 }
 
 params := &uiza.EntitySearchParams{Keyword: uiza.String("<%= config[:entity_search_keyword] %>")}
-listEntity, err := entity.Search(params)
+response, err := entity.Search(params)
 if err != nil {
   log.Printf("%v\n", err)
 } else {
@@ -153,7 +153,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var result = UizaServices.Entity.Search("<%= config[:entity_search_keyword] %>);
+  var result = UizaServices.Entity.Search("<%= config[:entity_search_keyword] %>");
 
   Console.WriteLine(string.Format("Search Success, total record {0}", result.Data.Count));
   Console.ReadLine();
@@ -162,7 +162,7 @@ catch (UizaException ex)
 {
   Console.WriteLine(ex.Message);
   Console.ReadLine();
-    }
+}
 ```
 
 Search for entities that have `name` that match `keyword`

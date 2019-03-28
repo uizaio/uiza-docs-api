@@ -151,7 +151,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var result = UUizaServices.Entity.Publish("<%= config[:entity_publish_id] %>");
+  var result = UizaServices.Entity.Publish("<%= config[:entity_publish_id] %>");
 
   Console.WriteLine(string.Format("Publish Entity Success : entityId = {0} ", result.Data.entityId));
   Console.ReadLine();

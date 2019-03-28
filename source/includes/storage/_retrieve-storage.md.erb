@@ -150,7 +150,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var result = UizaServices.Storage.Retrieve("<%= config[:storage_retrieve_id] %>);
+  var result = UizaServices.Storage.Retrieve("<%= config[:storage_retrieve_id] %>");
 
   Console.WriteLine(string.Format("Get Storage Id = {0} Success", result.Data.id));
   Console.ReadLine();
