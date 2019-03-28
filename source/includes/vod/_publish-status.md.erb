@@ -152,7 +152,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var result =  UizaServices.Entity.GetStatusPublish("<%= config[:entity_get_status_publish_id] %>");
+  var result = UizaServices.Entity.GetStatusPublish("<%= config[:entity_get_status_publish_id] %>");
 
   Console.WriteLine(string.Format("Get Status Publish Success : temp_access_id = {0} ", result.Data.status));
   Console.ReadLine();
