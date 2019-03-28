@@ -169,7 +169,8 @@ under the License.
       return false;
     });
 
-    $('.highlight.ruby, .highlight.python, .highlight.php, .highlight.java, .highlight.javascript, .highlight.go, .highlight.csharp').prepend(
+    $('.highlight.shell, .highlight.bash, .highlight.ruby, .highlight.python, .highlight.php, .highlight.java, .highlight.javascript, .highlight.go, .highlight.csharp')
+    .prepend(
       '<div class="container-btn-copy">' +
         '<button class="btn-copy">COPY</button>' +
       '</div>'
