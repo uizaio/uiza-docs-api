@@ -149,11 +149,12 @@ func init() {
 }
 
 params := &uiza.CategoryRelationParams{
-  MetadataId: uiza.String("<%= config[:category_delete_relation_category_id_1] %>"),
-  EntityIds: []*string{
-      uiza.String("<%= config[:category_delete_relation_entity_id] %>"),
-  }}
+  EntityId: uiza.String("<%= config[:category_delete_relation_entity_id] %>"),
+  MetadataIds: []*string{
+    uiza.String("<%= config[:category_delete_relation_category_id_1] %>"),
+    uiza.String("<%= config[:category_delete_relation_category_id_2] %>"),
 }}
+
 response, err := category.DeleteRelation(params)
 if err != nil {
   log.Printf("%v\n", err)
