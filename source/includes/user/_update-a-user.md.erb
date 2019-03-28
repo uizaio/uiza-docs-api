@@ -10,36 +10,37 @@ curl -X PUT \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "id":"37d6706e-be91-463e-b3b3-b69451dd4752",
-    "status":0,
-    "username":"user_test",
-    "email":"user_test@uiza.io",
-    "avatar":"https://exemple.com/avatar.jpeg",
-    "fullname":"User Test",
-    "dob":"05/15/2018",
-    "gender":0,
-    "password":"123456789",
-    "isAdmin":1
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:user_update_id] %>",
+    "status": 0,
+    "username": "user_test",
+    "email": "user_test@uiza.io",
+    "avatar": "https://exemple.com/avatar.jpeg",
+    "fullname": "User Test",
+    "dob": "2000-12-30",
+    "gender": 0,
+    "password": "123456789",
+    "isAdmin": 1
 }'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 params = {
-  id: "your-user-id",
+  id: "<%= config[:user_update_id] %>",
   status: 1,
   username: "user_test",
   email: "user_test@uiza.io",
-  password: "FMpsr<4[dGPu?B#u",
-  gender: 0,
-  dob: "05/15/2018",
   avatar: "https://exemple.com/avatar.jpeg",
   fullname: "User Test",
-  isAdmin: 0
+  dob: "2000-12-30",
+  gender: 0,
+  password: "123456789",
+  isAdmin: 1
 }
 
 begin
@@ -61,11 +62,25 @@ import uiza
 from uiza.api_resources.user import User
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.authorization = "<%= config[:app_id] %>"
+uiza.app_id = "<%= config[:token] %>"
+
+
+user_data = {
+  "id": "<%= config[:user_update_id] %>",
+  "status": 1,
+  "username": "user_test",
+  "email": "user_test@uiza.io",
+  "avatar": "https://exemple.com/avatar.jpeg",
+  "fullname": "User Test",
+  "dob": "2000-12-30",
+  "gender": 0,
+  "password": "123456789",
+  "isAdmin": 1
+}
 
 try:
-  res, status_code = User().update(id="your-user-id", status=1)
+  res, status_code = User().update(**user_data)
 
   print("res ", res)
 except ServerException as e:
@@ -78,23 +93,23 @@ except Exception as e:
 <?
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain('your-workspace-api-domain.uiza.co');
-Uiza\Base::setApiKey('your-api-key');
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 $params = [
-  "status"  => 1,
-  "username" => "test",
-  "email" => "abc_test@uiza.io",
-  "fullname" => "Test",
+  "status" => 1,
+  "username" => "user_test",
+  "email" => "user_test@uiza.io",
   "avatar" => "https://exemple.com/avatar.jpeg",
-  "dob" => "05/15/2018",
+  "fullname" => "User Test",
+  "dob" => "2000-12-30",
   "gender" => 0,
-  "password" => "FMpsr<4[dGPu?B#u",
+  "password" => "123456789",
   "isAdmin" => 1
 ];
 
 try {
-  Uiza\User::update("your-user-id", $params);
+  Uiza\User::update("<%= config[:user_update_id] %>", $params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -113,19 +128,19 @@ import io.uiza.model.User.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     Map<String, Object> params = new HashMap<>();
     params.put("status", Status.ACTIVE.getVal());
     params.put("username", "user_test");
     params.put("email", "user_test@uiza.io");
-    params.put("fullname", "User Test");
     params.put("avatar", "https://exemple.com/avatar.jpeg");
-    params.put("dob", "05/15/2018");
-    params.put("gender", Gender.MALE.getVal());
-    params.put("password", "FMpsr<4[dGPu?B#u");
-    params.put("isAdmin", Role.ADMIN.getVal());
+    params.put("fullname", "User Test");
+    params.put("dob", "2000-12-30");
+    params.put("gender", 0);
+    params.put("password", "123456789");
+    params.put("isAdmin", 1);
 
     try {
       JsonObject response = User.update("<user-id>", params);
@@ -144,17 +159,17 @@ public class Main {
 ```javascript
 const uiza = require('uiza');
 
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
 
 const params = {
-  'id': 'your-user-id',
-  'status': 0,
-  'username': 'user_test_110',
+  'id': '<%= config[:user_update_id] %>',
+  'status': 1,
+  'username': 'user_test',
   'email': 'user_test@uiza.io',
   'avatar': 'https://exemple.com/avatar.jpeg',
   'fullname': 'User Test',
-  'dob': '05/15/2018',
+  'dob': '2000-12-30',
   'gender': 0,
   'password': '123456789',
   'isAdmin': 1
@@ -175,21 +190,21 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
 params := &uiza.UserUpdateParams{
-  ID: uiza.String("your-user-id"),
-  Status: uiza.Int64(0),
-  Username: uiza.String("user_test_go"),
-  Email: uiza.String("user_test_go@uiza.io"),
-  Password: uiza.String("FMpsr<4[dGPu?B#u"),
+  ID: uiza.String("<%= config[:user_update_id] %>"),
+  Status: uiza.Int64(1),
+  Username: uiza.String("user_test"),
+  Email: uiza.String("user_test@uiza.io"),
   Avatar: uiza.String("https://exemple.com/avatar1.jpeg"),
   Fullname: uiza.String("User Test"),
-  Dob: uiza.String("02/28/2011"),
-  Gender: uiza.Int64(1),
-  IsAdmin: uiza.Int64(0),
+  Dob: uiza.String("2000-12-30"),
+  Gender: uiza.Int64(0),
+  Password: uiza.String("123456789"),
+  IsAdmin: uiza.Int64(1),
 }
 response, err := user.Update(params)
 if err != nil {
@@ -208,19 +223,24 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
   var result = UizaServices.User.Update(new UpdateUserParameter()
   {
-    Id = "your-user-id",
-    Status = UserStatus.Active,
-    UserName = Guid.NewGuid().ToString(),
-    Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
-    PassWord = Guid.NewGuid().ToString()
+    Id = "<%= config[:user_update_id] %>",
+    Status = 1,
+    UserName = "user_test",
+    Email = "user_test@uiza.io",
+    Avatar = "https://exemple.com/avatar.jpeg",
+    FullName = "User Test",
+    DOB = "2000-12-30",
+    Gender = 0,
+    Password = "123456789",
+    IsAdmin = 1
   });
 
   Console.WriteLine(string.Format("Update User Id = {0} Success", result.Data.id));
@@ -237,7 +257,7 @@ catch (UizaException ex)
 
 ```json
 {
-  "id": "37d6706e-be91-463e-b3b3-b69451dd4752",
+  "id": "<%= config[:user_update_id] %>",
   "isAdmin": 1,
   "username": "user_test",
   "email": "user_test@uiza.io",

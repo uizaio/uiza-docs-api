@@ -469,6 +469,15 @@ config[:callback_update_headers_data]
 set :callback_delete_id, '14a27ff9-869a-4969-a6d9-34220f01e48c'
 config[:callback_delete_id]
 
+# USER
+# RETRIEVE
+set :user_retrieve_id, '508d46b7-afa7-45e7-8141-fdeafe32a4cc'
+config[:user_retrieve_id]
+
+# UPDATE
+set :user_update_id, '508d46b7-afa7-45e7-8141-fdeafe32a4cc'
+config[:user_update_id]
+
 set :sample_video, 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_10mb.mp4'
 config[:sample_video]
 
