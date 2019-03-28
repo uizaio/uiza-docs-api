@@ -130,7 +130,7 @@ public class Main {
     params.put("name", "<%= config[:entity_create_name] %>");
     params.put("url", "<%= config[:entity_create_url] %>");
     params.put("inputType", InputType.HTTP.toString());
-    params.put("description", <%= config[:entity_create_description] %>);
+    params.put("description", "<%= config[:entity_create_description] %>");
     params.put("shortDescription", "<%= config[:entity_create_short_description] %>");
 
     try {
