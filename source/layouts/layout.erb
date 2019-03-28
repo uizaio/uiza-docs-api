@@ -23,9 +23,9 @@ under the License.
       page_content += '
       <p class="csat-widget">
         <span class="csat-widget-text">Was this section helpful?</span>
-        <span class="csat-button csat-button-yes common-Button">Yes</span>
-        <span class="csat-button csat-button-no common-Button">No</span>
-      </p>'.html_safe
+        <span class="csat-button csat-button-yes common-Button" data-value="yes-%s">Yes</span>
+        <span class="csat-button csat-button-no common-Button" data-value="no-%s">No</span>
+      </p>'.html_safe % [include, include]
     end
   end
 %>

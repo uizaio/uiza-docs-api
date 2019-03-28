@@ -765,3 +765,14 @@ a[data-title=Resources] {
   border: none;
   width: 50px;
 }
+
+.csat-button, .csat-button:active {
+  font-weight: 500;
+  cursor: pointer;
+  color: #556cd6;
+  margin-left: 8px;
+  &:hover {
+    font-weight: 500;
+    color: #6c8eef;
+  }
+}
