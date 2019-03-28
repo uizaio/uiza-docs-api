@@ -168,5 +168,24 @@ under the License.
       activateLanguage(language);
       return false;
     });
+
+    $('.highlight.ruby, .highlight.python, .highlight.php, .highlight.java, .highlight.javascript, .highlight.go, .highlight.csharp').prepend(
+      '<div class="container-btn-copy">' +
+        '<button class="btn-copy">COPY</button>' +
+      '</div>'
+    );
+
+    $(document).on("click", ".btn-copy", function() {
+      $('body').append('<textarea type="text" id="input-copy-code">');
+
+      var code = $(this).closest('.highlight').find('code').text();
+      $('#input-copy-code').val(code);
+
+      var copyText = document.getElementById("input-copy-code");
+      copyText.select();
+      document.execCommand("copy");
+
+      $('#input-copy-code').remove();
+    });
   });
 })();
