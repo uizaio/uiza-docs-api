@@ -1,0 +1,229 @@
+## List recorded files
+
+> REQUEST
+
+```shell
+curl -X GET \
+  <%= config[:endpoint] %>/live/entity/dvr \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>"
+}'
+```
+
+```ruby
+require "uiza"
+
+Uiza.app_id = "<%= config[:app_id] %>"
+Uiza.authorization = "<%= config[:token] %>"
+
+begin
+  recordeds = Uiza::Live.list_recorded
+  puts recordeds.first.id
+  puts recordeds.first.entityId
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+import uiza
+
+from uiza.api_resources.live import Live
+from uiza.exceptions import ServerException
+
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
+
+try:
+  res, status_code = Live().list_recorded()
+
+  print("res: ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
+```
+
+```php
+<?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
+
+try {
+  $recordeds = Uiza\Live::listRecorded();
+
+  print_r($recordeds);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
+?>
+```
+
+```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
+import io.uiza.model.Live;
+import io.uiza.model.Live.*;
+
+public class Main {
+
+  public static void main(String[] args) {
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
+
+    try {
+      JsonArray response = Live.listRecorded();
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+}
+```
+
+```javascript
+const uiza = require('uiza');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+uiza.live.list_recorded()
+  .then((res) => {
+    // Identifier of record
+  }).catch((err) => {
+    //Error
+  });
+
+```
+
+```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/live"
+)
+
+func init() {
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
+}
+
+params := &uiza.LiveListRecordedParams{}
+
+response, err := live.ListRecorded(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
+```
+
+```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
+});
+
+try
+{
+  var result = UizaServices.Live.ListRecorded();
+
+  Console.WriteLine(string.Format("Success Get List All Recorded Files, total record {0}", result.MetaData != null ? result.MetaData.total : 0));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
+```
+
+Retrieves list of recorded file after streamed (only available when your live event has turned on Record feature)
+
+> RESPONSE
+
+```json
+{
+    "data": [
+        {
+            "id": "040df935-61c4-46f7-a41f-0a899ebaa2cc",
+            "entityId": "ee122e85-553f-4621-bc77-1396191d5846",
+            "channelName": "dcb8686f-d0f8-4a0f-8b92-22db339eb315",
+            "feedId": "3e3b75df-e6fa-471c-b386-8f44b8a34b6c",
+            "eventType": "pull",
+            "startTime": "2018-12-13T16:28:29.000Z",
+            "endTime": "2018-12-13T18:28:29.000Z",
+            "length": "7200",
+            "fileSize": "9276182",
+            "extraInfo": null,
+            "endpointConfig": "s3-uiza-dvr",
+            "createdAt": "2018-12-13T19:28:43.000Z",
+            "updatedAt": "2018-12-13T19:28:43.000Z",
+            "entityName": "Christmas 2018 Holidays Special | Best Christmas Songs & Cartoons for Kids & Babies on Baby First TV"
+        },
+        {
+            "id": "3fec45e9-932b-4efe-b97f-dc3053acaa05",
+            "entityId": "47e804bc-d4e5-4442-8f1f-20341a156a70",
+            "channelName": "e9034eac-4905-4f9a-8e79-c0bd67e49dd5",
+            "feedId": "12830696-87e3-4209-a877-954f8f008964",
+            "eventType": "pull",
+            "startTime": "2018-12-13T14:14:14.000Z",
+            "endTime": "2018-12-13T16:14:14.000Z",
+            "length": "7200",
+            "fileSize": "439858038",
+            "extraInfo": null,
+            "endpointConfig": "s3-uiza-dvr",
+            "createdAt": "2018-12-13T17:30:42.000Z",
+            "updatedAt": "2018-12-13T17:30:42.000Z",
+            "entityName": "WATCH: SpaceX to Launch Falcon 9 Rocket #Spaceflight CRS16 @1:16pm EST"
+        }
+    ],
+    "metadata": {
+        "total": 2,
+        "result": 2,
+        "page": 1,
+        "limit": 20
+    },
+}
+```
+
+**HTTP Request**
+
+<span class="get-button"> GET </span>
+```<%= config[:endpoint] %>/live/entity/dvr```
+
+**RETURNS**
+
+A dictionary with a data property that contains an array of up to limit recorded files. Each entry in the array is a separate recorded file object. If no more categories are available, the resulting array will be empty. This request should never return an error.
+
+| Parameter  | Description |
+|  ------------- | ------------- |
+| **id** **string** | The ID of the recorded file. |
+| **entityId** **string** | Entity's ID corresponding to the record files. |
+| **channelName** **string** | Name of channel. |
+| **eventType** **string** | The `mode` of the event. |
+| **startTime** **string** | Time start record. |
+| **endTime** **string** | The time at which the live event was ended. The format is [ISO 8601](https://www.w3.org/TR/NOTE-datetime-970915).. |
+| **length** **string** | The length of the recorded event. |
+| **entityName** **string** | The [entitiy](#video)'s name, taken from live event's name. |

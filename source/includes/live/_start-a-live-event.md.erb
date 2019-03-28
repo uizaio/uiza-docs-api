@@ -1,0 +1,191 @@
+## Start a live feed
+
+> REQUEST
+
+```shell
+curl -X POST \
+  <%= config[:endpoint] %>/live/entity/feed \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:live_start_feed_id] %>"
+}'
+```
+
+```ruby
+require "uiza"
+
+Uiza.app_id = "<%= config[:app_id] %>"
+Uiza.authorization = "<%= config[:token] %>"
+
+begin
+  response = Uiza::Live.start_feed "<%= config[:live_start_feed_id] %>"
+  puts response.message
+  puts response.entityId
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
+```python
+import uiza
+
+from uiza.api_resources.live import Live
+from uiza.exceptions import ServerException
+
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
+
+try:
+  res, status_code = Live().start_feed(id="<%= config[:live_start_feed_id] %>")
+
+  print("res: ", res)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
+```
+
+```php
+<?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
+
+try {
+  $response = Uiza\Live::startFeed(["id" => "<%= config[:live_start_feed_id] %>"]);
+
+  print_r($response);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e);
+}
+?>
+```
+
+```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
+import io.uiza.model.Live;
+import io.uiza.model.Live.*;
+
+public class Main {
+
+  public static void main(String[] args) {
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
+
+    try {
+      JsonObject response = Live.startFeed("<%= config[:live_start_feed_id] %>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+}
+```
+
+```javascript
+const uiza = require('uiza');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+const params = {
+  'id': '<%= config[:live_start_feed_id] %>'
+};
+
+uiza.live.start_feed(params)
+  .then((res) => {
+    // Identifier of event
+  }).catch((err) => {
+    //Error
+  });
+```
+
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/live"
+)
+
+func init() {
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
+}
+
+params := &uiza.LiveIDParams{ID: uiza.String("<%= config[:live_start_feed_id] %>")}
+response, err := live.StartFeed(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
+```
+
+```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
+});
+
+try
+{
+  var result = UizaServices.Live.StartFeed(new StartFeedParameter() {Id = "<%= config[:live_start_feed_id] %>"});
+
+  Console.WriteLine(string.Format("Start Live Feed Success", result.Data.id));
+  Console.ReadLine();
+}
+catch (UizaException ex)
+{
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
+}
+```
+
+These API use to start a live event that has been create success. The Live channel minute start count whenever the event start success
+
+> RESPONSE
+
+```json
+{
+  "message": "Start feed success",
+  "entityId": "<%= config[:live_start_feed_id] %>"
+}
+```
+
+**HTTP Request**
+
+<span class="post-button"> POST </span>
+```<%= config[:endpoint] %>/live/entity/feed```
+
+**ARGUMENTS**
+
+| Parameter | Description | Required |
+| ------------- | ------------- | ------------- |
+| **id** *string* | The ID of the live event. | **Yes** |
+
+
+
+**RETURNS**
+
+Returns the ID of the live event if the start request succeeded.
