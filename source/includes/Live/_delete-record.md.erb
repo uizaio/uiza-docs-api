@@ -4,19 +4,24 @@
 
 ```shell
 curl -X DELETE \
-  <%= config[:endpoint] %>/live/entity/dvr?id=009596b1-f751-4102-86f7-7290a9f3f0cf \
-  -H 'Authorization: <%= config[:token] %>'
+  <%= config[:endpoint] %>/live/entity/dvr \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:live_delete_record_id] %>"
+}'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 begin
-  live = Uiza::Live.delete "your-record-id" # Identifier of record (get from list record)
-  puts live.id
+  response = Uiza::Live.delete "<%= config[:live_delete_record_id] %>" # Identifier of record (get from list record)
+  puts response.id
 rescue Uiza::Error::UizaError => e
   puts "description_link: #{e.description_link}"
   puts "code: #{e.code}"
@@ -32,13 +37,13 @@ import uiza
 from uiza.api_resources.live import Live
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 try:
-  res, status_code = Live().delete("your-record-id") # Identifier of record (get from list record)
+  res, status_code = Live().delete(id="<%= config[:live_delete_record_id] %>") # Identifier of record (get from list record)
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -49,11 +54,13 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 try {
-  Uiza\Live::delete("your-record-id"); // Identifier of record (get from list record)
+  $response = Uiza\Live::delete("<%= config[:live_delete_record_id] %>"); // Identifier of record (get from list record)
+
+  print_r($response);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -72,11 +79,11 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     try {
-      JsonObject response = Live.delete("<record-id>"); // Identifier of record (get from list record)
+      JsonObject response = Live.delete("<%= config[:live_delete_record_id] %>"); // Identifier of record (get from list record)
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -91,10 +98,15 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
 
-uiza.live.delete('your-record-id') // Identifier of record (get from list record)
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+const params = {
+  'id': '<%= config[:live_delete_record_id] %>'
+};
+
+uiza.live.delete(params) // Identifier of record (get from list record)
   .then((res) => {
     // Identifier of deleting a record
   }).catch((err) => {
@@ -109,11 +121,11 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-param := &uiza.LiveIDParams{ID: uiza.String("your-record-id")} // Identifier of record (get from list record)
+param := &uiza.LiveIDParams{ID: uiza.String("<%= config[:live_delete_record_id] %>")} // Identifier of record (get from list record)
 response, err := live.Delete(param)
 if err != nil {
   log.Printf("%v\n", err)
@@ -131,13 +143,13 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var result = UizaServices.LiveStreaming.Delete("your-live-id");
+  var result = UizaServices.LiveStreaming.Delete("<%= config[:live_delete_record_id] %>");
 
   Console.WriteLine(string.Format("Delete Live Feed Success", result.Data.id));
   Console.ReadLine();
@@ -155,7 +167,7 @@ Delete a recorded file
 
 ```json
 {
-  "id": "009596b1-f751-4102-86f7-7290a9f3f0cf"
+  "id": "<%= config[:live_delete_record_id] %>"
 }
 ```
 

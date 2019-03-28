@@ -750,3 +750,18 @@ a[data-title=Resources] {
     color: #c1ef65 !important;
   }
 }
+
+.container-btn-copy {
+  float: right;
+}
+
+.btn-copy {
+  line-height: 30px;
+  padding: 0 10px;
+  font-weight: 500;
+  border-radius: 3px;
+  color: #ffffff;
+  background-color: #f6574d;
+  border: none;
+  width: 50px;
+}

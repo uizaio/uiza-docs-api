@@ -4,19 +4,25 @@
 
 ```shell
 curl -X PUT \
-  <%= config[:endpoint] %>/live/entity/feed?id=8b83886e-9cc3-4eab-9258-ebb16c0c73de \
-  -H 'Authorization: <%= config[:token] %>'
+  <%= config[:endpoint] %>/live/entity/feed \
+  -H 'Authorization: <%= config[:token] %>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:live_stop_feed_id] %>"
+}'
 ```
 
 ```ruby
 require "uiza"
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 begin
-  live = Uiza::Live.stop_feed "your-live-id"
-  puts live.id
-  puts live.name
+  response = Uiza::Live.stop_feed "<%= config[:live_stop_feed_id] %>"
+  puts response.message
+  puts response.entityId
 rescue Uiza::Error::UizaError => e
   puts "description_link: #{e.description_link}"
   puts "code: #{e.code}"
@@ -32,13 +38,13 @@ import uiza
 from uiza.api_resources.live import Live
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 try:
-  res, status_code = Live().stop_feed("your-live-id")
+  res, status_code = Live().stop_feed(id="<%= config[:live_stop_feed_id] %>")
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -49,11 +55,13 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 try {
-  Uiza\Live::stopFeed(["id" => "your-live-id"]);
+  $response = Uiza\Live::stopFeed(["id" => "<%= config[:live_stop_feed_id] %>"]);
+
+  print_r($response);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -72,11 +80,11 @@ import io.uiza.model.Live.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     try {
-      JsonObject response = Live.stopFeed("<live-event-id>");
+      JsonObject response = Live.stopFeed("<%= config[:live_stop_feed_id] %>");
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -91,10 +99,15 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
 
-uiza.live.stop_feed('your-live-id')
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
+
+const params = {
+  'id': '<%= config[:live_stop_feed_id] %>'
+};
+
+uiza.live.stop_feed(params)
   .then((res) => {
     // Identifier of event
   }).catch((err) => {
@@ -109,11 +122,11 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-params := &uiza.LiveIDParams{ID: uiza.String("your-live-id")}
+params := &uiza.LiveIDParams{ID: uiza.String("<%= config[:live_stop_feed_id] %>")}
 response, err := live.StopFeed(params)
 if err != nil {
   log.Printf("%v\n", err)
@@ -131,14 +144,13 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
-  var result = UizaServices.Live.StopFeed("your-live-id");
-
+  var result = UizaServices.Live.StopFeed("<%= config[:live_stop_feed_id] %>");
   Console.WriteLine(string.Format("Stop A Live Feed Success", result.Data.entityId));
   Console.ReadLine();
 }
@@ -155,7 +167,8 @@ Stop a live event
 
 ```json
 {
-  "id": "d3a7b3e7-1b0b-4d52-b804-aa000a0bd711"
+  "message": "Stop feed success",
+  "entityId": "<%= config[:live_stop_feed_id] %>"
 }
 ```
 

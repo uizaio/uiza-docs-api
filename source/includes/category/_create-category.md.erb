@@ -9,10 +9,11 @@ curl -X POST \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "name":"Folder sample",
-    "type":"folder",
-    "description":"Folder description",
-    "orderNumber":1,
+    "appId": "<%= config[:app_id] %>",
+    "name": "<%= config[:category_create_name] %>",
+    "type": "<%= config[:category_create_type] %>",
+    "description": "<%= config[:category_create_description] %>",
+    "orderNumber": <%= config[:category_create_order_number] %>,
     "icon":"https://exemple.com/icon.png"
 }'
 ```
@@ -20,13 +21,14 @@ curl -X POST \
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 params = {
-  name: "Folder sample",
-  type: "folder",
-  description: "Folder description"
+  name: "<%= config[:category_create_name] %>",
+  type: "<%= config[:category_create_type] %>",
+  description: "<%= config[:category_create_description] %>",
+  orderNumber: <%= config[:category_create_order_number] %>
 }
 
 begin
@@ -48,18 +50,20 @@ import uiza
 from uiza.api_resources.category import Category
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 category_data = {
-  "name": "Test name 1",
-  "type": "folder"
+  "name": "<%= config[:category_create_name] %>",
+  "type": "<%= config[:category_create_type] %>",
+  "description": "<%= config[:category_create_description] %>",
+  "orderNumber": <%= config[:category_create_order_number] %>
 }
 
 try:
-  res, status_code = Category().create(**category_data)
+  res, status_code = Entity().create(**category_data)
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -70,17 +74,20 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 $params = [
-  "name" => "Folder sample",
-  "type" => "folder",
-  "description" => "Folder description"
+  "name" => "<%= config[:category_create_name] %>",
+  "type" => "<%= config[:category_create_type] %>",
+  "description" => "<%= config[:category_create_description] %>",
+  "orderNumber" => <%= config[:category_create_order_number] %>
 ];
 
 try {
-  Uiza\Category::create($params);
+  $category = Uiza\Category::create($params);
+
+  print_r($category);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -99,12 +106,14 @@ import io.uiza.model.Category.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     Map<String, Object> params = new HashMap<>();
-    params.put("name", "Playlist Sample");
-    params.put("type", Type.PLAYLIST.toString());
+    params.put("name", "<%= config[:category_create_name] %>");
+    params.put("type", Type.FOLDER.toString());
+    params.put("description", "<%= config[:category_create_description] %>");
+    params.put("orderNumber", <%= config[:category_create_order_number] %>);
 
     try {
       JsonObject response = Category.create(params);
@@ -122,15 +131,15 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
 
 const params = {
-  'name': 'Folder sample 2',
-  'type': 'folder',
-  'orderNumber': 1,
-  'description': 'Folder description',
-  'icon': 'https://exemple.com/icon.png'
+  'name': '<%= config[:category_create_name] %>',
+  'type': '<%= config[:category_create_type] %>',
+  'description': '<%= config[:category_create_description] %>',
+  'orderNumber': <%= config[:category_create_order_number] %>
 };
 
 uiza.category.create(params)
@@ -148,17 +157,15 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
-var typeCategory = uiza.CategoryFolderType
 params := &uiza.CategoryCreateParams{
-  Name: uiza.String("Category name example"),
-  Type: &typeCategory,
-  Description: uiza.String("Category description"),
-  Icon: uiza.String("https:///example.com/image002.png"),
-  OrderNumber:uiza.Int64(1),
+  Name: uiza.String("<%= config[:category_create_name] %>"),
+  Type: uiza.String("<%= config[:category_create_type] %>"),
+  Description: uiza.String("<%= config[:category_create_description] %>"),
+  OrderNumber: <%= config[:category_create_order_number] %>,
 }
 
 response, err := category.Create(params)
@@ -178,16 +185,18 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
   var result = UizaServices.Category.Create(new CreateCategoryParameter()
   {
-    Name = string.Format("Category name {0}", Guid.NewGuid().ToString()),
-    Type = CategoryTypes.Folder
+    Name = string.Format("<%= config[:category_create_name] %>"),
+    Type = string.Format("<%= config[:category_create_type] %>"),
+    Description = string.Format("<%= config[:category_create_description] %>"),
+    OrderNumber = <%= config[:category_create_order_number] %>
   });
 
   Console.WriteLine(string.Format("Create New Category Id = {0} Success", result.Data.id));
@@ -206,7 +215,7 @@ Categories must be created before [adding videos](#create-entity). The differenc
 
 ```json
 {
-  "id": "095778fa-7e42-45cc-8a0e-6118e540b61d"
+  "id": "<%= config[:category_create_id] %>"
 }
 ```
 

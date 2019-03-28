@@ -12,29 +12,29 @@ curl -X PUT \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "id":"cd003123-7ec9-4f3a-9d7c-f2de93e83e49",
-    "name":"FTP Uiza",
-    "description":"FTP of Uiza, use for transcode",
-    "storageType":"ftp",
-    "host":"ftp-example.uiza.io",
-    "username":"uiza",
-    "password":"=5;'9x@LPsd+w7qW",
-    "port":21
+    "appId": "<%= config[:app_id] %>",
+    "id": "<%= config[:storage_update_id] %>",
+    "name": "<%= config[:storage_update_name] %>",
+    "description": "<%= config[:storage_update_description] %>",
+    "storageType": "<%= config[:storage_update_storage_type] %>",
+    "host": "<%= config[:storage_update_host] %>",
+    "username": "<%= config[:storage_update_username] %>",
+    "password": "<%= config[:storage_update_password] %>",
+    "port": <%= config[:storage_update_port] %>
 }'
 ```
 
 ```ruby
 require "uiza"
 
-Uiza.workspace_api_domain = "<%= config[:endpoint] %>"
+Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 params = {
-  id: "your-storage-id",
-  name: "FTP Uiza edited",
-  host: "ftp-example.uiza.io",
-  port: 21,
-  storageType: "ftp"
+  id: "<%= config[:storage_update_id] %>",
+  name: "<%= config[:storage_update_name] %>",
+  description: "<%= config[:storage_update_description] %>",
+  storageType: "<%= config[:storage_update_storage_type] %>"
 }
 
 begin
@@ -56,13 +56,20 @@ import uiza
 from uiza.api_resources.storage import Storage
 from uiza.exceptions import ServerException
 
-uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
-uiza.authorization = "your-authorization"
+uiza.app_id = "<%= config[:app_id] %>"
+uiza.authorization = "<%= config[:token] %>"
+
+storage_data = {
+  "id": "<%= config[:storage_update_id] %>",
+  "name": "<%= config[:storage_update_name] %>",
+  "description": "<%= config[:storage_update_description] %>",
+  "storageType": "<%= config[:storage_update_storage_type] %>"
+}
 
 try:
-  res, status_code = Storage().update(id="your-storage-id", name="Update title")
+  res, status_code = Storage().update(**storage_data)
 
-  print("res ", res)
+  print("res: ", res)
 except ServerException as e:
   raise e
 except Exception as e:
@@ -73,21 +80,19 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
+Uiza\Base::setAppId("<%= config[:app_id] %>");
+Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 $params = [
-  "name" => "FTP Uiza",
-  "description" => "FTP of Uiza, use for transcode",
-  "storageType" => "ftp",
-  "host" => "ftp-example.uiza.io",
-  "username" => "uiza",
-  "password" => "=5;'9x@LPsd+w7qW",
-  "port" => 21
+  "name" => "<%= config[:storage_update_name] %>",
+  "description" => "<%= config[:storage_update_description] %>",
+  "storageType" => "<%= config[:storage_update_storage_type] %>"
 ];
 
 try {
-  Uiza\Storage::update("your-storage-id", $params);
+  $storage = Uiza\Storage::update("<%= config[:storage_update_id] %>", $params);
+
+  print_r($storage);
 } catch(\Uiza\Exception\ErrorResponse $e) {
   print($e);
 }
@@ -106,17 +111,16 @@ import io.uiza.model.Storage.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-    Uiza.authorization = "your-authorization";
+    Uiza.appId = "<%= config[:app_id] %>";
+    Uiza.authorization = "<%= config[:token] %>";
 
     Map<String, Object> params = new HashMap<>();
-    params.put("name", "FTP Uiza");
-    params.put("host", "ftp-example.uiza.io");
-    params.put("port", 21);
+    params.put("name", "<%= config[:storage_update_name] %>");
+    params.put("description", "<%= config[:storage_update_description] %>");
     params.put("storageType", StorageType.FTP.toString());
 
     try {
-      JsonObject response = Storage.update("<storage-id>", params);
+      JsonObject response = Storage.update("<%= config[:storage_update_id] %>", params);
       System.out.println(response);
     } catch (UizaException e) {
       System.out.println("Status is: " + e.getStatusCode());
@@ -131,18 +135,15 @@ public class Main {
 
 ```javascript
 const uiza = require('uiza');
-uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
-uiza.authorization('your-authorization-key');
+
+uiza.app_id('<%= config[:app_id] %>');
+uiza.authorization('<%= config[:token] %>');
 
 const params = {
-  'id': 'your-storage-id',
-  'name': 'FTP Uiza',
-  'description': 'FTP of Uiza, use for transcode',
-  'storageType': 'ftp',
-  'host': 'ftp-example.uiza.io',
-  'username': 'uiza',
-  'password': '=59x@LPsd+w7qW',
-  'port': 21
+  'id': '<%= config[:storage_update_id] %>',
+  'name': '<%= config[:storage_update_name] %>',
+  'description': '<%= config[:storage_update_description] %>',
+  'storageType': '<%= config[:storage_update_storage_type] %>'
 };
 
 uiza.storage.update(params)
@@ -160,19 +161,15 @@ import (
 )
 
 func init() {
-  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
-  Uiza.Authorization = "your-authorization"
+  Uiza.AppID = "<%= config[:app_id] %>"
+  Uiza.Authorization = "<%= config[:token] %>"
 }
 
 params :=  &uiza.StorageUpdateParams{
-  ID: uiza.String("your-storage-id"),
-  Name: uiza.String("FTP Uiza Edit"),
-  Host: uiza.String("ftp-example.uiza.io"),
-  Port: uiza.Int64(21),
-  StorageType: uiza.String("ftp"),
-  Username: uiza.String("uiza"),
-  Password: uiza.String("=59x@LPsd+w7qW"),
-  Description: uiza.String("FTP of Uiza, use for transcode"),
+  ID: uiza.String("<%= config[:storage_update_id] %>"),
+  Name: uiza.String("<%= config[:storage_update_name] %>"),
+  StorageType: "<%= config[:storage_update_storage_type] %>",
+  Description: uiza.String("<%= config[:storage_update_description] %>"),
 }
 
 response, err := storage.Update(params)
@@ -192,22 +189,18 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
-  Authorization = "your-authorization"
+  Authorization = "<%= config[:token] %>",
+  AppId = "<%= config[:app_id] %>"
 });
 
 try
 {
   var result = uizaServices.Storage.Update(new UpdateStorageParameter()
   {
-    Id = "your-storage-id",
-    Name = "FTP Uiza Update",
-    Host = "ftp-example.uiza.io",
-    Description = "FTP of Uiza, use for transcode Update",
-    StorageType = StorageInputTypes.S3,
-    AwsAccessKey = "ASIAV*******GPHO2DTZ",
-    AwsSecretKey = "dp****cx2mE2lZxsSq7kV++vWSL6RNatAhbqc",
-    Port = 22
+    ID = "<%= config[:storage_update_id] %>",
+    Name = "<%= config[:storage_add_fpt_name] %>",
+    Description = "<%= config[:storage_add_fpt_description] %>",
+    StorageType = "<%= config[:storage_add_fpt_storage_type] %>",
   });
   Console.WriteLine(string.Format("Update Storage Id = {0} Success", result.Data.id));
   Console.ReadLine();
@@ -222,7 +215,7 @@ catch (UizaException ex)
 
 ```json
 {
-  "id": "cd003123-7ec9-4f3a-9d7c-f2de93e83e49"
+  "id": "<%= config[:storage_update_id] %>"
 }
 ```
 
