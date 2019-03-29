@@ -176,6 +176,10 @@ under the License.
       '</div>'
     );
 
+    $(document).on("click", ".csat-button", function() {
+      $(this).closest('.csat-widget').replaceWith("<p>Thank you for helping improve Uiza's documentation. If you need help or have any questions, please consider <a href=\"https://uiza.io/contact/sales\">contacting support</a>.</p>")
+    });
+
     $(document).on("click", ".btn-copy", function() {
       $('body').append('<textarea type="text" id="input-copy-code">');
 
