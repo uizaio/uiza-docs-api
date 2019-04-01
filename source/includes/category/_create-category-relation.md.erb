@@ -17,7 +17,6 @@ curl -X POST \
 ```ruby
 require "uiza"
 
-Uiza.app_id = "<%= config[:app_id] %>"
 Uiza.authorization = "<%= config[:token] %>"
 
 params = {
@@ -44,7 +43,6 @@ import uiza
 from uiza.api_resources.category import Category
 from uiza.exceptions import ServerException
 
-uiza.app_id = "<%= config[:app_id] %>"
 uiza.authorization = "<%= config[:token] %>"
 
 relations_data = {
@@ -66,7 +64,6 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setAppId("<%= config[:app_id] %>");
 Uiza\Base::setAuthorization("<%= config[:token] %>");
 
 $params = [
@@ -96,7 +93,6 @@ import io.uiza.model.Category.*;
 public class Main {
 
   public static void main(String[] args) {
-    Uiza.appId = "<%= config[:app_id] %>";
     Uiza.authorization = "<%= config[:token] %>";
 
     Map<String, Object> params = new HashMap<>();
@@ -120,7 +116,6 @@ public class Main {
 ```javascript
 const uiza = require('uiza');
 
-uiza.app_id('<%= config[:app_id] %>');
 uiza.authorization('<%= config[:token] %>');
 
 const params = {
@@ -143,7 +138,6 @@ import (
 )
 
 func init() {
-  Uiza.AppID = "<%= config[:app_id] %>"
   Uiza.Authorization = "<%= config[:token] %>"
 }
 
@@ -170,8 +164,7 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  Authorization = "<%= config[:token] %>",
-  AppId = "<%= config[:app_id] %>"
+  Authorization = "<%= config[:token] %>"
 });
 
 try
