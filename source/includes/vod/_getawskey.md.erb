@@ -52,12 +52,7 @@ except Exception as e:
 <?php
 require __DIR__."/../vendor/autoload.php";
 
-Uiza\Base::setAppId("<%= config[:app_id] %>");
 Uiza\Base::setAuthorization("<%= config[:token] %>");
-require __DIR__."/../vendor/autoload.php";
-
-Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
-Uiza\Base::setAuthorization("your-authorization");
 
 try {
   Uiza\Entity::getAWSUploadKey();
