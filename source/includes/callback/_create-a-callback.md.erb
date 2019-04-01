@@ -4,11 +4,10 @@
 
 ```shell
 curl -X POST \
-  <%= config[:endpoint] %>/media/entity/callback \
+  '<%= config[:endpoint] %>/media/entity/callback' \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "appId": "<%= config[:app_id] %>",
     "url": "<%= config[:callback_create_url] %>",
     "method": "<%= config[:callback_create_method] %>",
     "jsonData": {

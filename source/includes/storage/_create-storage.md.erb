@@ -8,11 +8,10 @@ Uiza allows you to add storages (FTP, S3 - both private and AWS) to your applica
 
 ```shell
 curl -X POST \
-  <%= config[:endpoint] %>/media/storage \
+  '<%= config[:endpoint] %>/media/storage' \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "appId": "<%= config[:app_id] %>",
     "name": "<%= config[:storage_add_fpt_name] %>",
     "description": "<%= config[:storage_add_fpt_description] %>",
     "storageType": "<%= config[:storage_add_fpt_storage_type] %>",
@@ -238,11 +237,10 @@ catch (UizaException ex)
 
 ```shell
 curl -X POST \
-  <%= config[:endpoint] %>/media/storage \
+  '<%= config[:endpoint] %>/media/storage' \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "appId": "<%= config[:app_id] %>",
     "name": "<%= config[:storage_add_s3_name] %>",
     "description": "<%= config[:storage_add_s3_description] %>",
     "storageType": "<%= config[:storage_add_s3_storage_type] %>",

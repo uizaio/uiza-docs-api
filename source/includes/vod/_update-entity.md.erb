@@ -5,11 +5,10 @@
 
 ```shell
 curl -X PUT \
-  <%= config[:endpoint] %>/media/entity \
+  '<%= config[:endpoint] %>/media/entity' \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "appId": "<%= config[:app_id] %>",
     "id": "<%= config[:entity_update_id] %>",
     "name": "<%= config[:entity_update_name] %>",
     "description": "<%= config[:entity_update_description] %>",

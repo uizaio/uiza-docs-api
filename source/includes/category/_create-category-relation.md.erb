@@ -5,11 +5,10 @@
 
 ```shell
 curl -X POST \
-  <%= config[:endpoint] %>/media/entity/related/metadata \
+  '<%= config[:endpoint] %>/media/entity/related/metadata' \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "appId": "<%= config[:app_id] %>",
     "entityId": "<%= config[:category_create_relation_entity_id] %>",
     "metadataIds": ["<%= config[:category_create_relation_category_id_1] %>", "<%= config[:category_create_relation_category_id_2] %>"]
 }'
@@ -198,7 +197,7 @@ catch (UizaException ex)
 }
 ```
 
-Category relation allows you to...
+Category relation allows you to put entities into categories. In case you create entities before categories, you should use this to categorize those entities. You can also use this API to add entities to more categories.
 
 > RESPONSE
 
@@ -221,15 +220,7 @@ Category relation allows you to...
         "result": 2,
         "page": 1,
         "limit": 20
-    },
-    "version": 3,
-    "datetime": "2018-06-18T06:14:45.971Z",
-    "policy": "public",
-    "requestId": "137d4f7e-bdb8-4b9a-952f-a45eb4138382",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+    }
 }
 ```
 

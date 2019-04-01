@@ -8,7 +8,7 @@ If you use Admin token, you will get all the user. If you use User token, you ca
 
 ```shell
 curl -X GET \
-  <%= config[:endpoint] %>/admin/user \
+  '<%= config[:endpoint] %>/admin/user' \
   -H 'Authorization: <%= config[:token] %>'
 ```
 
@@ -183,15 +183,7 @@ catch (UizaException ex)
         "result": 2,
         "page": 1,
         "limit": 20
-    },
-    "version": 3,
-    "datetime": "2018-06-22T19:34:51.363Z",
-    "policy": "public",
-    "requestId": "7921f7fe-e086-4455-9ef7-fb5f1c8c2b20",
-    "serviceName": "api",
-    "message": "OK",
-    "code": 200,
-    "type": "SUCCESS"
+    }
 }
 ```
 

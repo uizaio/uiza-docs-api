@@ -9,7 +9,6 @@ curl -X GET \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "appId": "<%= config[:app_id] %>",
     "id": "<%= config[:entity_get_status_publish_id] %>"
 }'
 ```

@@ -4,11 +4,10 @@
 
 ```shell
 curl -X POST \
-  <%= config[:endpoint] %>/live/entity \
+  '<%= config[:endpoint] %>/live/entity' \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "appId": "<%= config[:app_id] %>",
     "name": "<%= config[:live_create_name] %>",
     "mode": "<%= config[:live_create_mode] %>",
     "encode": <%= config[:live_create_encode] %>,

@@ -4,11 +4,11 @@
 
 ```shell
 curl -X POST \
-  <%= config[:endpoint] %>/admin/user/auth \
+  '<%= config[:endpoint] %>/admin/user/auth' \
   -H 'Content-Type: application/json' \
   -d '{"username": "test@uiza.co",
-"password":"test12345",
-"domain":"#{workspace_domain}"
+        "password":"test12345",
+        "domain":"#{workspace_domain}"
       }'
 ```
 

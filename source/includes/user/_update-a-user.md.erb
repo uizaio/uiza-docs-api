@@ -6,11 +6,10 @@ Updates the specified user by setting the values of the parameters passed. Any p
 
 ```shell
 curl -X PUT \
-  <%= config[:endpoint] %>/admin/user \
+  '<%= config[:endpoint] %>/admin/user' \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "appId": "<%= config[:app_id] %>",
     "id": "<%= config[:user_update_id] %>",
     "status": 0,
     "username": "user_test",

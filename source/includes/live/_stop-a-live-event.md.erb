@@ -4,13 +4,8 @@
 
 ```shell
 curl -X PUT \
-  <%= config[:endpoint] %>/live/entity/feed \
-  -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "appId": "<%= config[:app_id] %>",
-    "id": "<%= config[:live_stop_feed_id] %>"
-}'
+  '<%= config[:endpoint] %>/live/entity/feed?id=<%= config[:live_stop_feed_id] %>' \
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby

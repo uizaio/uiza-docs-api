@@ -5,11 +5,10 @@
 
 ```shell
 curl -X POST \
-  <%= config[:endpoint] %>/media/metadata \
+  '<%= config[:endpoint] %>/media/metadata' \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "appId": "<%= config[:app_id] %>",
     "name": "<%= config[:category_create_name] %>",
     "type": "<%= config[:category_create_type] %>",
     "description": "<%= config[:category_create_description] %>",

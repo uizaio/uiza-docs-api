@@ -5,12 +5,8 @@
 
 ```shell
 curl -X GET \
-  <%= config[:endpoint] %>/media/metadata \
-  -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "appId": "<%= config[:app_id] %>"
-  }'
+  '<%= config[:endpoint] %>/media/metadata' \
+  -H 'Authorization: <%= config[:token] %>'
 ```
 
 ```ruby
@@ -195,7 +191,7 @@ Returns a list of your categories. The categories are returned sorted by `orderN
       "result": 2,
       "page": 1,
       "limit": 20
-  },
+  }
 }
 ```
 

@@ -4,16 +4,8 @@
 
 ```shell
 curl -X GET \
-  <%= config[:endpoint] %>/media/entity/search?keyword=dance \
+  '<%= config[:endpoint] %>/media/entity/search?keyword=dance' \
   -H 'Authorization: <%= config[:token] %>'
-curl -X GET \
-  '<%= config[:endpoint] %>/media/entity/search' \
-  -H 'Authorization: <%= config[:token] %>' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "appId": "<%= config[:app_id] %>",
-    "keyword": "<%= config[:entity_search_keyword] %>"
-}'
 ```
 
 ```ruby
@@ -224,11 +216,11 @@ Search for entities having `name` that match `keyword`
     }
   ],
   "metadata": {
-          "total": 2,
-          "result": 2,
-          "page": 1,
-          "limit": 20
-      },
+      "total": 2,
+      "result": 2,
+      "page": 1,
+      "limit": 20
+  }
 }
 ```
 

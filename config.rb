@@ -65,8 +65,9 @@ helpers do
 end
 
 # Global Variables
-# set :endpoint, 'https://api.uiza.co/api/public/v4'
-set :endpoint, 'https://stag-ap-southeast-1-api.uizadev.io/api/public/v4'
+# set :endpoint, 'https://api.uiza.co/api/public/v4' # future API endpoint 
+set :endpoint, 'https://ap-southeast-1-api.uiza.co/api/public/v4' # production endpoint
+# set :endpoint, 'https://stag-ap-southeast-1-api.uizadev.io/api/public/v4' # staging endpoint
 config[:endpoint]
 
 set :token, 'uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7'
@@ -147,7 +148,7 @@ set :category_create_id, 'e56934c6-979e-4d4e-8d9a-ec0b4248365c'
 config[:category_create_id]
 
 # RETRIEVE
-set :category_retrieve_id, 'e56934c6-979e-4d4e-8d9a-ec0b4248365c'
+set :category_retrieve_id, '10e9537d-2a4e-4394-8825-32f3a25199e7'
 config[:category_retrieve_id]
 
 set :category_retrieve_name, 'Folder sample'

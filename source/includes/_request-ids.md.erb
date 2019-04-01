@@ -3,7 +3,7 @@
 > Base URL
 
 ```shell
-curl <%= config[:endpoint] %>/api/public/v4/media/entity?appId=b2a3e6307dcf421a8a455825c01de914&id=78e8ed17-54fd-462d-89f1-e4732dafa348 \
+curl '<%= config[:endpoint] %>/api/public/v4/media/entity?appId=b2a3e6307dcf421a8a455825c01de914&id=78e8ed17-54fd-462d-89f1-e4732dafa348' \
   -H 'Authorization: <%= config[:token] %>' \
   -D "-" \
   -X GET

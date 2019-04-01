@@ -8,11 +8,10 @@ Update storage's information
 
 ```shell
 curl -X PUT \
-  <%= config[:endpoint] %>/media/storage \
+  '<%= config[:endpoint] %>/media/storage' \
   -H 'Authorization: <%= config[:token] %>' \
   -H 'Content-Type: application/json' \
   -d '{
-    "appId": "<%= config[:app_id] %>",
     "id": "<%= config[:storage_update_id] %>",
     "name": "<%= config[:storage_update_name] %>",
     "description": "<%= config[:storage_update_description] %>",
