@@ -10,6 +10,7 @@ language_tabs:
   - javascript: Node
   - go: Go
   - csharp: .NET
+  - httpie: HTTPie
 
 toc_footers:
   - <a href='https://uiza.io'>Documentation Powered by Uiza</a>

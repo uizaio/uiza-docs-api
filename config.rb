@@ -64,17 +64,17 @@ helpers do
   require './lib/toc_data.rb'
 end
 
+set :env, Figaro.env.DOC_ENV
+config[:env]
+
 # Global Variables
 # set :endpoint, 'https://api.uiza.co/api/public/v4' # future API endpoint 
-set :endpoint, 'https://ap-southeast-1-api.uiza.co/api/public/v4' # production endpoint
+set :endpoint, 'https://api.uiza.io/api/public/v4' # production endpoint
 # set :endpoint, 'https://stag-ap-southeast-1-api.uizadev.io/api/public/v4' # staging endpoint
 config[:endpoint]
 
-set :token, 'uap-d6342a7b4a6c40d2b851a54a4442ea83-f3c977b7'
+set :token, 'uap-212f8ac7dcc7471c936babf43a1a252e-57078be1'
 config[:token]
-
-set :app_id, 'd6342a7b4a6c40d2b851a54a4442ea83'
-config[:app_id]
 
 # ENTITY params
 # CREATE
@@ -97,13 +97,13 @@ set :entity_create_id, 'c1a842ca-e266-4b3c-bc33-13dd9354d90a'
 config[:entity_create_id]
 
 # RETRIEVE
-set :entity_retrieve_id, 'c1a842ca-e266-4b3c-bc33-13dd9354d90a'
+set :entity_retrieve_id, 'b55a899e-4c40-44ed-96c1-c767227366f4'
 config[:entity_retrieve_id]
 
 # LIST
 
 # UPDATE
-set :entity_update_id, 'c1a842ca-e266-4b3c-bc33-13dd9354d90a'
+set :entity_update_id, 'b55a899e-4c40-44ed-96c1-c767227366f4'
 config[:entity_update_id]
 
 set :entity_update_name, 'The Evolution of Dance 2'

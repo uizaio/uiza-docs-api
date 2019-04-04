@@ -34,8 +34,7 @@ import uiza
 from uiza.api_resources.user import User
 from uiza.exceptions import ServerException
 
-uiza.authorization = "<%= config[:app_id] %>"
-uiza.app_id = "<%= config[:token] %>"
+uiza.authorization = "<%= config[:token] %>"
 
 try:
   res, status_code = User().retrieve(id="<%= config[:user_retrieve_id] %>")
