@@ -13,8 +13,7 @@ language_tabs:
   - httpie: HTTPie
 
 toc_footers:
-  - <a href='https://uiza.io'>Documentation Powered by Uiza</a>
-  - Version 3.0.2
+  - Version 4.0.0
 
 includes:
   - introduction.md.erb
