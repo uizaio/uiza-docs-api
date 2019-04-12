@@ -1,17 +1,21 @@
-## Get API key
+## Generate API key
 
-After logging in to your organization, you can get your own API key in the **APPLICATION SETTING** section
+**Step 1**: [Login](https://account.uiza.io/) to your workspace. If you don't have an account yet, sign up [here](https://account.uiza.io/register).  
 
-Go to **APPLICATION SETTING**, section **Publish API**
+![Screen 0](images/screen0.png)
 
-![alt text](images/001.png "Image 1")
+**Step 2**: Navigate to the **APPLICATION SETTINGS** section, select **Publish API**. An API key is provided to you by default.  
 
-Then you can create your own API key.
+![Screen 1](images/screen1.png)
 
-![alt text](images/002.png "Image 2")
+**Step 3**:  To generate your own key, click the **+New** button, specify the key's name (API name), and select **CREATE**.
 
-![alt text](images/003.png "Image 3")
+![Screen 2](images/screen2.png)
 
-This key can be used for calling Uiza's API.
+### Use API Key to Authenticate Your API Requests
+
+Authentication to the API is performed via [HTTP Basic Auth](https://en.wikipedia.org/wiki/Basic_access_authentication). Provide your [API key](#generate-api-key) as the basic auth `username` value. You do not need to provide a password for authentication.
+
+If you need to authenticate via [bearer auth](https://tools.ietf.org/html/rfc6750) (e.g., for a cross-origin request), use `-H "Authorization: Bearer uap-5126204af4ee487f9c295525f03b9268-353340ef"` instead of `-u uap-5126204af4ee487f9c295525f03b9268-353340ef`.
 
 

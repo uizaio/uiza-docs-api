@@ -14,13 +14,7 @@ curl '<%= config[:endpoint] %>/api/public/v4/media/entity?appId=b2a3e6307dcf421a
 
 The Uiza API uses [API Key]() to authenticate requests. You can view and manage your API Keys in the [Uiza Dashboard](/application-setting/publish-api).
 
-*Your API keys carry many privileges, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.*
-
-Authentication to the API is performed via [HTTP Basic Auth](http://en.wikipedia.org/wiki/Basic_access_authentication). Provide your API key as the basic auth username value. You do not need to provide a password.
-
-If you need to authenticate via bearer auth (e.g., for a cross-origin request), use -H "Authorization: uap-5126204af4ee487f9c295525f03b9268-353340ef" instead of -u uap-5126204af4ee487f9c295525f03b9268-353340ef.
-
-All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
+*Your API keys contain rights and permissions to your account; therefore, make sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.*
 
 <!-- 
 

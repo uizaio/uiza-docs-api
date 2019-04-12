@@ -27,16 +27,16 @@
 ```
 
 
-| Attribute  | Description |
-| ---------- | ----------- |
-| **name** *string* | The event's name (limit to 100 characters) |
-| **description** *string* | An arbitrary string attached to the object. Often useful for displaying to users. |
-| **mode** *string* | Type of event, allowed values [`pull`&vert;`push`]. <br />**Pull** links can either be a `RTMP` URL or a .m3u8 URL (HLS) or any Youtube link (live or not). <br />**Push**: Uiza will generate an end point. This end point can be used on broadcasting softwares such as [OBS](https://obsproject.com/) to start your streaming. |
-| **encode** *integer* | Set to `1` to enable live transcoding. Live transcoding will enable [Adaptive Bitrate](https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming) on the viewer's side which would help deliver a better viewing experience. When set to `0`, viewers will watch with source bitrate. |
-| **dvr** *integer* | Decides wether to record a live stream. If set to `1`, a mp4 file will be created after the live stream ended. Set `0` to disable. |
-| **linkPublishSocial** *array* | Live feed will be posted on this set of social links. |
-| **poster** *string* | The video's poster `URL`, meant to be displayable to end users.  |
-| **thumbnail** *string* | An URL of the image that can be used to display to end users. |
-| **channelName** *string* | Key name of channel |
-| **createdAt** *datetime* | The time at which the live event was created. The format is [ISO 8601](https://www.w3.org/TR/NOTE-datetime-970915). |
-| **updatedAt** *datetime* | The time at which the live event was last edited. The format is [ISO 8601](https://www.w3.org/TR/NOTE-datetime-970915). |
+| Attribute  | Description | Note |
+| ---------- | ----------- | ----------- |
+| **name** *string* | The event's name (at most 100 characters) | |
+| **description** *string* | An arbitrary string attached to the object. Often useful for displaying to users. | |
+| **mode** *string* | The type of event, allowed values [`pull`&vert;`push`]. <br />**Pull** links can either be a [RTMP](https://en.wikipedia.org/wiki/Real-Time_Messaging_Protocol) URL or a .m3u8 URL ([HLS](https://en.wikipedia.org/wiki/HTTP_Live_Streaming)) or any [Youtube](https://www.youtube.com/) link (live or not). <br />**Push**: Uiza will generate an end point. This end point can be used on broadcasting softwares such as [OBS](https://obsproject.com/) to start your streaming. | |
+| **encode** *integer* | Set to `1` to enable live transcoding. Live transcoding will enable [Adaptive Bitrate](https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming) on the viewer's side which would help deliver a better viewing experience. When set to `0`, viewers will watch with source bitrate. | |
+| **dvr** *integer* | Indicates whether to record a live stream. If set to `1`, a [mp4](https://en.wikipedia.org/wiki/MPEG-4_Part_14) file will be created after the live stream ended. Set `0` to disable. |
+| **linkPublishSocial** *array* | Live feed will be posted on this set of social links. | |
+| **poster** *string* | The video's poster `URL`.  | Displayed to the end users |
+| **thumbnail** *string* | An URL of the image that can be used to display to end users. | Displayed to the end users |
+| **channelName** *string* | The key name of the channel | |
+| **createdAt** *datetime* | The time at which the live event was created, in [ISO 8601 format](https://www.w3.org/TR/NOTE-datetime-970915). | |
+| **updatedAt** *datetime* | The time at which the live event was last edited, in [ISO 8601 format](https://www.w3.org/TR/NOTE-datetime-970915). | |

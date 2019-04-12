@@ -10,6 +10,6 @@ DELETE /media/entity?id=:entity_id
 GET /media/entity
 ```
 
-We call videos as `Entity`. You can create entities by uploading using HTTP, FTP, hyper links, S3 links. The API allows you to create, delete, and update entities. You can retrieve individual entities as well as a list of all your entities.
+Uiza calls videos as `Entities`. You can create entities by uploading media files using [HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol), [FTP](https://en.wikipedia.org/wiki/File_Transfer_Protocol), and [S3](https://en.wikipedia.org/wiki/Amazon_S3) links. The Video APIs provide CRUD operations (create, retrieve, update, delete) on the entities. You can retrieve individual entities as well as a list of all of your entities.
 
-All entities need to be [published](#publish-entity-to-cdn) before the public can access. Unpublished videos can still be [edited](#update-an-entity), [listed](#list-entities) by `API` or using `Dashboard` but [Player](#Player) will not play.
+All entities need to be [published](#publish-entity-to-cdn) before the public can access. Unpublished videos can still be [edited](#update-an-entity), [listed](#list-entities) by `APIs` or using [Dashboard](https://dashboard.uiza.io/) but the [Player](#Player) cannot not play.
