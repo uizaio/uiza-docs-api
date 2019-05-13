@@ -1,12 +1,13 @@
 ## Retrieve views for multiple live events
 
+Get views of multiple live events. Each request accepts up to 20 live events as `streamNames`.
+
 > REQUEST
 
 ```shell
 curl -X GET \
   '<%= config[:endpoint] %>live/entity/tracking/list-current-view?streamNames=aa45ee22-a554-4e80-901f-fe72396bc2b5,2ab07025-979f-4aa5-9e30-088f7aaf36fa' \
   -H 'Authorization: <%= config[:token] %>'
-  -
 ```
 
 > RESPONSE
@@ -40,7 +41,7 @@ curl -X GET \
 
 | Parameter | Description | Required |
 | ------------- | ------------- | ------------- |
-| **streamNames** *string* | The stream names of the live events. | **Yes** |
+| **streamNames** *string* | The stream names of the live events. Separate stream name with a `,`, up to 20 names. | **Yes** |
 
 
 
