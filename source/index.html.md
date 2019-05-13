@@ -57,6 +57,7 @@ includes:
   - live/start-a-live-event.md.erb
   - live/stop-a-live-event.md.erb
   - live/retrieve-live-event-views.md.erb
+  - live/list-live-events-views.md.erb
   - live/list-recorded-files.md.erb
   - live/delete-record.md.erb
   - live/convert-to-vod.md.erb

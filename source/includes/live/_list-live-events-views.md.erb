@@ -1,0 +1,56 @@
+## Retrieve views for multiple live events
+
+> REQUEST
+
+```shell
+curl -X GET \
+  '<%= config[:endpoint] %>live/entity/tracking/list-current-view?streamNames=aa45ee22-a554-4e80-901f-fe72396bc2b5,2ab07025-979f-4aa5-9e30-088f7aaf36fa' \
+  -H 'Authorization: <%= config[:token] %>'
+  -
+```
+
+> RESPONSE
+
+```json
+{
+  "data":
+  [
+    {
+      "app_id": "9ee4c164e3944ad781ddcafbfad91a0d",
+      "stream_name": "aa45ee22-a554-4e80-901f-fe72396bc2b5",
+      "watchnow": 10,
+      "day": 1556858340000
+    },
+    {
+      "app_id": "9ee4c164e3944ad781ddcafbfad91a0d",
+      "stream_name": "2ab07025-979f-4aa5-9e30-088f7aaf36fa",
+      "watchnow": 31,
+      "day": 1556858460000
+    }
+  ]
+}
+```
+
+**HTTP Request**
+
+<span class="get-button"> GET </span>
+```<%= config[:endpoint] %>/live/entity/tracking/list-current-view```
+
+**ARGUMENTS**
+
+| Parameter | Description | Required |
+| ------------- | ------------- | ------------- |
+| **streamNames** *string* | The stream names of the live events. | **Yes** |
+
+
+
+**RETURNS**
+
+An array of live events with their current views
+
+| Attribute    | Description |
+|--------------|-------------------------|
+| **stream_name** *string* | The event's name |
+| **day** *number* | Timestamp of this view request |
+| **watchnow** *number* | Current views of the live event|
+
