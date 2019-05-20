@@ -56,6 +56,7 @@ includes:
   - Live/update-a-live-event
   - Live/start-a-live-feed
   - Live/get-view-a-live-feed
+  - Live/get-view-of-live-feeds
   - Live/stop-a-live-feed
   - Live/list-record
   - Live/delete-record
