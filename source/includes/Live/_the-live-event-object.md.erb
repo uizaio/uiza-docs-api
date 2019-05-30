@@ -17,7 +17,10 @@
   "thumbnail": "https://example.com/thumbnail.jpeg",
   "linkPublishSocial": null,
   "linkStream": "[\"https://www.youtube.com/watch?v=pQzaHPoNX1I\"]",
-  "lastPullInfo": null,
+  "lastPullInfo": {
+        "primaryInputUri": "https://www.youtube.com/watch?v=pQzaHPoNX1I",
+        "secondaryInputUri": null
+    },
   "lastPushInfo": [
     {
       "streamKey": "60b47ad4-1140-4c9c-8d88-565b9215a6fa?token=d626f76ebcf32485828f046d4ff291a3&ulasId=d16196ce-e451-403f-ba4b-866fbe290398",
@@ -39,6 +42,7 @@
 | **mode** *string* | Type of event, allowed values [`pull`&vert;`push`]. <br />**Pull** links can either be a `RTMP` URL or a .m3u8 URL (HLS) or any Youtube link (live or not). <br />**Push**: Uiza will generate an end point. This end point can be used on broadcasting softwares such as [OBS](https://obsproject.com/) to start your streaming. |
 | **encode** *integer* | Set to `1` to enable live transcoding. Live transcoding will enable [Adaptive Bitrate](https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming) on the viewer's side which would help deliver a better viewing experience. When set to `0`, viewers will watch with source bitrate. |
 | **dvr** *integer* | Decides wether to record a live stream. If set to `1`, a mp4 file will be created after the live stream ended. Set `0` to disable. |
+| **lastPullInfo** *array* | An object. It contains the primary and secondary URL for streams that are being pulled. |
 | **lastPushInfo** *array* | An array with only one index (0) as an object. It contains the `streamKey` and `streamUrl` which can be used to broadcast by `push`. |
 | **linkPublishSocial** *array* | Live feed will be posted on this set of social links. |
 | **poster** *string* | The video's poster `URL`, meant to be displayable to end users.  |
