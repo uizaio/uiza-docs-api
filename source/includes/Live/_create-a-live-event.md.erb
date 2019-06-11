@@ -189,26 +189,31 @@ import (
 )
 
 func init() {
-  Uiza.Authorization = "<%= config[:token] %>"
+  uiza.Authorization = "<%= config[:token] %>"
 }
 
-params := &uiza.LiveCreateParams{
-  Name: uiza.String("<%= config[:live_create_name] %>"),
-  Mode: uiza.String("<%= config[:live_create_mode] %>"),
-  Encode: <%= config[:live_create_encode] %>,
-  Dvr: <%= config[:live_create_dvr] %>,
-  Description: uiza.String("<%= config[:live_create_description] %>"),
-  Thumbnail: uiza.String("<%= config[:live_create_thumbnail] %>"),
-  Poster: uiza.String("<%= config[:live_create_poster] %>"),
-  LinkStream: &[]string{*uiza.String("<%= config[:live_create_link_stream] %>")},
-  ResourceMode: uiza.String("<%= config[:live_create_resource_mode] %>"),
-}
-response, err := live.Create(params)
-if err != nil {
-  log.Printf("%v\n", err)
-} else {
-  log.Printf("%v\n", response)
-}
+modeType := uiza.ModeTypePull
+  encodeType := uiza.EncodeTypeOne
+  dvrType := uiza.DvrTypeOne
+  resourceMode := uiza.ResourceModeSingle
+
+  params := &uiza.LiveCreateParams{
+    Name: uiza.String("test event"),
+    Mode: &modeType,
+    Encode: &encodeType,
+    Dvr: &dvrType,
+    Description: uiza.String("This is for test event"),
+    Thumbnail: uiza.String("//image1.jpeg"),
+    Poster: uiza.String("//image1.jpeg"),
+    LinkStream: []*string{uiza.String("https://playlist.m3u8")},
+    ResourceMode: &resourceMode,
+  }
+  response, err := live.Create(params)
+  if err != nil {
+    log.Printf("%v\n", err)
+  } else {
+    log.Printf("%v\n", response)
+  }
 ```
 
 ```csharp
