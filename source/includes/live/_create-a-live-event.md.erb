@@ -214,7 +214,7 @@ func main() {
     Dvr: &dvrType,
     Description: uiza.String("This is for test event"),
     Thumbnail: uiza.String("//image1.jpeg"),
-    Region: "SINGAPORE",
+    Region: "asia-southeast1",
     Poster: uiza.String("//image1.jpeg"),
     LinkStream: []*string{uiza.String("https://playlist.m3u8")},
     ResourceMode: &resourceMode,
@@ -298,7 +298,7 @@ Creates a new live event to manage a live stream.
 | **dvr** *integer* | Decides wether to record a live stream. If set to `1`, a mp4 file will be created after the live stream ended. Set `0` to disable. |**Yes**|
 | **description** *string* | An arbitrary string attached to the object. Often useful for displaying to users. | |
 | **linkPublishSocial**  *array* | Info to share live into social  <span onclick="this.classList.toggle('inactive')" class = "tool-tip inactive"><br><i>**dropdown**: type of social  (youtube/facebook). <p> </p> **address:**: stream URL.  <p> </p> **streamKey:**: stream key correspond to stream URL.</i></span>| |
-| **region** *string* | An enum value to specify which region to receive stream in `push` mode.  | |
+| **region** *string* | An enum value to specify which region to receive stream in `push` mode. | |
 | **thumbnail** *string* | An URL of the image that can be used to display to end users. | |
 | **linkStream** *array* | A list of streamable sources that will be used when `mode` = `pull`. |**Yes**|
 | **resourceMode** *enum* | Resource mode ( ``single`` = only 1 feed & output), ``redundant`` = more than 1 feed & output to backup)|**Yes**|
