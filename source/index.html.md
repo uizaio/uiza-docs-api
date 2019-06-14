@@ -60,6 +60,7 @@ includes:
   - live/list-recorded-files.md.erb
   - live/delete-record.md.erb
   - live/convert-to-vod.md.erb
+  - live/get-regions.md.erb
   - callback/callback.md.erb
   - callback/create-a-callback.md.erb
   - callback/retrieve-a-callback.md.erb
