@@ -109,21 +109,26 @@ uiza.live.delete(params) // Identifier of record (get from list record)
 ```
 
 ```go
+package main
+
 import (
   "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/live"
+  "log"
 )
 
 func init() {
-  Uiza.Authorization = "<%= config[:token] %>"
+  uiza.Authorization = "<%= config[:token] %>"
 }
 
-param := &uiza.LiveIDParams{ID: uiza.String("<%= config[:live_delete_record_id] %>")} // Identifier of record (get from list record)
-response, err := live.Delete(param)
-if err != nil {
-  log.Printf("%v\n", err)
-} else {
-  log.Printf("%v\n", response)
+func main() {
+  param := &uiza.LiveIDParams{ID: uiza.String("<%= config[:live_delete_record_id] %>")} // Identifier of record (get from list record)
+  response, err := live.Delete(param)
+  if err != nil {
+    log.Printf("%v\n", err)
+  } else {
+    log.Printf("%v\n", response)
+  }
 }
 ```
 

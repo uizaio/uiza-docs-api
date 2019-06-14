@@ -106,21 +106,26 @@ uiza.live.retrieve(params)
 ```
 
 ```go
+package main
+
 import (
   uiza "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/live"
+  "log"
 )
 
 func init() {
-  Uiza.Authorization = "<%= config[:token] %>"
+  uiza.Authorization = "<%= config[:token] %>"
 }
 
-params := &uiza.LiveRetrieveParams{ID: uiza.String("<%= config[:live_retrieve_id] %>")}
-response, err := live.Retrieve(params)
-if err != nil {
-  log.Printf("%v\n", err)
-} else {
-  log.Printf("%v\n", response)
+func main() {
+  params := &uiza.LiveRetrieveParams{ID: uiza.String("<%= config[:live_retrieve_id] %>")}
+  response, err := live.Retrieve(params)
+  if err != nil {
+    log.Printf("%v\n", err)
+  } else {
+    log.Printf("%v\n", response)
+  }
 }
 ```
 

@@ -189,16 +189,20 @@ uiza.live.create(params)
 ```
 
 ```go
+package main
+
 import (
   uiza "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/live"
+  "log"
 )
 
 func init() {
   uiza.Authorization = "<%= config[:token] %>"
 }
 
-modeType := uiza.ModeTypePull
+func main() {
+  modeType := uiza.ModeTypePull
   encodeType := uiza.EncodeTypeOne
   dvrType := uiza.DvrTypeOne
   resourceMode := uiza.ResourceModeSingle
@@ -221,6 +225,7 @@ modeType := uiza.ModeTypePull
   } else {
     log.Printf("%v\n", response)
   }
+}
 ```
 
 ```csharp

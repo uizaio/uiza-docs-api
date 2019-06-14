@@ -103,22 +103,27 @@ uiza.live.list_recorded()
 ```
 
 ```go
+package main
+
 import (
   "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/live"
+  "log"
 )
 
 func init() {
-  Uiza.Authorization = "<%= config[:token] %>"
+  uiza.Authorization = "<%= config[:token] %>"
 }
 
-params := &uiza.LiveListRecordedParams{}
+func main() {
+  params := &uiza.LiveListRecordedParams{}
 
-response, err := live.ListRecorded(params)
-if err != nil {
-  log.Printf("%v\n", err)
-} else {
-  log.Printf("%v\n", response)
+  response, err := live.ListRecorded(params)
+  if err != nil {
+    log.Printf("%v\n", err)
+  } else {
+    log.Printf("%v\n", response)
+  }
 }
 ```
 

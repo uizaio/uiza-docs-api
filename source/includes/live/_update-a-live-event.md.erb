@@ -153,30 +153,37 @@ uiza.live.update(params)
 ```
 
 ```go
+package main
+
 import (
   uiza "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/live"
+  "log"
 )
 
 func init() {
-  Uiza.Authorization = "<%= config[:token] %>"
+  uiza.Authorization = "<%= config[:token] %>"
 }
 
-dvrType := uiza.DvrTypeOne
-resourceMode := uiza.ResourceModeSingle
-params := &uiza.LiveUpdateParams{
-  ID: uiza.String("<%= config[:live_update_id] %>"),
-  Name: uiza.String("<%= config[:live_update_name] %>"),
-  Mode: uiza.String("<%= config[:live_update_mode] %>"),
-  Encode: <%= config[:live_update_encode] %>,
-  Dvr: <%= config[:live_update_dvr] %>,
-  ResourceMode: uiza.String("<%= config[:live_update_resource_mode] %>"),
-}
-response, err := live.Update(params)
-if err != nil {
-  log.Printf("%v\n", err)
-} else {
-  log.Printf("%v\n", response)
+func main() {
+  dvrType := uiza.DvrTypeOne
+  modeType := uiza.ModeTypePull
+  encodeType := uiza.EncodeTypeOne
+  resourceMode := uiza.ResourceModeSingle
+  params := &uiza.LiveUpdateParams{
+    ID: uiza.String("<%= config[:live_update_id] %>"),
+    Name: uiza.String("<%= config[:live_update_name] %>"),
+    Mode: &modeType,
+    Encode: &encodeType,
+    Dvr: &dvrType,
+    ResourceMode: &resourceMode,
+  }
+  response, err := live.Update(params)
+  if err != nil {
+    log.Printf("%v\n", err)
+  } else {
+    log.Printf("%v\n", response)
+  }
 }
 ```
 
