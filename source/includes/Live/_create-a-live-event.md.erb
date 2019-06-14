@@ -15,6 +15,7 @@ curl -X POST \
     "description": "<%= config[:live_create_description] %>",
     "poster": "<%= config[:live_create_poster] %>",
     "thumbnail": "<%= config[:live_create_thumbnail] %>",
+    "region": "SINGAPORE",
     "linkStream": [
       "<%= config[:live_create_link_stream] %>"
     ],
@@ -34,6 +35,7 @@ params = {
   dvr: <%= config[:live_create_dvr] %>,
   description: "<%= config[:live_create_description] %>",
   poster: "<%= config[:live_create_poster] %>",
+  region: "SINGAPORE",
   thumbnail: "<%= config[:live_create_thumbnail] %>",
   linkStream: [
     "<%= config[:live_create_link_stream] %>"
@@ -69,6 +71,7 @@ live_data = {
   "dvr": <%= config[:live_create_dvr] %>,
   "description": "<%= config[:live_create_description] %>",
   "poster": "<%= config[:live_create_poster] %>",
+  "region": "SINGAPORE",
   "thumbnail": "<%= config[:live_create_thumbnail] %>",
   "linkStream": [
     "<%= config[:live_create_link_stream] %>"
@@ -100,6 +103,7 @@ $params = [
   "description" => "<%= config[:live_create_description] %>",
   "poster" => "<%= config[:live_create_poster] %>",
   "thumbnail" => "<%= config[:live_create_thumbnail] %>",
+  "region": "SINGAPORE",
   "linkStream" => [
     "<%= config[:live_create_link_stream] %>"
   ],
@@ -137,6 +141,7 @@ public class Main {
     params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
     params.put("description", "<%= config[:live_create_description] %>");
     params.put("poster", "<%= config[:live_create_poster] %>");
+    params.put("region", "SINGAPORE");
     params.put("thumbnail", "<%= config[:live_create_thumbnail] %>");
     params.put("linkStream", new String[] {"<%= config[:live_create_link_stream] %>"});
     params.put("resourceMode", ResourceMode.SINGLE.toString());
@@ -167,6 +172,7 @@ const params = {
   'dvr': <%= config[:live_create_dvr] %>,
   'description': '<%= config[:live_create_description] %>',
   'poster': '<%= config[:live_create_poster] %>',
+  'region': 'SINGAPORE',
   'thumbnail': '<%= config[:live_create_thumbnail] %>',
   'linkStream': [
     '<%= config[:live_create_link_stream] %>'
@@ -204,6 +210,7 @@ modeType := uiza.ModeTypePull
     Dvr: &dvrType,
     Description: uiza.String("This is for test event"),
     Thumbnail: uiza.String("//image1.jpeg"),
+    Region: "SINGAPORE",
     Poster: uiza.String("//image1.jpeg"),
     LinkStream: []*string{uiza.String("https://playlist.m3u8")},
     ResourceMode: &resourceMode,
@@ -238,6 +245,7 @@ try
     Encode: <%= config[:live_create_encode] %>,
     Dvr: <%= config[:live_create_dvr] %>,
     Poster: "<%= config[:live_create_poster] %>",
+    Region: "SINGAPORE",
     Thumbnail: new List<string>() {"<%= config[:live_create_thumbnail] %>"},
     LinkStream: [
       "<%= config[:live_create_link_stream] %>"
@@ -285,6 +293,7 @@ Creates a new live event to manage a live stream.
 | **dvr** *integer* | Decides wether to record a live stream. If set to `1`, a mp4 file will be created after the live stream ended. Set `0` to disable. |**Yes**|
 | **description** *string* | An arbitrary string attached to the object. Often useful for displaying to users. | |
 | **linkPublishSocial**  *array* | Info to share live into social  <span onclick="this.classList.toggle('inactive')" class = "tool-tip inactive"><br><i>**dropdown**: type of social  (youtube/facebook). <p> </p> **address:**: stream URL.  <p> </p> **streamKey:**: stream key correspond to stream URL.</i></span>| |
+| **region** *string* | An enum value to specify which region to receive stream in `push` mode.  | |
 | **thumbnail** *string* | An URL of the image that can be used to display to end users. | |
 | **linkStream** *array* | A list of streamable sources that will be used when `mode` = `pull`. |**Yes**|
 | **resourceMode** *enum* | Resource mode ( ``single`` = only 1 feed & output), ``redundant`` = more than 1 feed & output to backup)|**Yes**|
