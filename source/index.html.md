@@ -10,7 +10,6 @@ language_tabs:
   - javascript: Node
   - go: Go
   - csharp: .NET
-  - httpie: HTTPie
 
 toc_footers:
   - Version 4.0.0
