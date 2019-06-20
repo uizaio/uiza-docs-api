@@ -15,7 +15,7 @@ curl -X POST \
     "description": "<%= config[:live_create_description] %>",
     "poster": "<%= config[:live_create_poster] %>",
     "thumbnail": "<%= config[:live_create_thumbnail] %>",
-    "region": "SINGAPORE",
+    "region": "ap-southeast-1",
     "linkStream": [
       "<%= config[:live_create_link_stream] %>"
     ],
@@ -35,7 +35,7 @@ params = {
   dvr: <%= config[:live_create_dvr] %>,
   description: "<%= config[:live_create_description] %>",
   poster: "<%= config[:live_create_poster] %>",
-  region: "SINGAPORE",
+  region: "ap-southeast-1",
   thumbnail: "<%= config[:live_create_thumbnail] %>",
   linkStream: [
     "<%= config[:live_create_link_stream] %>"
@@ -71,7 +71,7 @@ live_data = {
   "dvr": <%= config[:live_create_dvr] %>,
   "description": "<%= config[:live_create_description] %>",
   "poster": "<%= config[:live_create_poster] %>",
-  "region": "SINGAPORE",
+  "region": "ap-southeast-1",
   "thumbnail": "<%= config[:live_create_thumbnail] %>",
   "linkStream": [
     "<%= config[:live_create_link_stream] %>"
@@ -103,7 +103,7 @@ $params = [
   "description" => "<%= config[:live_create_description] %>",
   "poster" => "<%= config[:live_create_poster] %>",
   "thumbnail" => "<%= config[:live_create_thumbnail] %>",
-  "region": "SINGAPORE",
+  "region": "ap-southeast-1",
   "linkStream" => [
     "<%= config[:live_create_link_stream] %>"
   ],
@@ -141,7 +141,7 @@ public class Main {
     params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
     params.put("description", "<%= config[:live_create_description] %>");
     params.put("poster", "<%= config[:live_create_poster] %>");
-    params.put("region", "SINGAPORE");
+    params.put("region", "ap-southeast-1");
     params.put("thumbnail", "<%= config[:live_create_thumbnail] %>");
     params.put("linkStream", new String[] {"<%= config[:live_create_link_stream] %>"});
     params.put("resourceMode", ResourceMode.SINGLE.toString());
@@ -172,7 +172,7 @@ const params = {
   'dvr': <%= config[:live_create_dvr] %>,
   'description': '<%= config[:live_create_description] %>',
   'poster': '<%= config[:live_create_poster] %>',
-  'region': 'SINGAPORE',
+  'region': 'ap-southeast-1',
   'thumbnail': '<%= config[:live_create_thumbnail] %>',
   'linkStream': [
     '<%= config[:live_create_link_stream] %>'
@@ -250,7 +250,7 @@ try
     Encode: <%= config[:live_create_encode] %>,
     Dvr: <%= config[:live_create_dvr] %>,
     Poster: "<%= config[:live_create_poster] %>",
-    Region: "SINGAPORE",
+    Region: "ap-southeast-1",
     Thumbnail: new List<string>() {"<%= config[:live_create_thumbnail] %>"},
     LinkStream: [
       "<%= config[:live_create_link_stream] %>"
